@@ -13,7 +13,7 @@ user = Table(
     Column("username", String, nullable=False),
     Column("email", String, nullable=False),
     Column("hashed_password", String, nullable=False),
-    Column("registered_at", TIMESTAMP, default=datetime.utcnow, nullable=False),
+    Column("registered_at", TIMESTAMP, default=datetime.utcnow),
     Column("is_active", Boolean, nullable=False),
     Column("is_superuser", Boolean, nullable=False),
     Column("is_verified", Boolean, nullable=False),
@@ -29,7 +29,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         Integer, unique=True, index=True, nullable=False, primary_key=True
     )
     username: Mapped[str] = mapped_column(
-        String(length=320)
+        String(length=320), unique=True
     )
     email: Mapped[str] = mapped_column(
         String(length=320), unique=True, index=True, nullable=False
@@ -38,7 +38,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         String(length=1024), nullable=False
     )
     registered_at: Mapped[TIMESTAMP] = mapped_column(
-        TIMESTAMP, default=datetime.utcnow, nullable=False
+        TIMESTAMP, nullable=False
     )
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(

@@ -10,3 +10,4 @@ DB_HOST = os.environ.get("DB_HOST")
 DB_NAME = os.environ.get("DB_NAME")
 
 SECRET_JWT = os.environ.get("SECRET_JWT")
+SECRET_MANAGER = os.environ.get("SECRET_MANAGER")
