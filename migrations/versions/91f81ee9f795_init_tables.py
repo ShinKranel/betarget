@@ -1,8 +1,8 @@
 """Init tables
 
-Revision ID: 529cb3140965
+Revision ID: 91f81ee9f795
 Revises: 
-Create Date: 2024-05-03 12:17:37.045911
+Create Date: 2024-05-09 14:21:00.277861
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '529cb3140965'
+revision: str = '91f81ee9f795'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -25,7 +25,7 @@ def upgrade() -> None:
     sa.Column('username', sa.String(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
     sa.Column('hashed_password', sa.String(), nullable=False),
-    sa.Column('registered_at', sa.TIMESTAMP(), nullable=True),
+    sa.Column('registered_at', sa.TIMESTAMP(), server_default=sa.text("TIMEZONE('utc', now())"), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('is_superuser', sa.Boolean(), nullable=False),
     sa.Column('is_verified', sa.Boolean(), nullable=False),
@@ -33,25 +33,27 @@ def upgrade() -> None:
     )
     op.create_table('resume',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('job_title', sa.String(), nullable=False),
-    sa.Column('age', sa.Integer(), nullable=False),
-    sa.Column('sex', sa.String(), nullable=False),
-    sa.Column('birth_date', sa.String(), nullable=False),
-    sa.Column('lived_in', sa.String(), nullable=False),
+    sa.Column('age', sa.Integer(), nullable=True),
+    sa.Column('sex', sa.Enum('male', 'female', 'other', name='sex'), nullable=True),
+    sa.Column('birth_date', sa.Date(), nullable=True),
+    sa.Column('lived_in', sa.String(), nullable=True),
     sa.Column('want_salary', sa.Integer(), nullable=True),
-    sa.Column('status', sa.String(), nullable=True),
-    sa.Column('about', sa.String(), nullable=True),
+    sa.Column('status', sa.Enum('looking_for_job', 'not_looking_for_a_job', 'considers_proposals', 'offered_a_job_decides', name='intereststatus'), nullable=True),
+    sa.Column('about', sa.Text(), nullable=True),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('vacancy',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('job_title', sa.String(), nullable=False),
     sa.Column('company', sa.String(), nullable=False),
-    sa.Column('work_experience', sa.Integer(), nullable=False),
+    sa.Column('work_experience', sa.String(), nullable=False),
     sa.Column('work_format', sa.String(), nullable=False),
     sa.Column('salary', sa.Integer(), nullable=True),
-    sa.Column('skills', sa.Integer(), nullable=True),
-    sa.Column('about', sa.Integer(), nullable=False),
+    sa.Column('skills', sa.String(), nullable=True),
+    sa.Column('about', sa.Text(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

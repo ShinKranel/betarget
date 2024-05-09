@@ -3,6 +3,7 @@ from typing import AsyncGenerator
 from fastapi import Depends
 from fastapi_users.db import SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.orm import DeclarativeBase
 
 from src.auth.models import User
 from src.config import DB_USER, DB_HOST, DB_NAME, DB_PASS, DB_PORT

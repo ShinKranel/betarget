@@ -4,7 +4,7 @@ from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, IntegerIDMixin
 
 from src.config import SECRET_MANAGER
-from src.database import get_user_db
+from src.db import get_user_db
 from src.auth.models import User
 
 SECRET = SECRET_MANAGER

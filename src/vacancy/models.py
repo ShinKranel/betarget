@@ -1,9 +1,11 @@
+import enum
+
 from sqlalchemy import Table, Column, Integer, String, MetaData, Enum, Text
 
 metadata = MetaData()
 
 
-class WorkFormat(Enum):
+class WorkFormat(enum.Enum):
     office = 'in office'
     home = 'from home'
     hybrid = 'hybrid'
@@ -23,8 +25,8 @@ vacancy = Table(
     Column("id", Integer, nullable=False, primary_key=True),
     Column("job_title", String, nullable=False),
     Column("company", String, nullable=False),
-    Column("work_experience", Enum(WorkExperience), nullable=False),
-    Column("work_format", Enum(WorkFormat), nullable=False),
+    Column("work_experience", String, nullable=False),
+    Column("work_format", String, nullable=False),
     Column("salary", Integer),
     Column("skills", String),  # TODO: change to list-like
     Column("about", Text, nullable=False),
