@@ -10,11 +10,11 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_resume(session: AsyncSession = Depends(get_async_session)):
+async def get_all_resumes(session: AsyncSession = Depends(get_async_session)):
     query = select(Resume)
     result = await session.execute(query)
-    resumes = result.all()
-    return [res.__dict__ for res in resumes]
+    curr = result.scalars().all()
+    return curr
 
 
 @router.post("/")
