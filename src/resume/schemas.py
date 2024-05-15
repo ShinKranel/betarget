@@ -1,7 +1,6 @@
 from datetime import date
 
 from pydantic import BaseModel
-from sqlalchemy import Date
 
 from src.resume.models import Sex, InterestStatus
 

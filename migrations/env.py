@@ -10,9 +10,9 @@ import sys
 
 from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 
-from src.auth.models import metadata as metadata_auth
-from src.resume.models import metadata as metadata_resume
-from src.vacancy.models import metadata as metadata_vacancy
+from src.auth.models import User
+from src.resume.models import Resume
+from src.vacancy.models import Vacancy
 
 sys.path.append(os.path.join(sys.path[0], 'src'))
 
@@ -36,7 +36,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [metadata_auth, metadata_resume, metadata_vacancy]
+target_metadata = [User.metadata, Resume.metadata, Vacancy.metadata]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
