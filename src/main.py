@@ -1,17 +1,22 @@
 import uvicorn
 from fastapi import FastAPI, Depends
 from fastapi_users import FastAPIUsers
+from fastapi.staticfiles import StaticFiles
 
-from src.auth.base_config import auth_backend
-from src.auth.manager import get_user_manager
-from src.auth.models import User
-from src.auth.schemas import UserRead, UserCreate
-from src.auth.router import router as router_user
-from src.resume.router import router as router_resume
-from src.vacancy.router import router as router_vacancy
+from auth.base_config import auth_backend
+from auth.manager import get_user_manager
+from auth.models import User
+from auth.schemas import UserRead, UserCreate
+
+from auth.router import router as router_user
+from resume.router import router as router_resume
+from vacancy.router import router as router_vacancy
+from pages.router import router as router_pages
 
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="src/static"), name="static")
 
 fastapi_users = FastAPIUsers[User, int](
     get_user_manager,
@@ -21,6 +26,7 @@ fastapi_users = FastAPIUsers[User, int](
 app.include_router(router_user, tags=["auth"])
 app.include_router(router_resume, prefix="/resume", tags=["resume"])
 app.include_router(router_vacancy, prefix="/vacancy", tags=["vacancy"])
+app.include_router(router_pages, prefix="/pages", tags=["Pages"])
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
@@ -55,6 +61,3 @@ if __name__ == "__main__":
         port=8000,
         reload=True
     )
-
-
-
