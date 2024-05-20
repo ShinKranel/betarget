@@ -1,17 +1,22 @@
 from fastapi import APIRouter, Depends
-from sqlalchemy import insert
+from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.db import get_async_session
-from src.vacancy.models import Vacancy
+from src.vacancy.models import Vacancy, WorkFormat
 from src.vacancy.schemas import CreateVacancy
 
 router = APIRouter()
 
 
 @router.get("/")
-async def say_hello():
-    return 'Эта вкладка для ВАКАНСИЙ'
+async def get_vacancy_by_work_format(work_format: WorkFormat, session: AsyncSession = Depends(get_async_session)):
+    query = select(Vacancy).where(Vacancy.work_format == work_format)
+    result = await session.execute(query)
+    return {
+            "status": "ok",
+            "data": result.scalars().all()
+    }
 
 
 @router.post("/")
