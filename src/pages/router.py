@@ -8,6 +8,11 @@ router = APIRouter()
 templates = Jinja2Templates(directory="src/templates")
 
 
+@router.get("/crm")
+def get_base_template(request: Request):
+    return templates.TemplateResponse("crm.html", {"request": request})
+
+
 @router.get("/base")
 def get_base_template(request: Request):
     return templates.TemplateResponse("base.html", {"request": request})
