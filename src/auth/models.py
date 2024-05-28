@@ -2,7 +2,7 @@ from datetime import datetime
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 
 from sqlalchemy import Integer, String, Boolean, text
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.db import Base
 
@@ -13,10 +13,10 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         Integer, unique=True, index=True, nullable=False, primary_key=True
     )
     username: Mapped[str] = mapped_column(
-        String(length=320), unique=True
+        String(length=10), unique=True
     )
     email: Mapped[str] = mapped_column(
-        String(length=320), unique=True, index=True, nullable=False
+        String(length=20), unique=True, index=True, nullable=False
     )
     hashed_password: Mapped[str] = mapped_column(
         String(length=1024), nullable=False
@@ -31,3 +31,5 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     is_verified: Mapped[bool] = mapped_column(
         Boolean, default=False, nullable=False
     )
+
+    vacancies: Mapped[list["Vacancy"]] = relationship(back_populates="user")

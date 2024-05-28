@@ -2,9 +2,8 @@ import enum
 from datetime import date
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.auth.models import User
 from src.db import Base
 
 
@@ -28,8 +27,6 @@ class Resume(Base):
     __tablename__ = "resume"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[ForeignKey(User.id)] = mapped_column(
-        ForeignKey("User.id"), nullable=False, default=1)
     job_title: Mapped[str]
     age: Mapped[int | None]
     sex: Mapped[Sex]
@@ -38,3 +35,12 @@ class Resume(Base):
     want_salary: Mapped[int]
     status: Mapped[InterestStatus]
     about: Mapped[str]
+
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("user.id"), nullable=False, default=1
+    )
+    vacancy_id: Mapped[int] = mapped_column(
+        ForeignKey("vacancy.id"), nullable=False, default=1
+    )
+
+    vacancy: Mapped["Vacancy"] = relationship(back_populates="resumes")
