@@ -1,18 +1,14 @@
 import enum
 from datetime import date
 
-from sqlalchemy import Table, Column, Integer, String, MetaData, Date, Text, Enum, ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
 
 from src.auth.models import User
-
-# metadata = MetaData()
-
-
-class Base(DeclarativeBase):
-    pass
+from src.db import Base
 
 
+# Enums ------------------------
 class Sex(enum.Enum):
     male = 'male'
     female = 'female'
@@ -27,28 +23,13 @@ class InterestStatus(enum.Enum):
     offered_a_job_decides = 'offered a job, decides'
 
 
-# resume = Table(
-#     "resume",
-#     metadata,
-#     Column("id", Integer, nullable=False, primary_key=True),
-#     Column("user_id", ForeignKey(user.c.id)),
-#     Column("job_title", String, nullable=False),
-#     Column("age", Integer),
-#     Column("sex", Enum(Sex)),
-#     Column("birth_date", Date),
-#     Column("lived_in", String),
-#     Column("want_salary", Integer,),
-#     Column("status", Enum(InterestStatus)),
-#     Column("about", Text),
-# )
-
-
+# Models ------------------------
 class Resume(Base):
     __tablename__ = "resume"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[ForeignKey(User.id)] = mapped_column(
-        ForeignKey(User.id), nullable=False, default=1)
+        ForeignKey("User.id"), nullable=False, default=1)
     job_title: Mapped[str]
     age: Mapped[int | None]
     sex: Mapped[Sex]

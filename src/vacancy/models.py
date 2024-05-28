@@ -1,16 +1,9 @@
 import enum
-
-from sqlalchemy import Table, Column, Integer, String, MetaData
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-
-
-# metadata = MetaData()
+from sqlalchemy.orm import Mapped, mapped_column
+from src.db import Base
 
 
-class Base(DeclarativeBase):
-    pass
-
-
+# Enums ------------------------
 class WorkFormat(enum.Enum):
     office = 'in office'
     home = 'from home'
@@ -26,20 +19,7 @@ class WorkExperience(enum.Enum):
     more_than_6 = 'more than 6 years'
 
 
-# vacancy = Table(
-#     "vacancy",
-#     metadata,
-#     Column("id", Integer, nullable=False, primary_key=True),
-#     Column("job_title", String, nullable=False),
-#     Column("company", String, nullable=False),
-#     Column("work_experience", String, nullable=False),
-#     Column("work_format", String, nullable=False),
-#     Column("salary", Integer),
-#     Column("skills", String),
-#     Column("about", Text, nullable=False),
-# )
-
-
+# Models ------------------------
 class Vacancy(Base):
     __tablename__ = "vacancy"
 
