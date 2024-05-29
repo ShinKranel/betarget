@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from src.vacancy.models import WorkExperience, WorkFormat
+from Backend.src.vacancy.models import WorkExperience, WorkFormat
 
 
 class CreateVacancy(BaseModel):

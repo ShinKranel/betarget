@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
 
-from src.resume.router import get_resume_by_sex
+from Backend.src.resume.router import get_resume_by_sex
 
 router = APIRouter()
 

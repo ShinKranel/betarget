@@ -1,7 +1,7 @@
 from fastapi_users.authentication import CookieTransport, AuthenticationBackend
 from fastapi_users.authentication import JWTStrategy
 
-from src.config import SECRET_JWT
+from Backend.src.config import SECRET_JWT
 
 cookie_transport = CookieTransport(
     cookie_name="bonds",

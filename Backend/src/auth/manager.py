@@ -3,9 +3,9 @@ from typing import Optional
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, IntegerIDMixin
 
-from src.config import SECRET_MANAGER
-from src.db import get_user_db
-from src.auth.models import User
+from Backend.src.config import SECRET_MANAGER
+from Backend.src.db import get_user_db
+from Backend.src.auth.models import User
 
 SECRET = SECRET_MANAGER
 
