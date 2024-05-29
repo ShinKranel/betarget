@@ -4,11 +4,14 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import Integer, String, Boolean, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.db import Base
+from src.base import Base
+from src.vacancy.models import Vacancy
 
 
 # Models ------------------------
 class User(SQLAlchemyBaseUserTable[int], Base):
+    __table_args__ = {'extend_existing': True}
+
     id: Mapped[int] = mapped_column(
         Integer, unique=True, index=True, nullable=False, primary_key=True
     )

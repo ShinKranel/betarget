@@ -1,7 +1,6 @@
 import uvicorn
 from fastapi import FastAPI, Depends
 from fastapi_users import FastAPIUsers
-from fastapi.staticfiles import StaticFiles
 
 from auth.base_config import auth_backend
 from auth.manager import get_user_manager
@@ -13,10 +12,8 @@ from resume.router import router as router_resume
 from vacancy.router import router as router_vacancy
 from pages.router import router as router_pages
 
-
 app = FastAPI()
 
-app.mount("/static", StaticFiles(directory="src/static"), name="static")
 
 fastapi_users = FastAPIUsers[User, int](
     get_user_manager,

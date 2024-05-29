@@ -10,7 +10,7 @@ import sys
 
 from src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 
-from src.db import Base
+from src.base import Base
 
 from src.auth.models import User
 from src.resume.models import Resume

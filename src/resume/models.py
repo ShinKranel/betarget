@@ -4,7 +4,7 @@ from datetime import date
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.db import Base
+from src.base import Base
 
 
 # Enums ------------------------
