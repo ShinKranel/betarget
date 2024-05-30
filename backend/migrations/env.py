@@ -8,9 +8,9 @@ from alembic import context
 import os
 import sys
 
-from Backend.src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
+from backend.src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 
-from Backend.src.base import Base
+from backend.src.base import Base
 
 sys.path.append(os.path.join(sys.path[0], 'src'))
 

@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from Backend.src.db import get_async_session
-from Backend.src.resume.models import Resume, Sex
-from Backend.src.resume.schemas import CreateResume
+from backend.src.db import get_async_session
+from backend.src.resume.models import Resume, Sex
+from backend.src.resume.schemas import CreateResume
 
 router = APIRouter()
 

@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from Backend.src.db import get_async_session
-from Backend.src.vacancy.models import Vacancy, WorkFormat
-from Backend.src.vacancy.schemas import CreateVacancy
+from backend.src.db import get_async_session
+from backend.src.vacancy.models import Vacancy, WorkFormat
+from backend.src.vacancy.schemas import CreateVacancy
 
 router = APIRouter()
 

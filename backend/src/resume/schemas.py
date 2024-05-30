@@ -2,7 +2,7 @@ from datetime import date
 
 from pydantic import BaseModel
 
-from Backend.src.resume.models import Sex, InterestStatus
+from backend.src.resume.models import Sex, InterestStatus
 
 
 class CreateResume(BaseModel):

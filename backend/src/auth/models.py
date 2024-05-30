@@ -4,7 +4,7 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import Integer, String, Boolean, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from Backend.src.base import Base
+from backend.src.base import Base
 
 
 # Models ------------------------
