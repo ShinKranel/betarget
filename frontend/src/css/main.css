@@ -96,10 +96,6 @@ select {
     scroll-behavior: auto !important;
   }
 }
-body {
-  background-color: #ffffff;
-}
-
 .wrapper {
   box-sizing: border-box;
   height: 100vh;
@@ -142,6 +138,7 @@ body {
 }
 
 .vacancies__vacancy {
+  display: block;
   padding: 10px 27px;
 }
 
@@ -192,6 +189,33 @@ body {
   display: flex;
   gap: 5%;
   align-items: center;
+}
+
+.filters__filter {
+  display: block;
+}
+
+.filters__filter_active {
+  background-color: #6f7c91;
+  color: #ffffff;
+  padding: 7px 12px;
+  border-radius: 15px;
+}
+
+.filters__new-cv {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.filters__new-cv p {
+  color: #6f7c91;
+  font-size: 17.33px;
+}
+
+.filters__new-cv svg {
+  height: 30px;
+  width: 30px;
 }
 
 .cv_list {
