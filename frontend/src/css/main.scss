@@ -1,0 +1,236 @@
+@import "_variables";
+
+// #region default_styles
+
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  font-family: $primary-font, $backup-font;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-rendering: optimizeSpeed;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// #endregion
+
+body {
+  background-color: $color-body-background;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  height: 100vh;
+  margin: 1.7% min(80px, 8%);
+  display: grid;
+  row-gap: 1.3%;
+  column-gap: 1.6%;
+  grid-template-columns: 25% 25% 30% 20%;
+  grid-template-rows: calc(5% + 10px) 87%;
+}
+
+@media (min-width: 1800px) {
+  .wrapper {
+    grid-template-columns: 350px 400px calc(100vw - 950px) 350px;
+    grid-template-rows: max(30px, 5vh) 100vh;
+  }
+}
+
+// #region ВАКАНСИИ
+
+.vacancies {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+
+  margin-right: 10%;
+  padding: 23px 0 20px;
+  border-radius: 27px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: $color-vacancies-background;
+}
+
+.vacancies__header {
+  font-size: 21px;
+  margin-bottom: 20px;
+  margin-left: $padding-vacancies;
+}
+.vacancies__list {
+  flex: 1;
+}
+.vacancies__vacancy {
+  padding: 10px $padding-vacancies;
+}
+.vacancies__vacancy_active {
+  background-color: $color-vacancies-active;
+}
+.vacancies__title {
+  font-size: 17px;
+  margin-bottom: 3px;
+}
+.vacancies__subtitle {
+  font-size: 12.7px;
+  color: $color-vacancies-subtitle-font;
+}
+
+.vacancies__new-vacancy {
+  align-self: flex-end;
+  padding: 0 20px;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.vacancies__new-vacancy p {
+  color: #6f7c91;
+  font-size: 17.33px;
+}
+
+.vacancies__new-vacancy svg {
+  height: 30px;
+  width: 30px;
+}
+
+// #endregion
+
+// #region ФИЛЬТРЫ
+.filters {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 2;
+
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.filters__list {
+  flex: 1;
+  display: flex;
+  gap: 5%;
+  align-items: center;
+}
+.filters__filter {
+}
+.filters__filter_active {
+}
+.filters__new-cv {
+}
+
+// #endregion
+
+.cv_list {
+  background-color: #000000;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.cv_display {
+  background-color: #000000;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.cv_info {
+  background-color: #000000;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
