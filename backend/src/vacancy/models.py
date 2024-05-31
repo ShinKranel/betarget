@@ -37,6 +37,7 @@ class Vacancy(Base):
     skills: Mapped[str]  # TODO: change to list-like
     about: Mapped[str]
 
-    resumes: Mapped[list["Resume"]] = relationship(back_populates="vacancy")
-    user: Mapped["User"] = relationship(back_populates="vacancies")
+    resumes = relationship("Resume", back_populates="vacancy")
 
+
+Vacancy.main_user = relationship("User", back_populates="vacancies")
