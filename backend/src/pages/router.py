@@ -5,12 +5,12 @@ from backend.src.resume.router import get_resume_by_sex
 
 router = APIRouter()
 
-templates = Jinja2Templates(directory="src/templates")
+templates = Jinja2Templates(directory="frontend/src/templates")
 
 
 @router.get("/crm")
 def get_base_template(request: Request):
-    return templates.TemplateResponse("crm.html", {"request": request})
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @router.get("/base")
