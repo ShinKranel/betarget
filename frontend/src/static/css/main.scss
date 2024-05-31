@@ -139,7 +139,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  background-color: $color-vacancies-background;
+  background-color: $color-medium-background;
   height: min(93vh, 700px);
 }
 
@@ -150,13 +150,24 @@ body {
 }
 .vacancies__list {
   flex: 1;
+  overflow: auto;
 }
+
+.vacancies__list::-webkit-scrollbar {
+  width: 13px;
+}
+
+.vacancies__list::-webkit-scrollbar-thumb {
+  background: $color-scroll-bar; /* Цвет фона полосы прокрутки */
+  border-radius: 10px;
+}
+
 .vacancies__vacancy {
   display: block;
   padding: 10px $padding-vacancies;
 }
 .vacancies__vacancy_active {
-  background-color: $color-vacancies-active;
+  background-color: $color-dark-background;
 }
 .vacancies__title {
   font-size: 17px;
@@ -164,7 +175,7 @@ body {
 }
 .vacancies__subtitle {
   font-size: 12.7px;
-  color: $color-vacancies-subtitle-font;
+  color: $color-secondary-font;
 }
 
 .vacancies__new-vacancy {
@@ -269,14 +280,14 @@ body {
 }
 
 .resume-list__resume_active {
-  background-color: $color-vacancies-background;
+  background-color: $color-medium-background;
 }
 .resume-list__photo-container {
   width: 68.5px;
   height: 68.5px;
   overflow: hidden;
   border-radius: 50%;
-  background-color: $color-vacancies-active;
+  background-color: $color-dark-background;
 }
 
 @media (max-width: 1150px) {
@@ -329,9 +340,9 @@ body {
 
 .resume-actions {
   height: 200px;
-  background-color: $color-history-background;
-  border-radius: 8px;
-  padding: 12px;
+  background-color: $color-light-background;
+  border-radius: 25px;
+  padding: 14px 15px 14px 20px;
 }
 .resume-actions__status {
   font-size: 17px;
@@ -366,7 +377,7 @@ body {
 
 .resume-content__skills-list li {
   display: inline-block;
-  background-color: $color-vacancies-background;
+  background-color: $color-medium-background;
   padding: 2px 8px;
   border-radius: 10px;
   margin: 4px 1.5px;
@@ -380,17 +391,51 @@ body {
   grid-row-start: 2;
   grid-row-end: 3;
 
-  background-color: $color-history-background;
+  background-color: $color-light-background;
   border-radius: 25px;
-  padding: 13% 13% 15px;
+  padding: 3em 13% 15px;
 
   display: flex;
   flex-direction: column;
   align-items: start;
   height: fit-content;
+
+  position: relative;
 }
 
 .resume-info__score {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(0%);
+  font-size: 21px;
+  color: $color-rating-font-darker;
+}
+
+.resume-info__score span {
+  font-size: 40px;
+  color: $color-good-rating-font;
+}
+
+.resume-info__score-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 2.6em;
+  padding: 3px;
+  border: 1px solid #ccc;
+  color: $color-good-rating-font;
+  border-radius: 4px;
+  font-size: 32px;
+  text-align: center;
+  transition: border-color 0.3s ease;
+  background-color: inherit;
+}
+
+.resume-info__score-input:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 3px rgba(0, 102, 204, 0.5);
 }
 
 .resume-info__photo-container {
@@ -400,7 +445,7 @@ body {
   height: 14.5vw;
   overflow: hidden;
   border-radius: 25px;
-  background-color: $color-vacancies-active;
+  background-color: $color-dark-background;
   margin-bottom: 10px;
 }
 @media (min-width: 1800px) {
