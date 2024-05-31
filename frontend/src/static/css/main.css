@@ -129,6 +129,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #eeeff2;
+  height: min(93vh, 700px);
 }
 
 .vacancies__header {
@@ -369,27 +370,48 @@ body {
   grid-row-end: 3;
   background-color: #f6f7f8;
   border-radius: 25px;
-  padding: 45px 27px 15px;
+  padding: 13% 13% 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  align-items: start;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .resume-info__photo-container {
-  width: 156px;
-  height: 156px;
+  align-self: center;
+  box-sizing: border-box;
+  width: 14.5vw;
+  height: 14.5vw;
   overflow: hidden;
   border-radius: 25px;
   background-color: #dde0e5;
+  margin-bottom: 10px;
 }
 
+@media (min-width: 1800px) {
+  .resume-info__photo-container {
+    width: 264.1px;
+    height: 264.1px;
+  }
+}
 .resume-info__photo {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   display: block;
+}
+
+.resume-info__name {
+  font-size: 21px;
+  margin-bottom: 5px;
+}
+
+.resume-info__position {
+  font-size: 14px;
+  color: #909aaa;
+  margin-bottom: 25px;
 }
 
 .resume-info__list {

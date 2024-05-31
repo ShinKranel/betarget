@@ -140,6 +140,7 @@ body {
   flex-direction: column;
 
   background-color: $color-vacancies-background;
+  height: min(93vh, 700px);
 }
 
 .vacancies__header {
@@ -381,24 +382,34 @@ body {
 
   background-color: $color-history-background;
   border-radius: 25px;
-  padding: 45px 27px 15px;
+  padding: 13% 13% 15px;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  align-items: start;
+  height: fit-content;
 }
 
 .resume-info__score {
 }
 
 .resume-info__photo-container {
-  width: 156px;
-  height: 156px;
+  align-self: center;
+  box-sizing: border-box;
+  width: 14.5vw;
+  height: 14.5vw;
   overflow: hidden;
   border-radius: 25px;
   background-color: $color-vacancies-active;
+  margin-bottom: 10px;
 }
+@media (min-width: 1800px) {
+  .resume-info__photo-container {
+    width: 264.1px;
+    height: 264.1px;
+  }
+}
+
 .resume-info__photo {
   width: 100%;
   height: 100%;
@@ -407,10 +418,16 @@ body {
 }
 
 .resume-info__name {
+  font-size: 21px;
+  margin-bottom: 5px;
 }
 .resume-info__position {
+  font-size: 14px;
+  color: $color-secondary-font;
+  margin-bottom: 25px;
 }
-.resume-info__list{
+
+.resume-info__list {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -425,9 +442,8 @@ body {
   margin: 0;
 }
 
-.resume-info__list-component{
+.resume-info__list-component {
   font-size: 15px;
-
 }
 .resume-info__phone {
 }
