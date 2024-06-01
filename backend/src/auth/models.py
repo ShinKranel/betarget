@@ -9,7 +9,7 @@ from backend.src.base import Base
 
 # Models ------------------------
 class User(SQLAlchemyBaseUserTable[int], Base):
-    __table_args__ = {'extend_existing': True}
+    __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(
         Integer, unique=True, index=True, nullable=False, primary_key=True
@@ -34,4 +34,5 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         Boolean, default=False, nullable=False
     )
 
-    vacancies: Mapped[list["Vacancy"]] = relationship(back_populates="user")
+
+User.vacancies = relationship("Vacancy", back_populates="main_user")

@@ -8,11 +8,16 @@ from alembic import context
 import os
 import sys
 
-from backend.src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
+sys.path = ['', '..'] + sys.path[1:]
 
+from backend.src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 from backend.src.base import Base
 
-sys.path.append(os.path.join(sys.path[0], 'src'))
+from backend.src.auth.models import User
+from backend.src.vacancy.models import Vacancy
+from backend.src.resume.models import Resume
+
+# sys.path.append(os.path.join(sys.path[0], 'src'))
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
