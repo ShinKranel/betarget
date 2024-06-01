@@ -2,18 +2,6 @@
   @return max($min, min($max, 100%));
 }
 
-// CV
-
-// цвета
-
-$color-button: #6f7c91;
-$color-secondary-font: #909aaa;
-$color-rating-font: #768397;
-$color-good-rating-font: #0dae4d;
-$color-picture-background: #ededed;
-$color-picture-background-darker: #ebedef;
-$color-history-background: #f6f7f8;
-
 // шрифты
 $primary-font: "Inter", sans-serif;
 $backup-font: "Open Sans", "Segoe UI", Tahoma, Helvetica, Verdana, sans-serif;
@@ -21,14 +9,17 @@ $backup-font: "Open Sans", "Segoe UI", Tahoma, Helvetica, Verdana, sans-serif;
 // размеры
 $new-button-size: 30px;
 
-// VACANCIES
-
-// цвета
-
-$color-vacancies-background: #eeeff2;
-$color-vacancies-active: #dde0e5;
-$color-vacancies-subtitle-font: #909AAA;
-
 // отступы
 
 $padding-vacancies: 27px;
+
+// ЦВЕТА
+$color-light-background: #f6f7f8;
+$color-medium-background: #eeeff2;
+$color-dark-background: #dde0e5;
+$color-secondary-font: #909aaa;
+$color-rating-font: #768397;
+$color-rating-font-darker: #939dac;
+$color-button: #6f7c91;
+$color-good-rating-font: #0dae4d;
+$color-scroll-bar: #cdd1d8;

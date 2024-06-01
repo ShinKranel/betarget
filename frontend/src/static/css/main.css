@@ -129,6 +129,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #eeeff2;
+  height: min(93vh, 700px);
 }
 
 .vacancies__header {
@@ -139,6 +140,16 @@ body {
 
 .vacancies__list {
   flex: 1;
+  overflow: auto;
+}
+
+.vacancies__list::-webkit-scrollbar {
+  width: 13px;
+}
+
+.vacancies__list::-webkit-scrollbar-thumb {
+  background: #cdd1d8; /* Цвет фона полосы прокрутки */
+  border-radius: 10px;
 }
 
 .vacancies__vacancy {
@@ -157,7 +168,7 @@ body {
 
 .vacancies__subtitle {
   font-size: 12.7px;
-  color: #909AAA;
+  color: #909aaa;
 }
 
 .vacancies__new-vacancy {
@@ -321,8 +332,8 @@ body {
 .resume-actions {
   height: 200px;
   background-color: #f6f7f8;
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 25px;
+  padding: 14px 15px 14px 20px;
 }
 
 .resume-actions__status {
@@ -369,27 +380,84 @@ body {
   grid-row-end: 3;
   background-color: #f6f7f8;
   border-radius: 25px;
-  padding: 45px 27px 15px;
+  padding: 3em 13% 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  align-items: start;
+  height: -moz-fit-content;
+  height: fit-content;
+  position: relative;
+}
+
+.resume-info__score {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(0%);
+  font-size: 21px;
+  color: #939dac;
+}
+
+.resume-info__score span {
+  font-size: 40px;
+  color: #0dae4d;
+}
+
+.resume-info__score-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 2.6em;
+  padding: 3px;
+  border: 1px solid #ccc;
+  color: #0dae4d;
+  border-radius: 4px;
+  font-size: 32px;
+  text-align: center;
+  transition: border-color 0.3s ease;
+  background-color: inherit;
+}
+
+.resume-info__score-input:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 3px rgba(0, 102, 204, 0.5);
 }
 
 .resume-info__photo-container {
-  width: 156px;
-  height: 156px;
+  align-self: center;
+  box-sizing: border-box;
+  width: 14.5vw;
+  height: 14.5vw;
   overflow: hidden;
   border-radius: 25px;
   background-color: #dde0e5;
+  margin-bottom: 10px;
 }
 
+@media (min-width: 1800px) {
+  .resume-info__photo-container {
+    width: 264.1px;
+    height: 264.1px;
+  }
+}
 .resume-info__photo {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   display: block;
+}
+
+.resume-info__name {
+  font-size: 21px;
+  margin-bottom: 5px;
+}
+
+.resume-info__position {
+  font-size: 14px;
+  color: #909aaa;
+  margin-bottom: 25px;
 }
 
 .resume-info__list {
