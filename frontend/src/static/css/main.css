@@ -143,15 +143,33 @@ body {
   overflow: auto;
 }
 
-.vacancies__list::-webkit-scrollbar {
-  width: 13px;
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+  .vacancies__list::-webkit-scrollbar-thumb {
+    background: #c7ccd5;
+  }
+  .vacancies__list::-webkit-scrollbar-track {
+    background: #eeeff2;
+  }
+  .vacancies__list::-webkit-scrollbar {
+    width: 6px;
+  }
 }
-
-.vacancies__list::-webkit-scrollbar-thumb {
-  background: #cdd1d8; /* Цвет фона полосы прокрутки */
-  border-radius: 10px;
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+  .vacancies__list {
+    scrollbar-color: #c7ccd5 #eeeff2;
+    scrollbar-width: thin;
+  }
 }
-
+/* Legacy browsers with `-ms-` prefix (Internet Explorer)*/
+@supports (-ms-ime-align: auto) {
+  .vacancies__list {
+    scrollbar-base-color: #c7ccd5;
+    scrollbar-track-color: #eeeff2;
+    scrollbar-width: thin;
+  }
+}
 .vacancies__vacancy {
   display: block;
   padding: 10px 27px;
@@ -173,7 +191,7 @@ body {
 
 .vacancies__new-vacancy {
   align-self: flex-end;
-  padding: 0 20px;
+  padding: 10px 20px 0;
   display: flex;
   gap: 7px;
   align-items: center;
@@ -390,38 +408,30 @@ body {
 }
 
 .resume-info__score {
+  width: 100%;
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(0%);
+  top: 2px;
   font-size: 21px;
   color: #939dac;
-}
-
-.resume-info__score span {
-  font-size: 40px;
-  color: #0dae4d;
 }
 
 .resume-info__score-input {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: 2.6em;
-  padding: 3px;
-  border: 1px solid #ccc;
-  color: #0dae4d;
-  border-radius: 4px;
-  font-size: 32px;
-  text-align: center;
+  width: 2em;
+  border: 0px;
+  border-bottom: 1px solid #6f7c91;
+  color: #768397;
+  font-size: 1.5em;
+  text-align: start;
   transition: border-color 0.3s ease;
   background-color: inherit;
 }
 
 .resume-info__score-input:focus {
   outline: none;
-  border-color: #0066cc;
-  box-shadow: 0 0 3px rgba(0, 102, 204, 0.5);
+  box-shadow: 0 4px 3px -3px #768397;
 }
 
 .resume-info__photo-container {
