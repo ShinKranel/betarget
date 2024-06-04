@@ -5,7 +5,6 @@ from sqlalchemy import pool
 
 from alembic import context
 
-import os
 import sys
 
 sys.path = ['', '..'] + sys.path[1:]
@@ -97,3 +96,5 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
+

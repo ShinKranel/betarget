@@ -8,13 +8,13 @@ from backend.src.base import Base
 
 
 # Enums ------------------------
-class Sex(enum.Enum):
+class Gender(enum.Enum):
     male = 'male'
     female = 'female'
     other = 'other'
 
 
-class InterestStatus(enum.Enum):
+class ResumeStatus(enum.Enum):
     """Candidate's job interest status"""
     looking_for_job = 'looking for job'
     not_looking_for_a_job = 'not looking for a job'
@@ -27,20 +27,29 @@ class Resume(Base):
     __tablename__ = "resume"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    job_title: Mapped[str]
-    age: Mapped[int | None]
-    sex: Mapped[Sex]
-    birth_date: Mapped[date | None] = None
-    lived_in: Mapped[str | None] = None
-    want_salary: Mapped[int]
-    status: Mapped[InterestStatus]
-    about: Mapped[str]
 
+    first_name: Mapped[str]
+    job_title: Mapped[str]
+    last_name: Mapped[str]
+    age: Mapped[int | None]
+    gender: Mapped[Gender]
+    city: Mapped[str | None] = None
+    expected_salary: Mapped[int | None]
+    resume_status: Mapped[ResumeStatus]
+    skills: Mapped[str | None]
+    about: Mapped[str]
+    experience: Mapped[str]
+    education: Mapped[str]
+    ready_to_relocate: Mapped[bool | None]
+    ready_for_business_trips: Mapped[bool | None]
+
+    # foreign keys
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id"), nullable=False, default=1
+        ForeignKey("user.id"), nullable=False,
     )
     vacancy_id: Mapped[int] = mapped_column(
-        ForeignKey("vacancy.id"), nullable=False, default=1
+        ForeignKey("vacancy.id"), nullable=False
     )
 
+    # relationships
     vacancy: Mapped["Vacancy"] = relationship(back_populates="resumes")
