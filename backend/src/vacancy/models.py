@@ -1,6 +1,6 @@
 import enum
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.src.base import Base
@@ -14,7 +14,7 @@ class WorkFormat(enum.Enum):
     discuss = 'discuss'
 
 
-class WorkExperience(enum.Enum):
+class Experience(enum.Enum):
     no_experience = 'no experience'
     up_to_1_year = 'up to 1 year'
     between_1_and_3 = '1-3 years'
@@ -22,22 +22,44 @@ class WorkExperience(enum.Enum):
     more_than_6 = 'more than 6 years'
 
 
+class EmploymentType(enum.Enum):
+    full_time = "full_time"
+    part_time = "part_time"
+    internship = "internship"
+    volunteer = "volunteer"
+
+
+class Education(enum.Enum):
+    incomplete_secondary = "incomplete_secondary"
+    secondary = "secondary"
+    secondary_vocational = "secondary_vocational"
+    incomplete_higher = "incomplete_higher"
+    bachelor = "bachelor"
+    master = "master"
+    phd = "phd"
+
+
 # Models ------------------------
 class Vacancy(Base):
     __tablename__ = "vacancy"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id"), nullable=False, default=1)
-    job_title: Mapped[str]
-    company: Mapped[str]
-    work_experience: Mapped[WorkExperience]
+
+    job_title: Mapped[str] = mapped_column(String(length=60))
+    city: Mapped[str] = mapped_column(String(length=50))
+    company: Mapped[str] = mapped_column(String(length=50))
+    experience: Mapped[Experience]
     work_format: Mapped[WorkFormat]
     salary: Mapped[int | None] = None
+    education: Mapped[Education | None] = None
+    employment_type: Mapped[EmploymentType]
     skills: Mapped[str]  # TODO: change to list-like
-    about: Mapped[str]
+    description: Mapped[str]
 
+    # foreign keys
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("user.id"), nullable=False, default=1)
+
+    # relationships
     resumes = relationship("Resume", back_populates="vacancy")
-
-
-Vacancy.main_user = relationship("User", back_populates="vacancies")
+    main_user = relationship("User", back_populates="vacancies")

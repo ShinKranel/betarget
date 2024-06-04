@@ -15,10 +15,10 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         Integer, unique=True, index=True, nullable=False, primary_key=True
     )
     username: Mapped[str] = mapped_column(
-        String(length=10), unique=True
+        String(length=30), unique=True
     )
     email: Mapped[str] = mapped_column(
-        String(length=20), unique=True, index=True, nullable=False
+        String(length=50), unique=True, index=True, nullable=False
     )
     hashed_password: Mapped[str] = mapped_column(
         String(length=1024), nullable=False
@@ -34,5 +34,4 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         Boolean, default=False, nullable=False
     )
 
-
-User.vacancies = relationship("Vacancy", back_populates="main_user")
+    vacancies = relationship("Vacancy", back_populates="main_user")

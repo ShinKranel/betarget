@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
+
 from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.db import get_async_session
-from backend.src.resume.models import Resume, Sex
+from backend.src.resume.models import Resume, Gender
 from backend.src.resume.schemas import CreateResume
 
 router = APIRouter()
@@ -20,13 +21,10 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_resume_by_sex(sex: Sex, session: AsyncSession = Depends(get_async_session)):
-    query = select(Resume).where(Resume.sex == sex)
+async def get_resumes(session: AsyncSession = Depends(get_async_session)):
+    query = select(Resume)
     result = await session.execute(query)
-    return {
-            "status": "ok",
-            "data": result.scalars().all()
-    }
+    return result.scalars().all()
 
 
 @router.post("/")

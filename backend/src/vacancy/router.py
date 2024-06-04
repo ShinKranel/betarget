@@ -10,13 +10,10 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_vacancy_by_work_format(work_format: WorkFormat, session: AsyncSession = Depends(get_async_session)):
-    query = select(Vacancy).where(Vacancy.work_format == work_format)
+async def get_vacancies(session: AsyncSession = Depends(get_async_session)):
+    query = select(Vacancy)
     result = await session.execute(query)
-    return {
-            "status": "ok",
-            "data": result.scalars().all()
-    }
+    return result.scalars().all()
 
 
 @router.post("/")
