@@ -9,14 +9,11 @@ from backend.src.auth.models import User
 from auth.schemas import UserRead, UserCreate
 
 from auth.router import router as router_user
-from backend.src.config import settings
 from resume.router import router as router_resume
 from vacancy.router import router as router_vacancy
 from pages.router import router as router_pages
 
-app = FastAPI(
-    title=settings.PROJECT_NAME
-)
+app = FastAPI()
 
 app.mount(
     "/static",
