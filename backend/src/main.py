@@ -1,3 +1,6 @@
+import sys 
+sys.path.append('g:\\OSPanel\\domains\\betarget\\betarget')
+
 import uvicorn
 from fastapi import FastAPI, Depends, Path
 from fastapi_users import FastAPIUsers
@@ -64,3 +67,11 @@ if __name__ == "__main__":
         port=8000,
         reload=True
     )
+
+# import sys 
+
+# print(sys.path)
+
+# sys.path.append('g:\\OSPanel\\domains\\betarget\\betarget')
+
+# print(sys.path)
