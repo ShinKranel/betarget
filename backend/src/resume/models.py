@@ -52,4 +52,4 @@ class Resume(Base):
     )
 
     # relationships
-    vacancy: Mapped["Vacancy"] = relationship(back_populates="resumes")
+    vacancy = relationship("Vacancy", back_populates="resumes")
