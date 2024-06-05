@@ -1,8 +1,11 @@
-import sys 
-sys.path.append('g:\\OSPanel\\domains\\betarget\\betarget')
+# import sys
+# sys.path.append('g:\\OSPanel\\domains\\betarget\\betarget')
+
+from backend.src.config import BACKEND_CORS_ORIGINS
+from fastapi.middleware.cors import CORSMiddleware
 
 import uvicorn
-from fastapi import FastAPI, Depends, Path
+from fastapi import FastAPI, Depends
 from fastapi_users import FastAPIUsers
 from starlette.staticfiles import StaticFiles
 
@@ -17,6 +20,14 @@ from vacancy.router import router as router_vacancy
 from pages.router import router as router_pages
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=BACKEND_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
 
 app.mount(
     "/static",
@@ -33,13 +44,11 @@ app.include_router(router_user, tags=["auth"])
 app.include_router(router_resume, prefix="/resume", tags=["resume"])
 app.include_router(router_vacancy, prefix="/vacancy", tags=["vacancy"])
 app.include_router(router_pages, prefix="/pages", tags=["Pages"])
-
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
     prefix="/auth/jwt",
     tags=["auth"],
 )
-
 app.include_router(
     fastapi_users.get_register_router(UserRead, UserCreate),
     prefix="/auth",
@@ -67,11 +76,3 @@ if __name__ == "__main__":
         port=8000,
         reload=True
     )
-
-# import sys 
-
-# print(sys.path)
-
-# sys.path.append('g:\\OSPanel\\domains\\betarget\\betarget')
-
-# print(sys.path)
