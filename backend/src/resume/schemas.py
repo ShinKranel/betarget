@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from backend.src.resume.models import Gender, ResumeStatus
 
 
-class CreateResume(BaseModel):
+class ResumeCreate(BaseModel):
     first_name: str
     last_name: str
     job_title: str
@@ -25,7 +25,7 @@ class CreateResume(BaseModel):
     vacancy_id: int = 1
 
 
-class ReadResume(BaseModel):
+class ResumeRead(BaseModel):
     first_name: str
     last_name: str
     job_title: str
@@ -42,7 +42,7 @@ class ReadResume(BaseModel):
     ready_for_business_trips: bool
 
 
-class UpdateResume(BaseModel):
+class ResumeUpdate(BaseModel):
     first_name: str | None
     last_name: str | None
     job_title: str | None
