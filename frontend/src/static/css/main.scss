@@ -108,21 +108,22 @@ body {
 }
 
 .wrapper {
+  justify-content: center;
   box-sizing: border-box;
   height: 100vh;
-  width: 95%;
-  margin: 1.7% 4% 0 2%;
+  width: 96%;
+  max-width: calc(2100px + 6%);
+  margin: 1.7% 2% 0 2%;
   display: grid;
-  row-gap: 1.3%;
-  column-gap: 2%;
-  grid-template-columns: 22% 25% 30% 20%;
-  grid-template-rows: max(60px, 5vh) auto;
-}
+  row-gap: $wrapper-row-gap;
+  column-gap: $wrapper-column-gap;
+  // grid-template-columns: 22% 25% 30% 20%;
+  grid-template-columns: min(22%, 350px) min(25%, 350px) min(
+      calc(96% - 22% - 25%),
+      calc(1000px + 350px + 2%)
+    );
 
-@media (min-width: 1800px) {
-  .wrapper {
-    grid-template-columns: 350px 400px calc(87vw - 1100px) 350px;
-  }
+  grid-template-rows: $filters-height auto;
 }
 
 // #region ВАКАНСИИ
@@ -140,7 +141,7 @@ body {
   flex-direction: column;
 
   background-color: $color-medium-background;
-  height: min(93vh, 700px);
+  height: $block-height;
 }
 
 .vacancies__header {
@@ -148,6 +149,7 @@ body {
   margin-bottom: 20px;
   margin-left: $padding-vacancies;
 }
+
 .vacancies__list {
   flex: 1;
   overflow: auto;
@@ -187,6 +189,9 @@ body {
   display: block;
   padding: 10px $padding-vacancies;
 }
+.vacancies__vacancy:hover {
+  background-color: $color-dark-background;
+}
 .vacancies__vacancy_active {
   background-color: $color-dark-background;
 }
@@ -207,6 +212,14 @@ body {
   align-items: center;
 }
 
+.vacancies__new-vacancy:hover p {
+  color: $color-button-hover;
+}
+
+.vacancies__new-vacancy:hover svg {
+  fill: $color-button-hover;
+}
+
 .vacancies__new-vacancy p {
   color: $color-button;
   font-size: 17.33px;
@@ -215,6 +228,7 @@ body {
 .vacancies__new-vacancy svg {
   height: $new-button-size;
   width: $new-button-size;
+  fill: $color-button;
 }
 
 // #endregion
@@ -222,7 +236,7 @@ body {
 // #region ФИЛЬТРЫ
 .filters {
   grid-column-start: 2;
-  grid-column-end: 5;
+  grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 2;
 
@@ -234,28 +248,33 @@ body {
 .filters__list {
   flex: 1;
   display: flex;
-  gap: 30px;
+  gap: 15px;
   align-items: center;
 }
 
 @media (min-width: 1600px) {
   .filters__list {
-    gap: 45px;
+    gap: 30px;
   }
 }
 @media (max-width: 1150px) {
   .filters__list {
-    gap: 25px;
+    gap: 15px;
   }
 }
 .filters__filter {
   display: block;
   font-size: 17px;
+  padding: 7px 12px;
+}
+.filters__filter:hover {
+  background-color: $color-button;
+  color: #ffffff;
+  border-radius: 17px;
 }
 .filters__filter_active {
   background-color: $color-button;
   color: #ffffff;
-  padding: 7px 12px;
   border-radius: 17px;
 }
 .filters__new-resume {
@@ -271,6 +290,15 @@ body {
 .filters__new-resume svg {
   height: $new-button-size;
   width: $new-button-size;
+  fill: $color-button;
+}
+
+.filters__new-resume:hover p {
+  color: $color-button-hover;
+}
+
+.filters__new-resume:hover svg {
+  fill: $color-button-hover;
 }
 
 // #endregion
@@ -284,9 +312,40 @@ body {
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
   align-items: start;
   justify-content: start;
+  height: calc($block-height - $filters-height - $wrapper-row-gap);
+  overflow: auto;
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+  .resume-list::-webkit-scrollbar-thumb {
+    background: $color-scroll-bar;
+  }
+  .resume-list::-webkit-scrollbar-track {
+    background: $color-medium-background;
+  }
+  .resume-list::-webkit-scrollbar {
+    width: 6px;
+  }
+}
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+  .resume-list {
+    scrollbar-color: $color-scroll-bar-light white;
+    scrollbar-width: thin;
+  }
+}
+
+/* Legacy browsers with `-ms-` prefix (Internet Explorer)*/
+@supports (-ms-ime-align: auto) {
+  .resume-list {
+    scrollbar-base-color: $color-scroll-bar;
+    scrollbar-track-color: $color-medium-background;
+    scrollbar-width: thin;
+  }
 }
 
 .resume-list__resume {
@@ -295,9 +354,13 @@ body {
   align-items: center;
   justify-content: start;
   border-radius: 5px;
-  // border-radius: 34px;
+  box-sizing: border-box;
   width: 100%;
-  padding: 5px 10px 5px 5px;
+  padding: 10px;
+}
+
+.resume-list__resume:hover {
+  background-color: $color-medium-background;
 }
 
 .resume-list__resume_active {
@@ -350,13 +413,64 @@ body {
   color: $color-good-rating-font;
 }
 // #endregion
-
-// #region ОТОБРАЖЕНИЕ РЕЗЮМЕ
-.resume-display {
+// #region РЕЗЮМЕ
+.resume {
   grid-column-start: 3;
   grid-column-end: 4;
   grid-row-start: 2;
   grid-row-end: 3;
+
+  box-sizing: border-box;
+  height: calc($block-height - $filters-height - $wrapper-row-gap);
+  width: 100%;
+  max-width: calc($resume-display-max-width + $resume-info-max-width + 4%);
+  display: grid;
+  grid-column-gap: 4%;
+
+  grid-template-columns: min(63%, $resume-display-max-width) min(
+      33%,
+      $resume-info-max-width
+    );
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+  .resume::-webkit-scrollbar-thumb {
+    background: $color-scroll-bar;
+  }
+  .resume::-webkit-scrollbar-track {
+    background: $color-medium-background;
+  }
+  .resume::-webkit-scrollbar {
+    width: 6px;
+  }
+}
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+  .resume {
+    scrollbar-color: $color-scroll-bar-light white;
+    scrollbar-width: thin;
+  }
+}
+
+/* Legacy browsers with `-ms-` prefix (Internet Explorer)*/
+@supports (-ms-ime-align: auto) {
+  .resume {
+    scrollbar-base-color: $color-scroll-bar;
+    scrollbar-track-color: $color-medium-background;
+    scrollbar-width: thin;
+  }
+}
+//#endregion
+// #region ОТОБРАЖЕНИЕ РЕЗЮМЕ
+.resume-display {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
 
 .resume-actions {
@@ -407,21 +521,22 @@ body {
 
 //#region РЕЗЮМЕ КОНТАКТЫ
 .resume-info {
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 2;
-  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
 
   background-color: $color-light-background;
   border-radius: 25px;
-  padding: 3em 13% 15px;
+  padding: 3em 0 15px;
 
   display: flex;
   flex-direction: column;
-  align-items: start;
-  height: fit-content;
+  align-items: center;
 
   position: relative;
+  height: fit-content;
+  overflow-x: hidden;
 }
 
 .resume-info__score {
@@ -448,34 +563,40 @@ body {
 
 .resume-info__score-input:focus {
   outline: none;
-  // border-color: $color-rating-font;
   box-shadow: 0 4px 3px -3px $color-rating-font;
-  // border: 0px;
-  // border-bottom: $color-rating-font;
+}
+
+.resume__info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: fit-content;
+  overflow-x: hidden;
+  padding: 0 max(10%, 15px);
+  width: 100%;
 }
 
 .resume-info__photo-container {
   align-self: center;
   box-sizing: border-box;
-  width: 14.5vw;
-  height: 14.5vw;
-  overflow: hidden;
+  width: 100%;
+  height: min(35vh, 270px);
   border-radius: 25px;
   background-color: $color-dark-background;
   margin-bottom: 10px;
 }
-@media (min-width: 1800px) {
-  .resume-info__photo-container {
-    width: 264.1px;
-    height: 264.1px;
-  }
+
+.resume-info__photo-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .resume-info__photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 .resume-info__name {
