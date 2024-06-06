@@ -9,5 +9,6 @@
     "alwaysStrict": true,
     "allowUnreachableCode": false
   },
+  "include": ["env.d.ts"],
   "exclude": ["node_modules"]
 }

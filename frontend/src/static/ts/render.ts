@@ -1,26 +1,29 @@
-// import { Vacancy } from "./types";
+import { Vacancy } from "./types";
 
-interface Vacancy {
-  city: string;
-  id: number;
-  experience: string;
-  work_format: string;
-  education: string;
-  skills: string;
-  user_id: number;
-  job_title: string;
-  company: string;
-  salary: number;
-  employment_type: string;
-  description: string;
-}
+// interface Vacancy {
+//   city: string;
+//   id: number;
+//   experience: string;
+//   work_format: string;
+//   education: string;
+//   skills: string;
+//   user_id: number;
+//   job_title: string;
+//   company: string;
+//   salary: number;
+//   employment_type: string;
+//   description: string;
+// }
 
 async function fetchVacancies(): Promise<Vacancy[]> {
   try {
     const response = await fetch("/vacancy", {
       method: "GET",
       headers: {
-        accept: "application/json",
+        // 'accept': 'application/json',
+        // accept: "module",
+        // "Content-Type": "text/javascript",
+        "Content-Type": "text/javascript",
       },
     });
     const data: Vacancy[] = await response.json();
@@ -64,4 +67,3 @@ async function main() {
 }
 
 main();
-console.log(2);
