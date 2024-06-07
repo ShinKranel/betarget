@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from backend.src.vacancy.models import WorkFormat, Experience, Education, EmploymentType
 
 
-class CreateVacancy(BaseModel):
+class VacancyCreate(BaseModel):
     job_title: str
     city: str
     company: str
@@ -18,7 +18,7 @@ class CreateVacancy(BaseModel):
     user_id: int = 1
 
 
-class ReadVacancy(BaseModel):
+class VacancyRead(BaseModel):
     job_title: str
     city: str
     company: str
@@ -31,7 +31,11 @@ class ReadVacancy(BaseModel):
     description: str
 
 
-class UpdateVacancy(BaseModel):
+class VacanciesRead(BaseModel):
+    vacancies: list[VacancyRead]
+
+
+class VacancyUpdate(BaseModel):
     job_title: str | None
     city: str | None
     company: str | None
