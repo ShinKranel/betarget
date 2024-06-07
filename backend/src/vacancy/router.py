@@ -15,7 +15,7 @@ router = APIRouter()
 async def get_vacancies(session: AsyncSession = Depends(get_async_session)):
     query = select(Vacancy)
     result = await session.execute(query)
-    vacancies = result.scalars().first()
+    vacancies = result.scalars().all()
     return vacancies
 
 
