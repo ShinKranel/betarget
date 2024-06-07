@@ -65,11 +65,6 @@ def protected_route(user: User = Depends(current_user)):
     return f"Hello, {user.username}"
 
 
-@app.get("/unprotected-route")
-def protected_route():
-    return f"Hello, anonym!"
-
-
 if __name__ == "__main__":
     uvicorn.run(
         "main:app",
