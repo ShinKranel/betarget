@@ -26,7 +26,8 @@ app.add_middleware(
     allow_origins=BACKEND_CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"],
-    allow_headers=["*"],
+    allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin",
+                   "Authorization"],
 )
 
 app.mount(
@@ -40,10 +41,10 @@ fastapi_users = FastAPIUsers[User, int](
     [auth_backend],
 )
 
-app.include_router(router_user, tags=["auth"])
-app.include_router(router_resume, prefix="/resume", tags=["resume"])
+app.include_router(router_user, prefix="/auth", tags=["auth"])
 app.include_router(router_vacancy, prefix="/vacancy", tags=["vacancy"])
-app.include_router(router_pages, prefix="/pages", tags=["Pages"])
+app.include_router(router_resume, prefix="/resume", tags=["resume"])
+app.include_router(router_pages, prefix="/pages", tags=["pages"])
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
     prefix="/auth/jwt",
