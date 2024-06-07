@@ -1,17 +1,5 @@
-// interface Vacancy {
-//   city: string;
-//   id: number;
-//   experience: string;
-//   work_format: string;
-//   education: string;
-//   skills: string;
-//   user_id: number;
-//   job_title: string;
-//   company: string;
-//   salary: number;
-//   employment_type: string;
-//   description: string;
-// }
+"use strict";
+import { Vacancy } from "./types.js";
 async function fetchVacancies() {
   try {
     const response = await fetch("/vacancy", {
@@ -56,5 +44,5 @@ async function main() {
   }
 }
 main();
-export {};
+console.log(111);
 //# sourceMappingURL=render.js.map

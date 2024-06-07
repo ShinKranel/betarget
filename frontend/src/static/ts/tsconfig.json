@@ -7,8 +7,11 @@
     "sourceMap": true,
     "noEmitOnError": true,
     "alwaysStrict": true,
-    "allowUnreachableCode": false
+    "allowUnreachableCode": false,
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true,
+    "composite": true
   },
-  "include": ["env.d.ts"],
+  "include": ["env.d.ts", "./*.ts"],
   "exclude": ["node_modules"]
 }

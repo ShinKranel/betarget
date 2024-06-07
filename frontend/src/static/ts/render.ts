@@ -1,4 +1,4 @@
-import { Vacancy } from "./types";
+import { Vacancy } from "./types.ts";
 
 // interface Vacancy {
 //   city: string;
@@ -67,3 +67,4 @@ async function main() {
 }
 
 main();
+console.log(111);
