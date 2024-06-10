@@ -15,8 +15,6 @@ class VacancyCreate(BaseModel):
     skills: str
     description: str
 
-    user_id: int = 1
-
 
 class VacancyRead(BaseModel):
     job_title: str
