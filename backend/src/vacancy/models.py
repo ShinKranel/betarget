@@ -58,7 +58,7 @@ class Vacancy(Base):
 
     # foreign keys
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id"), nullable=False, default=1)
+        ForeignKey("user.id"), nullable=False, default=None)
 
     # relationships
     resumes = relationship("Resume", back_populates="vacancy")
