@@ -1,17 +1,17 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 
 import mimetypes
-mimetypes.init()
 
+mimetypes.init()
 
 router = APIRouter()
 
 templates = Jinja2Templates(directory="frontend/src/templates")
 
 
-@router.get("/crm", response_class=HTMLResponse)
+@router.get("/crm", response_class=HTMLResponse)  # todo: make route protected
 def get_base_template(request: Request):
     mimetypes.add_type('application/javascript', '.js')
     mimetypes.add_type('text/css', '.css')
