@@ -21,9 +21,6 @@ class ResumeCreate(BaseModel):
     ready_to_relocate: bool
     ready_for_business_trips: bool
 
-    user_id: int = 1
-    vacancy_id: int = 1
-
 
 class ResumeRead(BaseModel):
     first_name: str
