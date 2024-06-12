@@ -8,7 +8,7 @@ from backend.src.config import SECRET_JWT
 
 cookie_transport = CookieTransport(
     cookie_name="bonds",
-    cookie_max_age=3600
+    cookie_max_age=604800
 )
 
 SECRET = SECRET_JWT
