@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import insert, select, delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
@@ -6,7 +6,7 @@ from starlette import status
 from backend.src.auth.models import User
 from backend.src.db import get_async_session
 from backend.src.vacancy.models import Vacancy
-from backend.src.vacancy.schemas import VacancyCreate
+from backend.src.vacancy.schemas import VacancyCreate, VacancyRead
 
 from backend.src.auth.base_config import current_user
 
@@ -15,7 +15,7 @@ router = APIRouter()
 
 @router.get(
     "/",
-    name="vacancy:read_user_vacancies"
+    name="read_user_vacancies"
 )
 async def read_user_vacancies(
         session: AsyncSession = Depends(get_async_session),
@@ -29,25 +29,35 @@ async def read_user_vacancies(
 
 @router.get(
     "/{vacancy_id}",
-    name="vacancy:read_user_vacancy"
+    name="read_vacancy_by_id",
+    response_model=VacancyRead
 )
-async def read_user_vacancy(vacancy_id: int, session: AsyncSession = Depends(get_async_session)):
-    query = select(Vacancy).where(vacancy_id == Vacancy.id)
-    result = await session.execute(query)
-    vacancies = result.scalars().all()
-    return vacancies
+async def read_vacancy_by_id(
+        vacancy_id: int,
+        session: AsyncSession = Depends(get_async_session),
+        user: User = Depends(current_user)
+):
+    vacancy = await session.get(Vacancy, vacancy_id)
+    if not vacancy:
+        raise HTTPException(status_code=404, detail="Vacancy not found")
+    if vacancy.user_id != user.id:
+        raise HTTPException(status_code=403, detail="Not enough permissions")
+    return vacancy
 
 
 @router.post(
     "/",
     status_code=status.HTTP_201_CREATED,
-    name="vacancy:create-vacancy"
+    name="create_vacancy"
 )
 async def create_vacancy(
         new_vacancy: VacancyCreate,
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(current_user)
 ):
+    """
+    Create a new vacancy.
+    """
     new_vacancy = new_vacancy.dict()
     new_vacancy.update({"user_id": user.id})
     stmt = insert(Vacancy).values(**new_vacancy)
@@ -57,11 +67,22 @@ async def create_vacancy(
 
 
 @router.delete(
-    "/",
-    name="vacancy:delete_vacancy"
+    "/{vacancy_id}",
+    name="delete_vacancy"
 )
-async def delete_vacancy(vacancy_id: int, session: AsyncSession = Depends(get_async_session)):
-    stmt = delete(Vacancy).where(vacancy_id == Vacancy.id)
-    await session.execute(stmt)
+async def delete_vacancy(
+        vacancy_id: int,
+        session: AsyncSession = Depends(get_async_session),
+        user: User = Depends(current_user)
+):
+    """
+    Delete vacancy.
+    """
+    vacancy = await session.get(Vacancy, vacancy_id)
+    if not vacancy:
+        raise HTTPException(status_code=404, detail="Vacancy not found")
+    if vacancy.user_id != user.id:
+        raise HTTPException(status_code=403, detail="Not enough permissions")
+    await session.delete(vacancy)
     await session.commit()
-    return {"status": "vacancy was deleted"}
+    return {"status": "Vacancy deleted successfully"}
