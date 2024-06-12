@@ -58,8 +58,8 @@ class Vacancy(Base):
 
     # foreign keys
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id"), nullable=False, default=None)
+        ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
 
     # relationships
-    resumes = relationship("Resume", back_populates="vacancy")
-    main_user = relationship("User", back_populates="vacancies")
+    resumes = relationship("Resume", back_populates="vacancy", cascade="all, delete", passive_deletes=True)
+    user = relationship("User", back_populates="vacancies")
