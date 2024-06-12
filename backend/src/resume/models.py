@@ -45,11 +45,12 @@ class Resume(Base):
 
     # foreign keys
     user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id"), nullable=False,
+        ForeignKey("user.id", ondelete="CASCADE"), nullable=False
     )
     vacancy_id: Mapped[int] = mapped_column(
-        ForeignKey("vacancy.id"), nullable=False
+        ForeignKey("vacancy.id", ondelete="CASCADE"), nullable=False
     )
 
     # relationships
     vacancy = relationship("Vacancy", back_populates="resumes")
+    user = relationship("User", back_populates="resumes")
