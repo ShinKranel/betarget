@@ -34,4 +34,5 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         Boolean, default=False, nullable=False
     )
 
-    vacancies = relationship("Vacancy", back_populates="main_user")
+    vacancies = relationship("Vacancy", back_populates="user", cascade="all, delete", passive_deletes=True)
+    resumes = relationship("Resume", back_populates="user", cascade="all, delete", passive_deletes=True)
