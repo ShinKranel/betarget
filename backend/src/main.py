@@ -8,14 +8,14 @@ import uvicorn
 from fastapi import FastAPI, Depends
 from starlette.staticfiles import StaticFiles
 
-from auth.base_config import auth_backend, fastapi_users, current_user
+from backend.src.auth.base_config import auth_backend, fastapi_users, current_user
 from backend.src.auth.models import User
-from auth.schemas import UserRead, UserCreate
+from backend.src.auth.schemas import UserRead, UserCreate
 
-from auth.router import router as router_user
-from resume.router import router as router_resume
-from vacancy.router import router as router_vacancy
-from pages.router import router as router_pages
+from backend.src.auth.router import router as router_user
+from backend.src.resume.router import router as router_resume
+from backend.src.vacancy.router import router as router_vacancy
+from backend.src.pages.router import router as router_pages
 
 app = FastAPI()
 
