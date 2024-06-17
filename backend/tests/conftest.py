@@ -3,17 +3,19 @@ from typing import AsyncGenerator
 
 import pytest
 from httpx import AsyncClient
+from sqlalchemy import NullPool
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-from starlette.testclient import TestClient
+from fastapi.testclient import TestClient
 
 from backend.src.base import Base
 from backend.src.config import DB_TEST_USER, DB_TEST_PASS, DB_TEST_HOST, DB_TEST_NAME, DB_TEST_PORT
 from backend.src.db import get_async_session
 from backend.src.main import app
+from utils import get_auth_token
 
 DATABASE_URL = f"postgresql+asyncpg://{DB_TEST_USER}:{DB_TEST_PASS}@{DB_TEST_HOST}:{DB_TEST_PORT}/{DB_TEST_NAME}"
 
-engine_test = create_async_engine(DATABASE_URL)
+engine_test = create_async_engine(DATABASE_URL, poolclass=NullPool)
 async_session_maker = async_sessionmaker(engine_test, expire_on_commit=False)
 Base.metadata.bind = engine_test
 
@@ -42,10 +44,23 @@ def event_loop(request):
 
 
 # SETUP
-client = TestClient(app)
+@pytest.fixture(scope="module")
+def client() -> TestClient:
+    with TestClient(app) as c:
+        yield c
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
+def auth_client(client: TestClient) -> TestClient:
+    with TestClient(app, cookies=auth_token(client)) as c:
+        yield c
+
+
+def auth_token(client: TestClient) -> dict[str, str]:
+    return get_auth_token(client)
+
+
+@pytest.fixture(scope="module")
 async def ac() -> AsyncGenerator[AsyncClient, None]:
     async with AsyncClient(app=app, base_url="http://test") as ac:
         yield ac
