@@ -26,7 +26,7 @@ _*(text will be added soon)_
 ### Project history/roadmap:
 - ✅ Project init - 30.04.2024
 - ✅ Add authentication | Add user, resume and vacancy entities - 02.05.2024
-- ... 02.05.2024-29.05.2024 - many changes, start history from here.
+- .... 02.05.2024-29.05.2024 - many changes, start history from here.
 - ✅ Hello Frontend 🌻 - 30.05.2024
 - ✅ Add tests - 12.06.2024
 - ✅ Add docker - 14.06.2024
