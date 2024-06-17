@@ -44,5 +44,5 @@ _*(text will be added soon)_
 *will be in project v0.1.0
 
 ### CRM page
-[![API docs](img/crm_betarget.png)](https://github.com/ShinKranel/betarget)
+[![API docs](img/crm_page_betarget.png)](https://github.com/ShinKranel/betarget)
 *will be in project v0.1.0
