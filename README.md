@@ -42,3 +42,7 @@ _*(text will be added soon)_
 ### LOGIN page
 [![API docs](img/login_betarget.png)](https://github.com/ShinKranel/betarget)
 *will be in project v0.1.0
+
+### CRM page
+[![API docs](img/crm_betarget.png)](https://github.com/ShinKranel/betarget)
+*will be in project v0.1.0
