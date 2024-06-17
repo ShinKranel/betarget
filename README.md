@@ -28,7 +28,13 @@ _*(text will be added soon)_
 - ✅ Add authentication | Add user, resume and vacancy entities - 02.05.2024
 - ... 02.05.2024-29.05.2024 - many changes, start history from here.
 - ✅ Hello Frontend 🌻 - 30.05.2024
-- Add tests - (exp. no later than 12.06.2024)
-- Add docker - (exp. no later than 16.06.2024)
-- Project **v0.0.1** - first working version: register, login and crm pages ready - (exp 20.06.2024 - 1.07.2024)
-- Add Client entity - (exp. no later than 20.06.2024)
+- ✅ Add tests - 12.06.2024
+- ✅ Add docker - 14.06.2024
+- Project **v0.1.0** - first working version: register, login and crm pages ready - (exp 20.06.2024 - 1.07.2024)
+- Add Client entity - (exp 20.06.2024 - 1.07.2024)
+
+### LOGIN page
+[![API docs](img/login_betarget.png)](https://github.com/ShinKranel/betarget)
+
+### CRM page
+[![API docs](img/crm_betarget.png)](https://github.com/ShinKranel/betarget)
