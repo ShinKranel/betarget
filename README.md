@@ -10,8 +10,8 @@
 _*(text will be added soon)_
 
 ### Other:
-- 🐳 [Docker Compose](https://www.docker.com). _*(will be added no later than June 16, 2024)_
-- ✅ **Tests** - [Pytest](https://pytest.org). _*(will be added no later than June 12, 2024)_
+- 🐳 [Docker Compose](https://www.docker.com).
+- ✅ **Tests** - [Pytest](https://pytest.org).
 - 🔐 **Secure password** hashing by default.
 - 🔑 **JWT** (JSON Web Token) authentication.
 - 📫 Email based **password recovery**.
@@ -20,7 +20,7 @@ _*(text will be added soon)_
 - User
 - Vacancy 
 - Resume
-- Client (the one who issues orders for recruiting specialists). _*(will be added no later than June 20, 2024)_
+- Client (the one who issues orders for recruiting specialists). (exp 20.06.2024 - 1.07.2024)
 - ...
 
 ### Project history/roadmap:
@@ -31,7 +31,13 @@ _*(text will be added soon)_
 - ✅ Add tests - 12.06.2024
 - ✅ Add docker - 14.06.2024
 - Project **v0.1.0** - first working version: register, login and crm pages ready - (exp 20.06.2024 - 1.07.2024)
-- Add Client entity - (exp 20.06.2024 - 1.07.2024)
+- Client entity - (exp 20.06.2024 - 1.07.2024) (will be in project **v0.1.0**)
+- Sending emails from crm. (will be in project **v0.2.0**)
+- Sending messages from crm to: telegram, whatsapp, etc. (will be in project **v0.2.0**)
+- Obtaining data from job search sites. (will be in project **v0.2.0**)
+- English version. (will be in project **v0.2.0**)
+- Integration with job search sites. (will be in project **v0.3.0**)
+- Extension for browsers (will be in project **v0.4.0**-**v0.5.0**)
 
 ### LOGIN page
 [![API docs](img/login_betarget.png)](https://github.com/ShinKranel/betarget)
