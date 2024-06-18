@@ -1,4 +1,4 @@
-name: Automated tests
+name: Test
 
 on:
   push
@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: setup Python
-        uses: actions/setup-python@v4
+      - name: Setup up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
@@ -23,4 +23,4 @@ jobs:
         uses: pip install -r requirements.txt
 
       - name: Run tests
-        uses: pytest
+        uses: pytest -v backend/tests/
