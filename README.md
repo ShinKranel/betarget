@@ -29,9 +29,13 @@ _*(text will be added soon)_
 - .... 02.05.2024-29.05.2024 - many changes, start history from here.
 - ✅ Hello Frontend 🌻 - 30.05.2024
 - ✅ Add tests - 12.06.2024
+- --- ✅ Auth
+- --- ✅ Vacancy _in progress_
+- --- Resume _in progress_
 - ✅ Add docker - 14.06.2024
 - Project **v0.1.0** - first working version: register, login and crm pages ready - (exp 20.06.2024 - 1.07.2024)
 - Client entity. (exp 20.06.2024 - 1.07.2024) (will be in project **v0.1.0**)
+- Add GitHub Action for automated tests. (will be in project **v0.1.0**)
 - Sending emails from crm. (will be in project **v0.2.0**)
 - Sending messages from crm to: telegram, whatsapp, etc. (will be in project **v0.2.0**)
 - Obtaining data from job search sites. (will be in project **v0.2.0**)
