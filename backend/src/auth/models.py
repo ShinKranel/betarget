@@ -11,6 +11,7 @@ from backend.src.base import Base
 class User(SQLAlchemyBaseUserTable[int], Base):
     __tablename__ = "user"
 
+    # TODO: change to UUID
     id: Mapped[int] = mapped_column(
         Integer, unique=True, index=True, nullable=False, primary_key=True
     )

@@ -1,6 +1,7 @@
 services:
   db:
     image: postgres:16
+    restart: always
     container_name: db_betarget
     command: -p 1221
     expose:
@@ -10,6 +11,7 @@ services:
 
   redis:
     image: redis:7
+    restart: always
     container_name: redis_betarget
     command: --port 5370
     expose:
@@ -20,6 +22,7 @@ services:
   app:
     build:
       context: .
+    restart: always
     env_file:
       - .env-non-dev
     container_name: betarget

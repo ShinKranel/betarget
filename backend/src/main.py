@@ -9,7 +9,6 @@ from fastapi import FastAPI, Depends
 from starlette.staticfiles import StaticFiles
 
 from backend.src.auth.base_config import auth_backend, fastapi_users, current_user
-from backend.src.auth.models import User
 from backend.src.auth.schemas import UserRead, UserCreate
 
 from backend.src.auth.router import router as router_user
@@ -35,21 +34,16 @@ app.mount(
 )
 
 
-app.include_router(router_user, tags=["auth"])
+app.include_router(router_user, prefix="/auth", tags=["auth"])
 app.include_router(router_vacancy, prefix="/vacancy", tags=["vacancy"])
 app.include_router(router_resume, prefix="/resume", tags=["resume"])
-app.include_router(router_pages, prefix="/pages", tags=["pages"])
+app.include_router(router_pages, prefix="/", tags=["pages"])
 app.include_router(
     fastapi_users.get_auth_router(auth_backend), tags=["auth"],
 )
 app.include_router(
     fastapi_users.get_register_router(UserRead, UserCreate), tags=["auth"],
 )
-
-
-@app.get("/protected-route")
-def protected_route(user: User = Depends(current_user)):
-    return f"Hello, {user.username}"
 
 
 if __name__ == "__main__":
