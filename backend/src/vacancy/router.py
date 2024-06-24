@@ -41,7 +41,7 @@ async def read_vacancy_by_id(
     if not vacancy:
         raise HTTPException(status_code=404, detail="Vacancy not found")
     if vacancy.user_id != user.id:
-        raise HTTPException(status_code=403, detail="Not enough permissions")
+        raise HTTPException(status_code=403, detail="Not enough permissions to read this vacancy")
     return vacancy
 
 
@@ -58,7 +58,7 @@ async def create_vacancy(
     """
     Create a new vacancy.
     """
-    new_vacancy = new_vacancy.dict()
+    new_vacancy = new_vacancy.model_dump()
     new_vacancy.update({"user_id": user.id})
     stmt = insert(Vacancy).values(**new_vacancy)
     await session.execute(stmt)
@@ -82,7 +82,7 @@ async def delete_vacancy(
     if not vacancy:
         raise HTTPException(status_code=404, detail="Vacancy not found")
     if vacancy.user_id != user.id:
-        raise HTTPException(status_code=403, detail="Not enough permissions")
+        raise HTTPException(status_code=403, detail="Not enough permissions to delete this vacancy")
     await session.delete(vacancy)
     await session.commit()
     return {"status": "Vacancy deleted successfully"}
