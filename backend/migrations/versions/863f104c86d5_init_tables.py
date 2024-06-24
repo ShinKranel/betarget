@@ -1,8 +1,8 @@
 """Init tables
 
-Revision ID: 37a2bd5eaadd
+Revision ID: 863f104c86d5
 Revises: 
-Create Date: 2024-06-24 17:00:34.622216
+Create Date: 2024-06-24 18:37:47.223760
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '37a2bd5eaadd'
+revision: str = '863f104c86d5'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -52,18 +52,19 @@ def upgrade() -> None:
     )
     op.create_table('resume',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('resume_status', sa.Enum('in_work', 'screening', 'interview', 'review', 'accepted', 'rejected', 'offer', name='resumestatus'), nullable=False),
     sa.Column('first_name', sa.String(), nullable=False),
     sa.Column('job_title', sa.String(), nullable=False),
     sa.Column('last_name', sa.String(), nullable=False),
     sa.Column('age', sa.Integer(), nullable=True),
-    sa.Column('gender', sa.Enum('male', 'female', 'other', name='gender'), nullable=False),
+    sa.Column('gender', sa.Enum('male', 'female', 'other', name='gender'), nullable=True),
     sa.Column('city', sa.String(), nullable=True),
     sa.Column('expected_salary', sa.Integer(), nullable=True),
-    sa.Column('resume_status', sa.Enum('looking_for_job', 'not_looking_for_a_job', 'considers_proposals', 'offered_a_job_decides', name='resumestatus'), nullable=False),
+    sa.Column('interest_in_job', sa.Enum('looking_for_job', 'not_looking_for_a_job', 'considers_proposals', 'offered_a_job_decides', name='interestinjob'), nullable=True),
     sa.Column('skills', sa.String(), nullable=True),
-    sa.Column('about', sa.String(), nullable=False),
-    sa.Column('experience', sa.String(), nullable=False),
-    sa.Column('education', sa.String(), nullable=False),
+    sa.Column('about', sa.String(), nullable=True),
+    sa.Column('experience', sa.String(), nullable=True),
+    sa.Column('education', sa.String(), nullable=True),
     sa.Column('ready_to_relocate', sa.Boolean(), nullable=True),
     sa.Column('ready_for_business_trips', sa.Boolean(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),

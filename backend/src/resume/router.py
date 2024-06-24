@@ -19,10 +19,24 @@ router = APIRouter()
     name="resume:read_user_resumes"
 )
 async def get_user_resumes(
+        vacancy_id: int | None = None,
+        resume_status: str = "in_work",
         session: AsyncSession = Depends(get_async_session),
         user: User = Depends(current_user)
+
 ):
-    query = select(Resume).where(user.id == Resume.user_id)
+    if not vacancy_id:
+        query = (
+            select(Resume)
+            .where(user.id == Resume.user_id)
+        )
+    else:
+        query = (
+            select(Resume)
+            .where((vacancy_id == Resume.vacancy_id) &
+                   (user.id == Resume.user_id) &
+                   (resume_status == Resume.resume_status))
+        )
     result = await session.execute(query)
     return result.scalars().all()
 

@@ -18,6 +18,5 @@ DB_TEST_NAME = os.environ.get("DB_TEST_NAME")
 
 BACKEND_CORS_ORIGINS = os.environ.get("BACKEND_CORS_ORIGINS")
 
-
 SECRET_JWT = os.environ.get("SECRET_JWT")
 SECRET_MANAGER = os.environ.get("SECRET_MANAGER")
