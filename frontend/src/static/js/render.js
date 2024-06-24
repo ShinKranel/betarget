@@ -1,23 +1,7 @@
 "use strict";
 
-import { Vacancy } from "./types.d.ts";
-async function fetchVacancies() {
-  try {
-    const response = await fetch("/vacancy", {
-      method: "GET",
-      headers: {
-        // 'accept': 'application/json',
-        // accept: "module",
-        // "Content-Type": "text/javascript",
-        "Content-Type": "text/javascript",
-      },
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw new Error("Ошибка при получении данных о вакансиях");
-  }
-}
+import { Vacancy } from "./vacancy.js";
+
 function renderVacancies(vacancies) {
   const vacanciesList = document.querySelector(".vacancies__list");
   vacancies.forEach((vacancy) => {
@@ -35,15 +19,5 @@ function renderVacancies(vacancies) {
     vacanciesList.appendChild(vacancyElement);
   });
 }
-async function main() {
-  try {
-    const vacancies = await fetchVacancies();
-    renderVacancies(vacancies);
-    console.log(2);
-  } catch (error) {
-    console.error(error);
-  }
-}
-main();
-console.log(111);
-//# sourceMappingURL=render.js.map
+
+export { renderVacancies };
