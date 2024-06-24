@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from sqlalchemy import select, insert, delete
+from sqlalchemy import select, insert
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 from starlette import status
 
 from backend.src.auth.base_config import current_user
@@ -58,9 +57,9 @@ async def create_resume(
     """
     vacancy = await session.get(Vacancy, vacancy_id)
     if not vacancy:
-        raise HTTPException(status_code=404, detail="Vacancy not found")
+        raise HTTPException(status_code=404, detail="Vacancy for this resume not found")
     if vacancy.user_id != user.id:
-        raise HTTPException(status_code=403, detail="This is not user vacancy")
+        raise HTTPException(status_code=403, detail="Not enough permissions to add resume to this vacancy")
     new_resume = new_resume.dict()
     new_resume.update({"user_id": user.id, "vacancy_id": vacancy_id})
     stmt = insert(Resume).values(**new_resume)

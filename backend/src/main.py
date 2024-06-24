@@ -37,7 +37,7 @@ app.mount(
 app.include_router(router_user, prefix="/auth", tags=["auth"])
 app.include_router(router_vacancy, prefix="/vacancy", tags=["vacancy"])
 app.include_router(router_resume, prefix="/resume", tags=["resume"])
-app.include_router(router_pages, prefix="/", tags=["pages"])
+app.include_router(router_pages, tags=["pages"])
 app.include_router(
     fastapi_users.get_auth_router(auth_backend), tags=["auth"],
 )

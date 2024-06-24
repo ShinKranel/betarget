@@ -37,20 +37,3 @@ class ResumeRead(BaseModel):
     education: str
     ready_to_relocate: bool
     ready_for_business_trips: bool
-
-
-class ResumeUpdate(BaseModel):
-    first_name: str | None
-    last_name: str | None
-    job_title: str | None
-    age: int | None
-    gender: Gender | None
-    city: str | None
-    expected_salary: int | None
-    resume_status: ResumeStatus | None
-    skills: str | None
-    about: str | None
-    experience: str | None
-    education: str | None
-    ready_to_relocate: bool | None
-    ready_for_business_trips: bool | None
