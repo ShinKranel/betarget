@@ -2,10 +2,11 @@ from datetime import date
 
 from pydantic import BaseModel
 
-from backend.src.resume.models import Gender, ResumeStatus
+from backend.src.resume.models import Gender, ResumeStatus, InterestInJob
 
 
 class ResumeCreate(BaseModel):
+    resume_status: ResumeStatus = 'in_work'
     first_name: str
     last_name: str
     job_title: str
@@ -13,7 +14,7 @@ class ResumeCreate(BaseModel):
     gender: Gender
     city: str
     expected_salary: int
-    resume_status: ResumeStatus
+    interest_in_job: InterestInJob
     skills: str
     about: str
     experience: str
@@ -23,6 +24,7 @@ class ResumeCreate(BaseModel):
 
 
 class ResumeRead(BaseModel):
+    resume_status: ResumeStatus
     first_name: str
     last_name: str
     job_title: str
@@ -30,7 +32,7 @@ class ResumeRead(BaseModel):
     gender: Gender
     city: str
     expected_salary: int
-    resume_status: ResumeStatus
+    interest_in_job: InterestInJob
     skills: str
     about: str
     experience: str
