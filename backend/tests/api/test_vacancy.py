@@ -62,7 +62,7 @@ def test_read_user_vacancy_by_id(auth_client: TestClient):
     assert response.status_code == 200, "Must be 200 OK status code"
 
 
-def test_read_user_vacancy_by_id_not_unauthorized(client: TestClient):
+def test_read_user_vacancy_by_id_unauthorized(client: TestClient):
     response = client.get("/vacancy", params={"vacancy_id": 1})
 
     assert response.status_code == 401, "Must be 401 UNAUTHORIZED status code"
