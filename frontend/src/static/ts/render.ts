@@ -1,5 +1,9 @@
-import { Vacancy } from "./types.ts";
+import { Vacancy } from "./types";
 
+const mime = require("mime");
+const file_path = "files\file.txt";
+const mime_type = mime.getType(file_path);
+console.log(mime_type);
 // interface Vacancy {
 //   city: string;
 //   id: number;

@@ -1,4 +1,4 @@
-export interface Vacancy {
+declare type Vacancy = {
   city: string;
   id: number;
   experience: string;
@@ -11,4 +11,6 @@ export interface Vacancy {
   salary: number;
   employment_type: string;
   description: string;
-}
+};
+
+export type { Vacancy };

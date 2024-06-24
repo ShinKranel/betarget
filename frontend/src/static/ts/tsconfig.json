@@ -6,9 +6,13 @@
     "outDir": "../js",
     "sourceMap": true,
     "noEmitOnError": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
     "alwaysStrict": true,
     "allowUnreachableCode": false,
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
     "emitDeclarationOnly": true,
     "composite": true
   },

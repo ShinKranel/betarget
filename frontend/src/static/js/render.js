@@ -1,5 +1,6 @@
 "use strict";
-import { Vacancy } from "./types.js";
+
+import { Vacancy } from "./types.d.ts";
 async function fetchVacancies() {
   try {
     const response = await fetch("/vacancy", {
