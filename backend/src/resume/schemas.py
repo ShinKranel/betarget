@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
 
 from backend.src.resume.models import Gender, ResumeStatus, InterestInJob
 from pydantic_extra_types.phone_numbers import PhoneNumber
@@ -6,7 +6,9 @@ from pydantic_extra_types.phone_numbers import PhoneNumber
 
 class ResumeCreate(BaseModel):
     resume_status: ResumeStatus = 'in_work'
-    rating: int = Field(None, ge=1, le=10)
+    rating: int | None = Field(None, ge=0, le=10)
+
+    # content
     first_name: str
     last_name: str
     job_title: str
@@ -27,14 +29,15 @@ class ResumeCreate(BaseModel):
     whatsapp: str = None
     linkedin: str = None
     github: str = None
-    phone_number: PhoneNumber
-
-    # photo
+    email: EmailStr = None
+    phone_number: PhoneNumber = None
 
 
 class ResumeRead(BaseModel):
     resume_status: ResumeStatus
-    rating: int
+    rating: int | None
+
+    # content
     first_name: str
     last_name: str
     job_title: str
@@ -49,3 +52,11 @@ class ResumeRead(BaseModel):
     education: str | None
     ready_to_relocate: bool | None
     ready_for_business_trips: bool | None
+
+    # contacts
+    telegram: str | None
+    whatsapp: str | None
+    linkedin: str | None
+    github: str | None
+    email: EmailStr | None
+    phone_number: PhoneNumber | None

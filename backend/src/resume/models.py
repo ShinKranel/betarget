@@ -39,6 +39,8 @@ class Resume(Base):
 
     resume_status: Mapped[ResumeStatus]
     rating: Mapped[int | None] = None
+
+    # content
     first_name: Mapped[str]
     job_title: Mapped[str]
     last_name: Mapped[str]
@@ -53,6 +55,16 @@ class Resume(Base):
     education: Mapped[str | None] = None
     ready_to_relocate: Mapped[bool | None] = None
     ready_for_business_trips: Mapped[bool | None] = None
+
+    # contacts
+    telegram: Mapped[str | None] = None
+    whatsapp: Mapped[str | None] = None
+    linkedin: Mapped[str | None] = None
+    github: Mapped[str | None] = None
+    email: Mapped[str | None] = None
+    phone_number: Mapped[str | None] = None
+
+    # TODO: add photo field
 
     # foreign keys
     user_id: Mapped[int] = mapped_column(

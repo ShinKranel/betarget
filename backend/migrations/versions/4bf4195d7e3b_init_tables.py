@@ -1,8 +1,8 @@
-"""nit tables
+"""Init tables
 
-Revision ID: d5f9ed7ecb7b
+Revision ID: 4bf4195d7e3b
 Revises: 
-Create Date: 2024-06-25 10:30:20.817493
+Create Date: 2024-06-25 10:32:17.638507
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'd5f9ed7ecb7b'
+revision: str = '4bf4195d7e3b'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -53,6 +53,7 @@ def upgrade() -> None:
     op.create_table('resume',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('resume_status', sa.Enum('in_work', 'screening', 'interview', 'review', 'accepted', 'rejected', 'offer', name='resumestatus'), nullable=False),
+    sa.Column('rating', sa.Integer(), nullable=True),
     sa.Column('first_name', sa.String(), nullable=False),
     sa.Column('job_title', sa.String(), nullable=False),
     sa.Column('last_name', sa.String(), nullable=False),
@@ -67,6 +68,12 @@ def upgrade() -> None:
     sa.Column('education', sa.String(), nullable=True),
     sa.Column('ready_to_relocate', sa.Boolean(), nullable=True),
     sa.Column('ready_for_business_trips', sa.Boolean(), nullable=True),
+    sa.Column('telegram', sa.String(), nullable=True),
+    sa.Column('whatsapp', sa.String(), nullable=True),
+    sa.Column('linkedin', sa.String(), nullable=True),
+    sa.Column('github', sa.String(), nullable=True),
+    sa.Column('email', sa.String(), nullable=True),
+    sa.Column('phone_number', sa.String(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('vacancy_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),
