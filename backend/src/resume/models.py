@@ -38,6 +38,7 @@ class Resume(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
 
     resume_status: Mapped[ResumeStatus]
+    rating: Mapped[int | None] = None
     first_name: Mapped[str]
     job_title: Mapped[str]
     last_name: Mapped[str]

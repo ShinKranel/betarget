@@ -1,7 +1,5 @@
 "use strict";
 
-import { Vacancy } from "./vacancy.js";
-
 function renderVacancies(vacancies) {
   const vacanciesList = document.querySelector(".vacancies__list");
   vacancies.forEach((vacancy) => {
