@@ -1,6 +1,6 @@
 "use strict";
 
-class Vacancy {
+export default class Vacancy {
   constructor(data) {
     this.city = data.city;
     this.id = data.id;
@@ -16,5 +16,3 @@ class Vacancy {
     this.description = data.description;
   }
 }
-
-export { Vacancy };
