@@ -105,6 +105,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: hidden;
+  // height: 100vh;
+  // padding: 1.7vh 2% 0 2%;
 }
 
 .wrapper {
@@ -395,7 +398,7 @@ body {
 .resume-list__name {
   font-size: 17px;
 }
-.resume-list__position {
+.resume-list__job-title {
   font-size: 12.7px;
   color: $color-secondary-font;
 }
@@ -424,15 +427,17 @@ body {
   height: calc($block-height - $filters-height - $wrapper-row-gap);
   width: 100%;
   max-width: calc($resume-display-max-width + $resume-info-max-width + 4%);
+  overflow-y: auto;
+  padding-right: 10px;
+
   display: grid;
   grid-column-gap: 4%;
-
   grid-template-columns: min(63%, $resume-display-max-width) min(
       33%,
       $resume-info-max-width
     );
-  overflow-y: auto;
-  padding-right: 10px;
+
+  position: relative;
 }
 
 /* Legacy browsers with `::-webkit-scrollbar-*` support */
@@ -467,6 +472,7 @@ body {
 //#endregion
 // #region ОТОБРАЖЕНИЕ РЕЗЮМЕ
 .resume-display {
+  display: none;
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
@@ -537,6 +543,8 @@ body {
   position: relative;
   height: fit-content;
   overflow-x: hidden;
+
+  display: none;
 }
 
 .resume-info__score {
@@ -641,3 +649,13 @@ body {
 }
 
 // #endregion
+
+.resume__not-chosen {
+  // display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: $color-button;
+}
