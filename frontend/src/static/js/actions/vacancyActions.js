@@ -4,6 +4,7 @@ import Resume from "../models/resume.js";
 import Vacancy from "../models/vacancy.js";
 import { fetchVacancies, fetchResumes } from "../api.js";
 import { renderVacancies, renderResumeList } from "../render.js";
+import { displayResumeList } from "./resumeActions.js";
 
 let currentActiveVacancy = null;
 
@@ -15,14 +16,7 @@ async function setActiveVacancy(event) {
   }
   targetElement.classList.add("vacancies__vacancy_active");
   currentActiveVacancy = targetElement;
-  displayActiveVacancyResumes();
+  displayResumeList(currentActiveVacancy);
 }
 
-async function displayActiveVacancyResumes() {
-  const activeVacancyId = currentActiveVacancy.dataset.id;
-  const resumesData = await fetchResumes(activeVacancyId);
-  const resumes = resumesData.map((data) => new Resume(data));
-  renderResumeList(resumes);
-}
-
-export { setActiveVacancy, displayActiveVacancyResumes };
+export { setActiveVacancy };

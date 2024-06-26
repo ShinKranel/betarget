@@ -4,7 +4,7 @@ import Vacancy from "./models/vacancy.js";
 import Resume from "./models/resume.js";
 import { fetchVacancies, fetchResumes } from "./api.js";
 import { renderVacancies, renderResumeList } from "./render.js";
-import { addClickEventListeners } from "./actions/eventListeners.js";
+// import { addClickEventListeners } from "./actions/eventListeners.js";
 
 async function main() {
   try {
@@ -15,7 +15,7 @@ async function main() {
     const resumesData = await fetchResumes();
     const resumes = resumesData.map((data) => new Resume(data));
     renderResumeList(resumes);
-    addClickEventListeners();
+    // addClickEventListeners();
   } catch (error) {
     console.error(error);
   }

@@ -1,5 +1,7 @@
 "use strict";
 
+import { addEventListenerToVacancy } from "./actions/eventListeners.js";
+
 function renderVacancies(vacancies) {
   const vacanciesList = document.querySelector(".vacancies__list");
   vacanciesList.innerHTML = "";
@@ -16,6 +18,8 @@ function renderVacancies(vacancies) {
     subtitleElement.textContent = vacancy.company;
     vacancyElement.appendChild(titleElement);
     vacancyElement.appendChild(subtitleElement);
+
+    addEventListenerToVacancy(vacancyElement);
     vacanciesList.appendChild(vacancyElement);
   });
 }

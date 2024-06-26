@@ -1,9 +1,9 @@
 import { setActiveVacancy } from "./vacancyActions.js";
 
-function addClickEventListeners() {
-  document.querySelectorAll(".vacancies__vacancy").forEach((element) => {
-    element.addEventListener("click", setActiveVacancy);
-  });
+function addEventListenerToVacancy(vacancyElement) {
+  //   document.querySelectorAll(".vacancies__vacancy").forEach((element) => {
+  vacancyElement.addEventListener("click", setActiveVacancy);
+  //   });
 }
 
-export { addClickEventListeners };
+export { addEventListenerToVacancy };
