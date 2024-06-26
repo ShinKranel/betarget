@@ -5,42 +5,33 @@ from backend.src.vacancy.models import WorkFormat, Experience, Education, Employ
 
 class VacancyCreate(BaseModel):
     job_title: str
-    city: str
+    city: str | None
     company: str
-    experience: Experience
-    work_format: WorkFormat
-    salary: int
-    education: Education
-    employment_type: EmploymentType
-    skills: str
-    description: str
+    experience: Experience | None
+    work_format: WorkFormat | None
+    salary: int | None
+    education: Education | None
+    employment_type: EmploymentType | None
+    skills: list[str] | None
+    description: str | None
 
 
 class VacancyRead(BaseModel):
-    job_title: str
-    city: str
+    job_title: str | None
+    city: str | None
     company: str
-    experience: Experience
-    work_format: WorkFormat
-    salary: int
-    education: Education
-    employment_type: EmploymentType
-    skills: str
-    description: str
+    experience: Experience | None
+    work_format: WorkFormat | None
+    salary: int | None
+    education: Education | None
+    employment_type: EmploymentType | None
+    skills: list[str] | None
+    description: str | None
 
 
 class VacanciesRead(BaseModel):
     vacancies: list[VacancyRead]
 
 
-class VacancyUpdate(BaseModel):
-    job_title: str | None
-    city: str | None
-    company: str | None
-    experience: Experience | None
-    work_format: WorkFormat | None
-    salary: int | None
-    education: Education | None
-    employment_type: EmploymentType | None
-    skills: str | None
-    description: str | None
+class VacancyUpdate(VacancyCreate):
+    pass
