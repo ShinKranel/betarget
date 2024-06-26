@@ -2,6 +2,7 @@
 
 function renderVacancies(vacancies) {
   const vacanciesList = document.querySelector(".vacancies__list");
+  vacanciesList.innerHTML = "";
   vacancies.forEach((vacancy) => {
     const vacancyElement = document.createElement("a");
     vacancyElement.href = "";
@@ -9,7 +10,7 @@ function renderVacancies(vacancies) {
     vacancyElement.dataset.id = vacancy.id;
     const titleElement = document.createElement("div");
     titleElement.classList.add("vacancies__title");
-    titleElement.textContent = vacancy.job_title;
+    titleElement.textContent = vacancy.jobTitle;
     const subtitleElement = document.createElement("div");
     subtitleElement.classList.add("vacancies__subtitle");
     subtitleElement.textContent = vacancy.company;
@@ -21,6 +22,7 @@ function renderVacancies(vacancies) {
 
 function renderResumeList(resumes) {
   const resumeList = document.querySelector(".resume-list");
+  resumeList.innerHTML = "";
   resumes.forEach((resume) => {
     const resumeElement = document.createElement("a");
     resumeElement.href = "";
@@ -43,7 +45,7 @@ function renderResumeList(resumes) {
 
     const resumeScoreNumberElement = document.createElement("span");
     resumeScoreNumberElement.classList.add("resume-list__score-number");
-    resumeScoreNumberElement.textContent = "6.2";
+    resumeScoreNumberElement.textContent = resume.rating;
 
     const resumeScoreTextElement = document.createTextNode(" / 10");
 
@@ -53,8 +55,15 @@ function renderResumeList(resumes) {
     resumeInfoElement.appendChild(resumeNameElement);
     resumeInfoElement.appendChild(resumeJobTitleElement);
     resumeInfoElement.appendChild(resumeScoreElement);
-    resumeElement.innerHTML =
-      '<div class="resume-list__photo-container"><img  class="resume-list__photo" /></div>';
+    // resumeElement.innerHTML =
+    //   '<div class="resume-list__photo-container"><img  class="resume-list__photo" /></div>';
+    const photoContainer = document.createElement("div");
+    photoContainer.className = "resume-list__photo-container";
+    const photo = document.createElement("img");
+    photo.className = "resume-list__photo";
+    photoContainer.appendChild(photo);
+
+    resumeElement.appendChild(photoContainer);
     resumeElement.appendChild(resumeInfoElement);
 
     resumeList.appendChild(resumeElement);

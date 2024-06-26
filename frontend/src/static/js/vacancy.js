@@ -2,17 +2,17 @@
 
 export default class Vacancy {
   constructor(data) {
-    this.city = data.city;
     this.id = data.id;
-    this.experience = data.experience;
-    this.work_format = data.work_format;
-    this.education = data.education;
-    this.skills = data.skills;
-    this.user_id = data.user_id;
-    this.job_title = data.job_title;
+    this.jobTitle = data.job_title;
+    this.city = data.city;
     this.company = data.company;
+    this.experience = data.experience;
+    this.workFormat = data.work_format;
     this.salary = data.salary;
-    this.employment_type = data.employment_type;
+    this.education = data.education;
+    this.employmentType = data.employment_type;
+    this.skills = data.skills;
     this.description = data.description;
+    this.userId = data.user_id;
   }
 }

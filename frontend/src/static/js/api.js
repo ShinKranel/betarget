@@ -16,13 +16,13 @@ async function fetchVacancies() {
   }
 }
 
-async function fetchResumes(vacancyId = 0, resumeStatus = "") {
+async function fetchResumes(vacancyId = undefined, resumeStatus = undefined) {
   try {
     const url = new URL("/resume", window.location.origin);
-    if (vacancyId) {
+    if (vacancyId !== undefined) {
       url.searchParams.set("vacancy_id", vacancyId);
     }
-    if (resumeStatus) {
+    if (resumeStatus !== undefined) {
       url.searchParams.set("resume_status", resumeStatus);
     }
     const response = await fetch(url, {
