@@ -1,10 +1,10 @@
 "use strict";
 
-import Vacancy from "./vacancy.js";
-import Resume from "./resume.js";
+import Vacancy from "./models/vacancy.js";
+import Resume from "./models/resume.js";
 import { fetchVacancies, fetchResumes } from "./api.js";
 import { renderVacancies, renderResumeList } from "./render.js";
-import { addClickEventListeners } from "./action.js";
+import { addClickEventListeners } from "./actions/eventListeners.js";
 
 async function main() {
   try {

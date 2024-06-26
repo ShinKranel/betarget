@@ -1,16 +1,11 @@
 "use strict";
 
-let currentActiveVacancy = null;
-import Vacancy from "./vacancy.js";
-import Resume from "./resume.js";
-import { fetchVacancies, fetchResumes } from "./api.js";
-import { renderVacancies, renderResumeList } from "./render.js";
+import Resume from "../models/resume.js";
+import Vacancy from "../models/vacancy.js";
+import { fetchVacancies, fetchResumes } from "../api.js";
+import { renderVacancies, renderResumeList } from "../render.js";
 
-function addClickEventListeners() {
-  document.querySelectorAll(".vacancies__vacancy").forEach((element) => {
-    element.addEventListener("click", setActiveVacancy);
-  });
-}
+let currentActiveVacancy = null;
 
 async function setActiveVacancy(event) {
   event.preventDefault();
@@ -30,4 +25,4 @@ async function displayActiveVacancyResumes() {
   renderResumeList(resumes);
 }
 
-export { addClickEventListeners };
+export { setActiveVacancy, displayActiveVacancyResumes };
