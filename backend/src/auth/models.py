@@ -16,13 +16,13 @@ class User(SQLAlchemyBaseUserTable[int], Base):
         Integer, unique=True, index=True, nullable=False, primary_key=True
     )
     username: Mapped[str] = mapped_column(
-        String(length=30), unique=True
+        String(30), unique=True
     )
     email: Mapped[str] = mapped_column(
-        String(length=50), unique=True, index=True, nullable=False
+        String(50), unique=True, index=True, nullable=False
     )
     hashed_password: Mapped[str] = mapped_column(
-        String(length=1024), nullable=False
+        String(1023), nullable=False
     )
     registered_at: Mapped[datetime] = mapped_column(
         server_default=text("TIMEZONE('utc', now())")
