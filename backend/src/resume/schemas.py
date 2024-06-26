@@ -10,27 +10,27 @@ class ResumeCreate(BaseModel):
 
     # content
     first_name: str
-    last_name: str
+    last_name: str | None
     job_title: str
     age: int = Field(None, ge=0, le=130)
-    gender: Gender = None
-    city: str = None
-    expected_salary: int = None
-    interest_in_job: InterestInJob = None
-    skills: str = None
-    about: str = None
-    experience: str = None
-    education: str = None
-    ready_to_relocate: bool = False
-    ready_for_business_trips: bool = False
+    gender: Gender | None
+    city: str | None
+    expected_salary: int | None
+    interest_in_job: InterestInJob | None
+    skills: list[str] | None
+    about: str | None
+    experience: str | None
+    education: str | None
+    ready_to_relocate: bool | None
+    ready_for_business_trips: bool | None
 
     # contacts
-    telegram: str = None
-    whatsapp: str = None
-    linkedin: str = None
-    github: str = None
-    email: EmailStr = None
-    phone_number: PhoneNumber = None
+    telegram: str | None
+    whatsapp: str | None
+    linkedin: str | None
+    github: str | None
+    email: EmailStr | None
+    phone_number: PhoneNumber | None
 
 
 class ResumeRead(BaseModel):
@@ -46,7 +46,7 @@ class ResumeRead(BaseModel):
     city: str | None
     expected_salary: int | None
     interest_in_job: InterestInJob | None
-    skills: str | None
+    skills: list[str] | None
     about: str | None
     experience: str | None
     education: str | None

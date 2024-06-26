@@ -1,6 +1,7 @@
 import enum
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, String
+from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.src.base import Base
@@ -25,8 +26,6 @@ class ResumeStatus(enum.Enum):
     in_work = 'in_work'
     screening = 'screening'
     interview = 'interview'
-    review = 'review'
-    accepted = 'accepted'
     rejected = 'rejected'
     offer = 'offer'
 
@@ -42,27 +41,27 @@ class Resume(Base):
 
     # content
     first_name: Mapped[str]
+    last_name: Mapped[str | None]
     job_title: Mapped[str]
-    last_name: Mapped[str]
-    age: Mapped[int | None] = None
-    gender: Mapped[Gender | None] = None
-    city: Mapped[str | None] = None
-    expected_salary: Mapped[int | None] = None
-    interest_in_job: Mapped[InterestInJob | None] = None
-    skills: Mapped[str | None] = None
-    about: Mapped[str | None] = None
-    experience: Mapped[str | None] = None
-    education: Mapped[str | None] = None
-    ready_to_relocate: Mapped[bool | None] = None
-    ready_for_business_trips: Mapped[bool | None] = None
+    age: Mapped[int | None]
+    gender: Mapped[Gender | None]
+    city: Mapped[str | None]
+    expected_salary: Mapped[int | None]
+    interest_in_job: Mapped[InterestInJob | None]
+    skills: Mapped[ARRAY | None] = mapped_column(ARRAY(String(255)))
+    about: Mapped[str | None]
+    experience: Mapped[str | None]
+    education: Mapped[str | None]
+    ready_to_relocate: Mapped[bool | None]
+    ready_for_business_trips: Mapped[bool | None]
 
     # contacts
-    telegram: Mapped[str | None] = None
-    whatsapp: Mapped[str | None] = None
-    linkedin: Mapped[str | None] = None
-    github: Mapped[str | None] = None
-    email: Mapped[str | None] = None
-    phone_number: Mapped[str | None] = None
+    telegram: Mapped[str | None]
+    whatsapp: Mapped[str | None]
+    linkedin: Mapped[str | None]
+    github: Mapped[str | None]
+    email: Mapped[str | None]
+    phone_number: Mapped[str | None]
 
     # TODO: add photo field
 
