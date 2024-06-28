@@ -99,7 +99,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   overflow-y: hidden;
+  padding-top: 1.7%;
 }
 
 .wrapper {
@@ -108,7 +110,6 @@ body {
   height: 100vh;
   width: 96%;
   max-width: calc(2100px + 6%);
-  margin: 1.7% 2% 0 2%;
   display: grid;
   row-gap: 1.3%;
   -moz-column-gap: 2%;
@@ -337,13 +338,14 @@ body {
   box-sizing: border-box;
   width: 100%;
   padding: 10px;
+  background-color: white;
 }
 
 .resume-list__resume:hover {
   background-color: #eeeff2;
 }
 
-.resume-list__resume_active {
+.resume-list__resume.resume-list__resume_active {
   background-color: #eeeff2;
 }
 

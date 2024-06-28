@@ -16,7 +16,10 @@ async function fetchVacancies() {
   }
 }
 
-async function fetchResumes(vacancyId = undefined, resumeStatus = undefined) {
+async function fetchResumeList(
+  vacancyId = undefined,
+  resumeStatus = undefined
+) {
   try {
     const url = new URL("/resume", window.location.origin);
     if (vacancyId !== undefined) {
@@ -34,8 +37,26 @@ async function fetchResumes(vacancyId = undefined, resumeStatus = undefined) {
     const data = await response.json();
     return data;
   } catch (error) {
+    throw new Error("Ошибка при получении данных о списке резюме");
+  }
+}
+
+async function fetchResume(resumeId) {
+  try {
+    const url = new URL("/resume/1", window.location.origin);
+    // url.searchParams.set("resume_id", resumeId);
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
     throw new Error("Ошибка при получении данных о резюме");
   }
 }
 
-export { fetchVacancies, fetchResumes };
+export { fetchVacancies, fetchResumeList, fetchResume };

@@ -1,9 +1,12 @@
 import { setActiveVacancy } from "./vacancyActions.js";
+import { setActiveResume } from "./resumeListActions.js";
 
 function addEventListenerToVacancy(vacancyElement) {
-  //   document.querySelectorAll(".vacancies__vacancy").forEach((element) => {
   vacancyElement.addEventListener("click", setActiveVacancy);
-  //   });
 }
 
-export { addEventListenerToVacancy };
+function addEventListenerToResumeList(resumeElement) {
+  resumeElement.addEventListener("click", setActiveResume);
+}
+
+export { addEventListenerToVacancy, addEventListenerToResumeList };

@@ -1,6 +1,9 @@
 "use strict";
 
-import { addEventListenerToVacancy } from "./actions/eventListeners.js";
+import {
+  addEventListenerToVacancy,
+  addEventListenerToResumeList,
+} from "./actions/eventListeners.js";
 
 function renderVacancies(vacancies) {
   const vacanciesList = document.querySelector(".vacancies__list");
@@ -69,7 +72,7 @@ function renderResumeList(resumes) {
 
     resumeElement.appendChild(photoContainer);
     resumeElement.appendChild(resumeInfoElement);
-
+    addEventListenerToResumeList(resumeElement);
     resumeList.appendChild(resumeElement);
   });
 }
