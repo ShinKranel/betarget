@@ -135,13 +135,13 @@ function renderResume(resume) {
     ".resume-content__skills-list"
   );
   skillsList.innerHTML = "";
-  // if (resume.skills) {
-  //   resume.skills.forEach((skill) => {
-  //     const skillListItem = document.createElement("li");
-  //     skillListItem.textContent = skill;
-  //     skillsList.appendChild(skillListItem);
-  //   });
-  // }
+  if (resume.skills) {
+    resume.skills.forEach((skill) => {
+      const skillListItem = document.createElement("li");
+      skillListItem.textContent = skill;
+      skillsList.appendChild(skillListItem);
+    });
+  }
 
   const experienceParagraph = resumeDisplaySection.querySelector(
     ".resume-content__experience p"

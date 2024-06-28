@@ -30,7 +30,7 @@ class ResumeCreate(BaseModel):
     linkedin: str | None
     github: str | None
     email: EmailStr | None
-    phone_number: PhoneNumber | None
+    phone_number: str | None
 
 
 
