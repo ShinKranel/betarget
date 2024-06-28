@@ -453,14 +453,14 @@ body {
   grid-row-end: 2;
 }
 
-.resume-actions {
+.resume-display__actions {
   height: 200px;
   background-color: #f6f7f8;
   border-radius: 25px;
   padding: 14px 15px 14px 20px;
 }
 
-.resume-actions__status {
+.resume-display__status {
   font-size: 17px;
   color: #6f7c91;
   display: flex;
@@ -468,7 +468,7 @@ body {
   align-items: center;
 }
 
-.resume-actions__change-status {
+.resume-display__change-status {
   background-color: #6f7c91;
   font-size: 12.7px;
   color: #ffffff;
@@ -476,6 +476,48 @@ body {
   border-radius: 15px;
 }
 
+.resume-display__history {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin: 17px 0 5px;
+  overflow-y: auto;
+}
+
+.resume-display__history-block {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+  color: #909aaa;
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+  .resume-display__history::-webkit-scrollbar-thumb {
+    background: #c7ccd5;
+  }
+  .resume-display__history::-webkit-scrollbar-track {
+    background: #eeeff2;
+  }
+  .resume-display__history::-webkit-scrollbar {
+    width: 6px;
+  }
+}
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+  .resume-display__history {
+    scrollbar-color: #dde0e5 #f6f7f8;
+    scrollbar-width: thin;
+  }
+}
+/* Legacy browsers with `-ms-` prefix (Internet Explorer)*/
+@supports (-ms-ime-align: auto) {
+  .resume-display__history {
+    scrollbar-base-color: #c7ccd5;
+    scrollbar-track-color: #eeeff2;
+    scrollbar-width: thin;
+  }
+}
 .resume-content {
   font-size: 15px;
   display: flex;

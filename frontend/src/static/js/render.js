@@ -126,7 +126,7 @@ function renderResume(resume) {
 
   // Resume actions
   const resumeActionsStatus = resumeDisplaySection.querySelector(
-    ".resume-actions__status p"
+    ".resume-display__status p"
   );
   resumeActionsStatus.textContent = translateResumeStatus(resume.resumeStatus);
 

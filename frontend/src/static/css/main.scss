@@ -481,27 +481,69 @@ body {
   grid-row-end: 2;
 }
 
-.resume-actions {
+.resume-display__actions {
   height: 200px;
   background-color: $color-light-background;
   border-radius: 25px;
   padding: 14px 15px 14px 20px;
 }
-.resume-actions__status {
+.resume-display__status {
   font-size: 17px;
   color: $color-button;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.resume-actions__change-status {
+.resume-display__change-status {
   background-color: $color-button;
   font-size: 12.7px;
   color: #ffffff;
   padding: 7px 10px;
   border-radius: 15px;
 }
-.resume-actions__history {
+.resume-display__history {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin: 17px 0 5px;
+  overflow-y: auto;
+}
+
+.resume-display__history-block {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+  color: $color-secondary-font;
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+  .resume-display__history::-webkit-scrollbar-thumb {
+    background: $color-scroll-bar;
+  }
+  .resume-display__history::-webkit-scrollbar-track {
+    background: $color-medium-background;
+  }
+  .resume-display__history::-webkit-scrollbar {
+    width: 6px;
+  }
+}
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+  .resume-display__history {
+    scrollbar-color: $color-scroll-bar-light $color-light-background;
+    scrollbar-width: thin;
+  }
+}
+
+/* Legacy browsers with `-ms-` prefix (Internet Explorer)*/
+@supports (-ms-ime-align: auto) {
+  .resume-display__history {
+    scrollbar-base-color: $color-scroll-bar;
+    scrollbar-track-color: $color-medium-background;
+    scrollbar-width: thin;
+  }
 }
 
 .resume-content {
