@@ -43,7 +43,7 @@ async function fetchResumeList(
 
 async function fetchResume(resumeId) {
   try {
-    const url = new URL("/resume/1", window.location.origin);
+    const url = new URL(`resume/${resumeId}`, window.location.origin);
     // url.searchParams.set("resume_id", resumeId);
 
     const response = await fetch(url, {

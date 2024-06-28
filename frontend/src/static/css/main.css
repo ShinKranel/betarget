@@ -487,6 +487,7 @@ body {
 .resume-content h3 {
   font-size: 17px;
   margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .resume-content__skills-list li {
@@ -505,7 +506,6 @@ body {
   background-color: #f6f7f8;
   border-radius: 25px;
   padding: 3em 0 15px;
-  display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
@@ -610,6 +610,7 @@ body {
 }
 
 .resume__not-chosen {
+  display: block;
   position: absolute;
   top: 50%;
   left: 50%;

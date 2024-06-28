@@ -5,6 +5,23 @@ import {
   addEventListenerToResumeList,
 } from "./actions/eventListeners.js";
 
+function toggleDisplayResume() {
+  const resumeNotChosenElement = document.querySelector(".resume__not-chosen");
+  const resumeDisplayElement = document.querySelector(".resume-display");
+  const resumeInfoElement = document.querySelector(".resume-info");
+  if (resumeNotChosenElement.style.display === "none") {
+    // резюме отображается, убираем отображение
+    resumeDisplayElement.style.display = "none";
+    resumeInfoElement.style.display = "none";
+    resumeNotChosenElement.style.display = "block";
+  } else {
+    // резюме не отображается, добавляем отображение
+    resumeDisplayElement.style.display = "block";
+    resumeInfoElement.style.display = "flex";
+    resumeNotChosenElement.style.display = "none";
+  }
+}
+
 function renderVacancies(vacancies) {
   const vacanciesList = document.querySelector(".vacancies__list");
   vacanciesList.innerHTML = "";
@@ -77,4 +94,99 @@ function renderResumeList(resumes) {
   });
 }
 
-export { renderVacancies, renderResumeList };
+function translateResumeStatus(resumeStatus) {
+  switch (resumeStatus) {
+    case "in_work":
+      return "В работе";
+    case "screening":
+      return "Скрининг";
+    case "interview":
+      return "Интервью";
+    case "review":
+      return "На рассмотрении";
+    case "accepted":
+      return "Принято";
+    case "rejected":
+      return "Отказ";
+    case "offer":
+      return "Оффер";
+    default:
+      return resumeStatus;
+  }
+}
+
+function renderResume(resume) {
+  const resumeNotChosenElement = document.querySelector(".resume__not-chosen");
+  if (resumeNotChosenElement.style.display !== "none") {
+    toggleDisplayResume();
+  }
+
+  const resumeDisplaySection = document.querySelector(".resume-display");
+  const resumeInfoSection = document.querySelector(".resume-info");
+
+  // Resume actions
+  const resumeActionsStatus = resumeDisplaySection.querySelector(
+    ".resume-actions__status p"
+  );
+  resumeActionsStatus.textContent = translateResumeStatus(resume.resumeStatus);
+
+  // Resume content
+  const skillsList = resumeDisplaySection.querySelector(
+    ".resume-content__skills-list"
+  );
+  skillsList.innerHTML = "";
+  // if (resume.skills) {
+  //   resume.skills.forEach((skill) => {
+  //     const skillListItem = document.createElement("li");
+  //     skillListItem.textContent = skill;
+  //     skillsList.appendChild(skillListItem);
+  //   });
+  // }
+
+  const experienceParagraph = resumeDisplaySection.querySelector(
+    ".resume-content__experience p"
+  );
+  experienceParagraph.textContent = resume.experience;
+
+  const educationParagraph = resumeDisplaySection.querySelector(
+    ".resume-content__education p"
+  );
+  educationParagraph.textContent = resume.education;
+
+  const aboutParagraph = resumeDisplaySection.querySelector(
+    ".resume-content__about p"
+  );
+  aboutParagraph.textContent = resume.about;
+
+  // Resume info
+  const resumeInfoName = resumeInfoSection.querySelector(".resume-info__name");
+  resumeInfoName.textContent = `${resume.firstName} ${resume.lastName}`;
+
+  const resumeInfoPosition = resumeInfoSection.querySelector(
+    ".resume-info__position"
+  );
+  resumeInfoPosition.textContent = resume.jobTitle;
+
+  const resumeInfoPhone = resumeInfoSection.querySelector(
+    ".resume-info__phone"
+  );
+  resumeInfoPhone.textContent = resume.phoneNumber;
+
+  const resumeInfoEmail = resumeInfoSection.querySelector(
+    ".resume-info__email"
+  );
+  resumeInfoEmail.textContent = resume.email;
+
+  const resumeInfoCity = resumeInfoSection.querySelector(".resume-info__city");
+  resumeInfoCity.textContent = resume.city;
+
+  const resumeInfoSalary = resumeInfoSection.querySelector(
+    ".resume-info__salary"
+  );
+  resumeInfoSalary.textContent = resume.expectedSalary;
+
+  const resumeInfoAge = resumeInfoSection.querySelector(".resume-info__age");
+  resumeInfoAge.textContent = resume.age;
+}
+
+export { renderVacancies, renderResumeList, renderResume };
