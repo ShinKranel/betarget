@@ -171,11 +171,13 @@ function renderResume(resume) {
     ".resume-info__phone"
   );
   resumeInfoPhone.textContent = resume.phoneNumber;
+  resumeInfoPhone.href = `tel:${resume.phoneNumber}`;
 
   const resumeInfoEmail = resumeInfoSection.querySelector(
     ".resume-info__email"
   );
   resumeInfoEmail.textContent = resume.email;
+  resumeInfoEmail.href = `mailto:${resume.email}`;
 
   const resumeInfoCity = resumeInfoSection.querySelector(".resume-info__city");
   resumeInfoCity.textContent = resume.city;
