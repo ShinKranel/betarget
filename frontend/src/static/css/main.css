@@ -651,6 +651,24 @@ body {
   font-size: 15px;
 }
 
+.resume-info__contacts {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: min(15px, 6%);
+}
+
+.resume-info__contacts-link svg {
+  fill: #c7ccd5;
+  width: 25px;
+  height: 25px;
+}
+
+.resume-info__contacts-link:hover svg {
+  fill: #909aaa;
+}
+
 .resume__not-chosen {
   display: block;
   position: absolute;

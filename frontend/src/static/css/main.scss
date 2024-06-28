@@ -680,17 +680,21 @@ body {
 .resume-info__list-component {
   font-size: 15px;
 }
-.resume-info__phone {
-}
-.resume-info__email {
-}
-.resume-info__city {
-}
-.resume-info__salary {
-}
-.resume-info__age {
-}
 .resume-info__contacts {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: min(15px, 6%);
+}
+
+.resume-info__contacts-link svg {
+  fill: $color-scroll-bar;
+  width: 25px;
+  height: 25px;
+}
+.resume-info__contacts-link:hover svg {
+  fill: $color-secondary-font;
 }
 
 // #endregion
