@@ -47,6 +47,28 @@ function handleStageInputChanges() {
   }
 }
 
+function handleCancelStageButton() {
+  const currentStageElement = document.querySelector(
+    ".resume-display__current-stage"
+  );
+  const changeStageButton = document.querySelector(
+    ".resume-display__change-stage"
+  );
+  const stageInputElement = document.querySelector(
+    ".resume-display__stage-input"
+  );
+  const stageActionsButtons = document.querySelector(
+    ".resume-display__stage-actions"
+  );
+
+  currentStageElement.style.display = "block";
+  changeStageButton.style.display = "block";
+  stageInputElement.style.display = "none";
+  stageActionsButtons.style.display = "none";
+
+  stageInputElement.value = currentStageElement.dataset.stage;
+}
+
 async function handleSaveStageButton() {
   const stageSaveButton = document.querySelector(".resume-display__save-stage");
   const currentStageElement = document.querySelector(
@@ -60,5 +82,6 @@ export {
   displayResume,
   handleChangeStageButton,
   handleStageInputChanges,
+  handleCancelStageButton,
   handleSaveStageButton,
 };

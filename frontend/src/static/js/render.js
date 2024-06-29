@@ -5,7 +5,8 @@ import {
   addEventListenerToResumeList,
   addEventListenerToResumeChangeStageButton,
   addEventListenerToResumeStageInput,
-  addEventListenerToResumeSaveStageButton
+  addEventListenerToResumeSaveStageButton,
+  addEventListenerToResumeCancelStageButton,
 } from "./actions/eventListeners.js";
 
 function toggleDisplayResume() {
@@ -144,6 +145,11 @@ function renderResume(resume) {
   );
   resumeStageInput.value = resume.resumeStage;
   addEventListenerToResumeStageInput(resumeStageInput);
+
+  const resumeCancelStageButton = resumeDisplaySection.querySelector(
+    ".resume-display__cancel-stage"
+  );
+  addEventListenerToResumeCancelStageButton(resumeCancelStageButton);
 
   const resumeSaveStageButton = resumeDisplaySection.querySelector(
     ".resume-display__save-stage"

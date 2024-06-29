@@ -3,6 +3,7 @@ import { setActiveResume } from "./resumeListActions.js";
 import {
   handleChangeStageButton,
   handleStageInputChanges,
+  handleCancelStageButton,
   handleSaveStageButton,
 } from "./resumeActions.js";
 
@@ -23,7 +24,11 @@ function addEventListenerToResumeStageInput(inputElement) {
 }
 
 function addEventListenerToResumeSaveStageButton(saveStageButton) {
-  saveStageButton.addEventListener("change", handleSaveStageButton);
+  saveStageButton.addEventListener("click", handleSaveStageButton);
+}
+
+function addEventListenerToResumeCancelStageButton(cancelStageButton) {
+  cancelStageButton.addEventListener("click", handleCancelStageButton);
 }
 
 export {
@@ -32,4 +37,5 @@ export {
   addEventListenerToResumeChangeStageButton,
   addEventListenerToResumeStageInput,
   addEventListenerToResumeSaveStageButton,
+  addEventListenerToResumeCancelStageButton,
 };
