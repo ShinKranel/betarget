@@ -511,6 +511,27 @@ body {
 
 .resume-display__stage-input {
   display: none;
+  font-size: 16px;
+  border: 1px solid $color-input-border;
+  border-radius: 10px;
+  padding: 3px 6px;
+  cursor: pointer;
+}
+
+.resume-display__stage-input:hover {
+  border-color: $color-rating-font-darker;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.resume-display__stage-input:focus {
+  outline: none;
+}
+
+.resume-display__stage-input option {
+  line-height: 50px;
+  border-color: #aaa;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 .resume-display__stage-actions {

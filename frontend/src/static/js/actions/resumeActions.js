@@ -69,23 +69,24 @@ function handleStageInputChanges() {
   }
 }
 
-function handleCancelStageButton() {
+function cancelStageChanges() {
   closeChangingStage();
 }
 
-async function handleSaveStageButton() {
+async function saveStageChanges() {
   const currentStageElement = document.querySelector(
     ".resume-display__current-stage"
   );
   const stageInputElement = document.querySelector(
     ".resume-display__stage-input"
   );
+  
 }
 export {
   displayResume,
   openChangingStage,
   closeChangingStage,
   handleStageInputChanges,
-  handleCancelStageButton,
-  handleSaveStageButton,
+  cancelStageChanges,
+  saveStageChanges,
 };

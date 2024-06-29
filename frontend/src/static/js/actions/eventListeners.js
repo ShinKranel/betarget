@@ -3,8 +3,8 @@ import { setActiveResume } from "./resumeListActions.js";
 import {
   openChangingStage,
   handleStageInputChanges,
-  handleCancelStageButton,
-  handleSaveStageButton,
+  cancelStageChanges,
+  saveStageChanges,
 } from "./resumeActions.js";
 
 function addEventListenerToVacancy(vacancyElement) {
@@ -24,11 +24,11 @@ function addEventListenerToResumeStageInput(inputElement) {
 }
 
 function addEventListenerToResumeSaveStageButton(saveStageButton) {
-  saveStageButton.addEventListener("click", handleSaveStageButton);
+  saveStageButton.addEventListener("click", saveStageChanges);
 }
 
 function addEventListenerToResumeCancelStageButton(cancelStageButton) {
-  cancelStageButton.addEventListener("click", handleCancelStageButton);
+  cancelStageButton.addEventListener("click", cancelStageChanges);
 }
 
 export {
