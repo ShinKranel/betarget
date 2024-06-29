@@ -107,8 +107,13 @@ body {
   align-items: center;
   justify-content: center;
   overflow-y: hidden;
+
   // height: 100vh;
-  padding-top: 1.7%;
+  // padding-top: 1.7%;
+}
+
+.body__margin-top {
+  height: 20px;
 }
 
 .wrapper {
@@ -487,20 +492,60 @@ body {
   border-radius: 25px;
   padding: 14px 15px 14px 20px;
 }
-.resume-display__status {
+.resume-display__stage {
   font-size: 17px;
   color: $color-button;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.resume-display__change-status {
+.resume-display__change-stage,
+.resume-display__save-stage,
+.resume-display__cancel-stage {
   background-color: $color-button;
   font-size: 12.7px;
   color: #ffffff;
   padding: 7px 10px;
   border-radius: 15px;
 }
+
+.resume-display__stage-input {
+  display: none;
+  font-size: 16px;
+  border: 1px solid $color-input-border;
+  border-radius: 10px;
+  padding: 3px 6px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.resume-display__stage-input:hover {
+  border-color: $color-rating-font-darker;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.resume-display__stage-input:focus {
+  outline: none;
+}
+
+.resume-display__stage-input option {
+  line-height: 50px;
+  border-color: #aaa;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.resume-display__stage-actions {
+  display: none;
+}
+
+.resume-display__save-stage[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+  border-color: #ccc;
+}
+
 .resume-display__history {
   display: flex;
   flex-direction: column;

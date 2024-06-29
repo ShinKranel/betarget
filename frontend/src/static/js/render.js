@@ -3,6 +3,10 @@
 import {
   addEventListenerToVacancy,
   addEventListenerToResumeList,
+  addEventListenerToResumeChangeStageButton,
+  addEventListenerToResumeStageInput,
+  addEventListenerToResumeSaveStageButton,
+  addEventListenerToResumeCancelStageButton,
 } from "./actions/eventListeners.js";
 
 function toggleDisplayResume() {
@@ -94,8 +98,8 @@ function renderResumeList(resumes) {
   });
 }
 
-function translateResumeStatus(resumeStatus) {
-  switch (resumeStatus) {
+function translateResumeStage(resumeStage) {
+  switch (resumeStage) {
     case "in_work":
       return "В работе";
     case "screening":
@@ -111,7 +115,7 @@ function translateResumeStatus(resumeStatus) {
     case "offer":
       return "Оффер";
     default:
-      return resumeStatus;
+      return resumeStage;
   }
 }
 
@@ -125,10 +129,32 @@ function renderResume(resume) {
   const resumeInfoSection = document.querySelector(".resume-info");
 
   // Resume actions
-  const resumeActionsStatus = resumeDisplaySection.querySelector(
-    ".resume-display__status p"
+  const resumeStage = resumeDisplaySection.querySelector(
+    ".resume-display__current-stage"
   );
-  resumeActionsStatus.textContent = translateResumeStatus(resume.resumeStatus);
+  resumeStage.textContent = translateResumeStage(resume.resumeStage);
+  resumeStage.dataset.stage = resume.resumeStage;
+
+  const resumeChangeStageButton = resumeDisplaySection.querySelector(
+    ".resume-display__change-stage"
+  );
+  addEventListenerToResumeChangeStageButton(resumeChangeStageButton);
+
+  const resumeStageInput = resumeDisplaySection.querySelector(
+    ".resume-display__stage-input"
+  );
+  resumeStageInput.value = resume.resumeStage;
+  addEventListenerToResumeStageInput(resumeStageInput);
+
+  const resumeCancelStageButton = resumeDisplaySection.querySelector(
+    ".resume-display__cancel-stage"
+  );
+  addEventListenerToResumeCancelStageButton(resumeCancelStageButton);
+
+  const resumeSaveStageButton = resumeDisplaySection.querySelector(
+    ".resume-display__save-stage"
+  );
+  addEventListenerToResumeSaveStageButton(resumeSaveStageButton);
 
   // Resume content
   const skillsList = resumeDisplaySection.querySelector(

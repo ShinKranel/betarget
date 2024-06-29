@@ -1,7 +1,7 @@
 export default class Resume {
   constructor(data) {
     this.id = data.id;
-    this.resumeStatus = data.resume_status;
+    this.resumeStage = data.resume_status;
     this.rating = data.rating;
 
     // content
