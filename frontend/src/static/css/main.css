@@ -101,7 +101,10 @@ body {
   align-items: center;
   justify-content: center;
   overflow-y: hidden;
-  padding-top: 1.7%;
+}
+
+.body__margin-top {
+  height: 20px;
 }
 
 .wrapper {
@@ -460,7 +463,7 @@ body {
   padding: 14px 15px 14px 20px;
 }
 
-.resume-display__status {
+.resume-display__stage {
   font-size: 17px;
   color: #6f7c91;
   display: flex;
@@ -468,12 +471,29 @@ body {
   align-items: center;
 }
 
-.resume-display__change-status {
+.resume-display__change-stage,
+.resume-display__save-stage,
+.resume-display__cancel-stage {
   background-color: #6f7c91;
   font-size: 12.7px;
   color: #ffffff;
   padding: 7px 10px;
   border-radius: 15px;
+}
+
+.resume-display__stage-input {
+  display: none;
+}
+
+.resume-display__stage-actions {
+  display: none;
+}
+
+.resume-display__save-stage[disabled] {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+  border-color: #ccc;
 }
 
 .resume-display__history {
