@@ -1,7 +1,7 @@
 import { setActiveVacancy } from "./vacancyActions.js";
 import { setActiveResume } from "./resumeListActions.js";
 import {
-  handleChangeStageButton,
+  openChangingStage,
   handleStageInputChanges,
   handleCancelStageButton,
   handleSaveStageButton,
@@ -16,7 +16,7 @@ function addEventListenerToResumeList(resumeElement) {
 }
 
 function addEventListenerToResumeChangeStageButton(buttonElement) {
-  buttonElement.addEventListener("click", handleChangeStageButton);
+  buttonElement.addEventListener("click", openChangingStage);
 }
 
 function addEventListenerToResumeStageInput(inputElement) {

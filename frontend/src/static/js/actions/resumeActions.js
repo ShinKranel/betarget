@@ -9,7 +9,7 @@ async function displayResume(resumeId) {
   renderResume(resume);
 }
 
-function handleChangeStageButton() {
+function openChangingStage() {
   const currentStageElement = document.querySelector(
     ".resume-display__current-stage"
   );
@@ -29,25 +29,7 @@ function handleChangeStageButton() {
   stageActionsButtons.style.display = "block";
 }
 
-function handleStageInputChanges() {
-  const stageSaveButton = document.querySelector(".resume-display__save-stage");
-  const currentStageElement = document.querySelector(
-    ".resume-display__current-stage"
-  );
-  const stageInputElement = document.querySelector(
-    ".resume-display__stage-input"
-  );
-
-  const currentStage = currentStageElement.dataset.stage;
-  const selectedOption = stageInputElement.value;
-  if (currentStage === selectedOption) {
-    stageSaveButton.disabled = true;
-  } else {
-    stageSaveButton.disabled = false;
-  }
-}
-
-function handleCancelStageButton() {
+function closeChangingStage() {
   const currentStageElement = document.querySelector(
     ".resume-display__current-stage"
   );
@@ -69,8 +51,29 @@ function handleCancelStageButton() {
   stageInputElement.value = currentStageElement.dataset.stage;
 }
 
-async function handleSaveStageButton() {
+function handleStageInputChanges() {
   const stageSaveButton = document.querySelector(".resume-display__save-stage");
+  const currentStageElement = document.querySelector(
+    ".resume-display__current-stage"
+  );
+  const stageInputElement = document.querySelector(
+    ".resume-display__stage-input"
+  );
+
+  const currentStage = currentStageElement.dataset.stage;
+  const selectedOption = stageInputElement.value;
+  if (currentStage === selectedOption) {
+    stageSaveButton.disabled = true;
+  } else {
+    stageSaveButton.disabled = false;
+  }
+}
+
+function handleCancelStageButton() {
+  closeChangingStage();
+}
+
+async function handleSaveStageButton() {
   const currentStageElement = document.querySelector(
     ".resume-display__current-stage"
   );
@@ -80,7 +83,8 @@ async function handleSaveStageButton() {
 }
 export {
   displayResume,
-  handleChangeStageButton,
+  openChangingStage,
+  closeChangingStage,
   handleStageInputChanges,
   handleCancelStageButton,
   handleSaveStageButton,
