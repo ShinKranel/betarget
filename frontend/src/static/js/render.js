@@ -74,6 +74,9 @@ function renderResumeList(resumes) {
     const resumeScoreNumberElement = document.createElement("span");
     resumeScoreNumberElement.classList.add("resume-list__score-number");
     resumeScoreNumberElement.textContent = resume.rating;
+    if (resume.rating >= 8) {
+      resumeScoreNumberElement.classList.add("resume-list__score-number_good");
+    }
 
     const resumeScoreTextElement = document.createTextNode(" / 10");
 
@@ -217,6 +220,7 @@ function renderResume(resume) {
   resumeInfoAge.textContent = resume.age;
 
   const contactsContainer = document.querySelector(".resume-info__contacts");
+  contactsContainer.innerHTML = "";
 
   const contacts = [
     { title: "GitHub", link: resume.github, icon: "github" },
@@ -231,6 +235,8 @@ function renderResume(resume) {
       contactLink.href = contact.link;
       contactLink.title = contact.title;
       contactLink.className = "resume-info__contacts-link";
+      contactLink.target = "_blank";
+      contactLink.rel = "noopener noreferrer";
 
       const contactIcon = getContactIcon(contact.icon);
       contactLink.innerHTML = contactIcon;
