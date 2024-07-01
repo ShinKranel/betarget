@@ -26,7 +26,7 @@ services:
     env_file:
       - .env-non-dev
     container_name: betarget
-    command: ["/betarget/docker/app.sh"]
+    command: ["sh", "/betarget/docker/app.sh"]
     ports:
       - 9999:8080
     depends_on:
