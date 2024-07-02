@@ -8,14 +8,14 @@ from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, Asyn
 from fastapi.testclient import TestClient
 
 from backend.src.base import Base
-from backend.src.config import DB_TEST_USER, DB_TEST_PASS, DB_TEST_HOST, DB_TEST_NAME, DB_TEST_PORT
+from backend.src.config import settings
 from backend.src.db import get_async_session
 from backend.src.main import app
 from utils import get_auth_token
 
-DATABASE_URL = f"postgresql+asyncpg://{DB_TEST_USER}:{DB_TEST_PASS}@{DB_TEST_HOST}:{DB_TEST_PORT}/{DB_TEST_NAME}"
+test_db_settigns = settings.test_database
 
-engine_test = create_async_engine(DATABASE_URL, poolclass=NullPool)
+engine_test = create_async_engine(test_db_settigns.DATABASE_URL_ASYNC, poolclass=NullPool)
 async_session_maker = async_sessionmaker(engine_test, expire_on_commit=False)
 Base.metadata.bind = engine_test
 

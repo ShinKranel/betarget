@@ -1,21 +1,79 @@
+from pathlib import Path
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from dotenv import load_dotenv
-import os
-# TODO: change to BaseSettings from pydantic_settings
-load_dotenv()
 
-DB_USER = os.environ.get("DB_USER")
-DB_PORT = os.environ.get("DB_PORT")
-DB_PASS = os.environ.get("DB_PASS")
-DB_HOST = os.environ.get("DB_HOST")
-DB_NAME = os.environ.get("DB_NAME")
 
-DB_TEST_USER = os.environ.get("DB_TEST_USER")
-DB_TEST_PORT = os.environ.get("DB_TEST_PORT")
-DB_TEST_PASS = os.environ.get("DB_TEST_PASS")
-DB_TEST_HOST = os.environ.get("DB_TEST_HOST")
-DB_TEST_NAME = os.environ.get("DB_TEST_NAME")
+PROJECT_PATH = Path(__file__).parent.parent
+ENV_PATH = PROJECT_PATH / ".env"
 
-BACKEND_CORS_ORIGINS = os.environ.get("BACKEND_CORS_ORIGINS")
+if not ENV_PATH.exists():
+    raise FileNotFoundError(f"{ENV_PATH} does not exist. Please create the .env file with the required variables.")
 
-SECRET_JWT = os.environ.get("SECRET_JWT")
-SECRET_MANAGER = os.environ.get("SECRET_MANAGER")
+load_dotenv(dotenv_path=ENV_PATH)
+ 
+
+class EnvSettings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=str(ENV_PATH), env_file_encoding="utf-8", extra="allow")
+
+
+class MailSettings(EnvSettings):
+    MAIL_USERNAME: str
+    MAIL_PASSWORD: str
+    MAIL_FROM: str
+    MAIL_PORT: str
+    MAIL_SERVER: str
+    MAIL_TLS: str
+    MAIL_SSL: str
+
+
+class DatabaseSettings(EnvSettings):
+    DB_USER: str
+    DB_PORT: str
+    DB_PASS: str
+    DB_HOST: str
+    DB_NAME: str
+
+    @property
+    def DATABASE_URL_ASYNC(self):
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+    
+    @property
+    def DATABASE_URL(self):
+        return f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+
+
+class TestDatabaseSettings(EnvSettings):
+    DB_TEST_USER: str
+    DB_TEST_PORT: str
+    DB_TEST_PASS: str
+    DB_TEST_HOST: str
+    DB_TEST_NAME: str
+
+    @property
+    def DATABASE_URL_ASYNC(self):
+        return f"postgresql+asyncpg://{self.DB_TEST_USER}:{self.DB_TEST_PASS}@{self.DB_TEST_HOST}:{self.DB_TEST_PORT}/{self.DB_TEST_NAME}"
+    
+    @property
+    def DATABASE_URL(self):
+        return f"postgresql+psycopg2://{self.DB_TEST_USER}:{self.DB_TEST_PASS}@{self.DB_TEST_HOST}:{self.DB_TEST_PORT}/{self.DB_TEST_NAME}"
+
+
+class MiddlewareSettings(EnvSettings):
+    BACKEND_CORS_ORIGINS: str
+
+
+class AuthSettings(EnvSettings):
+    SECRET_MANAGER: str
+    SECRET_JWT: str
+
+
+class Settings:
+    auth = AuthSettings()
+    database = DatabaseSettings()
+    test_database = TestDatabaseSettings()
+    middleware = MiddlewareSettings()
+    mail = MailSettings()
+
+
+settings = Settings()
