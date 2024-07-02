@@ -3,11 +3,13 @@ from typing import Optional
 from fastapi import Depends, Request
 from fastapi_users import BaseUserManager, IntegerIDMixin
 
-from backend.src.config import SECRET_MANAGER
+from backend.src.config import settings
 from backend.src.db import get_user_db
 from backend.src.auth.models import User
 
-SECRET = SECRET_MANAGER
+
+auth_settings = settings.auth
+SECRET = auth_settings.SECRET_MANAGER
 
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, int]):

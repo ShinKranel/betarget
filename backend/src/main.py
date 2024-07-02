@@ -1,6 +1,4 @@
-import sys
-sys.path.append('g:\\OSPanel\\domains\\betarget\\betarget')
-from backend.src.config import BACKEND_CORS_ORIGINS
+from backend.src.config import settings
 from fastapi.middleware.cors import CORSMiddleware
 
 import uvicorn
@@ -17,9 +15,10 @@ from backend.src.pages.router import router as router_pages
 
 app = FastAPI()
 
+middleware_settings = settings.middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=BACKEND_CORS_ORIGINS,
+    allow_origins=middleware_settings.BACKEND_CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["Content-Type", "Set-Cookie", "Access-Control-Allow-Headers", "Access-Control-Allow-Origin",
@@ -33,7 +32,9 @@ app.mount(
 )
 
 
-app.include_router(router_user, prefix="/api/v1/auth", tags=["auth"])
+auth_prefix = '/api/v1/auth'
+app.include_router(router_user, prefix=auth_prefix, tags=["auth"])
+app.include_router(fastapi_users.get_reset_password_router(), prefix=auth_prefix, tags=["auth"])
 app.include_router(fastapi_users.get_auth_router(auth_backend), tags=["auth"])
 app.include_router(fastapi_users.get_register_router(UserRead, UserCreate), tags=["auth"])
 
