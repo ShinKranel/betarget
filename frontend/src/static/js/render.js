@@ -77,6 +77,10 @@ function renderResumeList(resumes) {
     if (resume.rating >= 8) {
       resumeScoreNumberElement.classList.add("resume-list__score-number_good");
     }
+    if (resume.rating == 0) {
+      resumeScoreElement.style.display = "none";
+      // resumeScoreElement.style.visibility = "hidden";
+    }
 
     const resumeScoreTextElement = document.createTextNode(" / 10");
 

@@ -2,7 +2,7 @@
 
 async function fetchVacancies() {
   try {
-    const url = new URL("/vacancy", window.location.origin);
+    const url = new URL("/api/v1/vacancy", window.location.origin);
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -21,7 +21,7 @@ async function fetchResumeList(
   resumeStatus = undefined
 ) {
   try {
-    const url = new URL("/resume", window.location.origin);
+    const url = new URL("/api/v1/resume", window.location.origin);
     if (vacancyId !== undefined) {
       url.searchParams.set("vacancy_id", vacancyId);
     }
@@ -43,7 +43,7 @@ async function fetchResumeList(
 
 async function fetchResume(resumeId) {
   try {
-    const url = new URL(`resume/${resumeId}`, window.location.origin);
+    const url = new URL(`/api/v1/resume/${resumeId}`, window.location.origin);
     // url.searchParams.set("resume_id", resumeId);
 
     const response = await fetch(url, {
