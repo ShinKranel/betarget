@@ -1,3 +1,5 @@
+import sys
+sys.path.append('g:\\OSPanel\\domains\\betarget\\betarget')
 from backend.src.config import BACKEND_CORS_ORIGINS
 from fastapi.middleware.cors import CORSMiddleware
 
