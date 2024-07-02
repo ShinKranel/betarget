@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from backend.src.vacancy.models import WorkFormat, Experience, Education, EmploymentType
 
 
+# todo: add restrictions to every param
 class VacancyCreate(BaseModel):
     job_title: str
     city: str | None
@@ -17,6 +18,8 @@ class VacancyCreate(BaseModel):
 
 
 class VacancyRead(BaseModel):
+    id: int
+    user_id: int
     job_title: str | None
     city: str | None
     company: str
@@ -27,10 +30,6 @@ class VacancyRead(BaseModel):
     employment_type: EmploymentType | None
     skills: list[str] | None
     description: str | None
-
-
-class VacanciesRead(BaseModel):
-    vacancies: list[VacancyRead]
 
 
 class VacancyUpdate(VacancyCreate):
