@@ -62,3 +62,7 @@ class ResumeRead(BaseModel):
     github: str | None
     email: EmailStr | None
     phone_number: str | None  # TODO: change to pydantic_extra_types.phone_numbers.PhoneNumber in production ver
+
+
+class ResumeUpdate(ResumeRead):
+    pass

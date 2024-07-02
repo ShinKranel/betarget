@@ -32,5 +32,5 @@ class VacancyRead(BaseModel):
     description: str | None
 
 
-class VacancyUpdate(VacancyCreate):
+class VacancyUpdate(VacancyRead):
     pass

@@ -3,7 +3,7 @@ from sqlalchemy import select
 
 from backend.src.db import async_session_maker
 from backend.src.resume.models import Resume, ResumeStage
-from backend.src.resume.schemas import ResumeRead, ResumeCreate
+from backend.src.resume.schemas import ResumeRead, ResumeCreate, ResumeUpdate
 from backend.src.vacancy.schemas import VacancyRead
 
 
@@ -61,3 +61,18 @@ async def delete_resume_by_id(resume_id: int, user_id: int):
         await session.delete(resume)
         await session.commit()
         return {"success": f"Resume with id {resume.id} deleted."}
+
+
+async def update_resume(updated_resume: ResumeUpdate, user_id: int) -> ResumeUpdate:
+    """Update resume with updated_resume and user_id"""
+    async with async_session_maker() as session:
+        resume = await get_resume_by_id(updated_resume.id, user_id)
+        updated_data = updated_resume.model_dump(exclude_unset=True)
+        
+        for key, value in updated_data.items():
+            setattr(resume, key, value)
+        
+        session.add(resume)
+        await session.commit()
+        await session.refresh(resume)
+        return resume

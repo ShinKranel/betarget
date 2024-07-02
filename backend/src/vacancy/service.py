@@ -3,7 +3,7 @@ from sqlalchemy import select
 
 from backend.src.db import async_session_maker
 from backend.src.vacancy.models import Vacancy
-from backend.src.vacancy.schemas import VacancyCreate, VacancyRead
+from backend.src.vacancy.schemas import VacancyCreate, VacancyRead, VacancyUpdate
 
 
 async def get_vacancy_by_id(vacancy_id: int, user_id: int) -> VacancyRead:
@@ -46,3 +46,18 @@ async def delete_vacancy_by_id(vacancy_id: int, user_id: int):
         await session.delete(vacancy)
         await session.commit()
         return {"status": f"Vacancy with id {vacancy.id} deleted successfully"}
+
+
+async def update_vacancy(updated_vacancy: VacancyUpdate, user_id: int) -> VacancyUpdate:
+    """Update vacancy with updated_vacancy and user_id"""
+    async with async_session_maker() as session:
+        vacancy = await get_vacancy_by_id(updated_vacancy.id, user_id)
+        updated_data = updated_vacancy.model_dump(exclude_unset=True)
+        
+        for key, value in updated_data.items():
+            setattr(vacancy, key, value)
+        
+        session.add(vacancy)
+        await session.commit()
+        await session.refresh(vacancy)
+        return vacancy
