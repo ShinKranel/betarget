@@ -1,8 +1,14 @@
 """Init tables
 
+<<<<<<<< HEAD:backend/migrations/versions/b762042b6c9d_init_tables.py
 Revision ID: b762042b6c9d
 Revises: 
 Create Date: 2024-06-28 19:46:07.786093
+========
+Revision ID: b5193f57078d
+Revises: 
+Create Date: 2024-07-02 09:08:16.968059
+>>>>>>>> a27c1a2 (small changes):backend/migrations/versions/b5193f57078d_init_tables.py
 
 """
 from typing import Sequence, Union
@@ -12,7 +18,11 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
+<<<<<<<< HEAD:backend/migrations/versions/b762042b6c9d_init_tables.py
 revision: str = 'b762042b6c9d'
+========
+revision: str = 'b5193f57078d'
+>>>>>>>> a27c1a2 (small changes):backend/migrations/versions/b5193f57078d_init_tables.py
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -52,7 +62,7 @@ def upgrade() -> None:
     )
     op.create_table('resume',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('resume_status', sa.Enum('in_work', 'screening', 'interview', 'rejected', 'offer', name='resumestatus'), nullable=False),
+    sa.Column('resume_stage', sa.Enum('in_work', 'screening', 'interview', 'rejected', 'offer', name='resumestage'), nullable=False),
     sa.Column('rating', sa.Integer(), nullable=True),
     sa.Column('first_name', sa.String(), nullable=False),
     sa.Column('last_name', sa.String(), nullable=True),
