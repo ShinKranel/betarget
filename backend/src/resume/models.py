@@ -22,7 +22,7 @@ class InterestInJob(enum.Enum):
     offered_a_job_decides = 'offered a job, decides'
 
 
-class ResumeStatus(enum.Enum):
+class ResumeStage(enum.Enum):
     in_work = 'in_work'
     screening = 'screening'
     interview = 'interview'
@@ -36,7 +36,7 @@ class Resume(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    resume_status: Mapped[ResumeStatus]
+    resume_stage: Mapped[ResumeStage]
     rating: Mapped[int | None] = None
 
     # content

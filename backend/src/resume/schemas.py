@@ -1,18 +1,19 @@
 from pydantic import BaseModel, Field, EmailStr
 
-from backend.src.resume.models import Gender, ResumeStatus, InterestInJob
+from backend.src.resume.models import Gender, InterestInJob, ResumeStage
 # from pydantic_extra_types.phone_numbers import PhoneNumber
 
 
+# todo: add restrictions to every param
 class ResumeCreate(BaseModel):
-    resume_status: ResumeStatus = 'in_work'
+    resume_stage: ResumeStage = 'in_work'
     rating: int | None = Field(None, ge=0, le=10)
 
     # content
     first_name: str
     last_name: str | None
     job_title: str
-    age: int = Field(None, ge=0, le=130)
+    age: int | None = Field(None, ge=0, le=130)
     gender: Gender | None
     city: str | None
     expected_salary: int | None
@@ -30,12 +31,12 @@ class ResumeCreate(BaseModel):
     linkedin: str | None
     github: str | None
     email: EmailStr | None
-    phone_number: str | None
-
+    phone_number: str | None  # todo: change to pydantic_extra_types.phone_numbers.PhoneNumber in production ver
 
 
 class ResumeRead(BaseModel):
-    resume_status: ResumeStatus
+    id: int
+    resume_stage: ResumeStage
     rating: int | None
 
     # content
@@ -60,4 +61,4 @@ class ResumeRead(BaseModel):
     linkedin: str | None
     github: str | None
     email: EmailStr | None
-    phone_number: str | None
+    phone_number: str | None  # TODO: change to pydantic_extra_types.phone_numbers.PhoneNumber in production ver
