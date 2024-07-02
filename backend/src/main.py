@@ -1,14 +1,11 @@
-import sys
-sys.path.append('g:\\OSPanel\\domains\\betarget\\betarget')
-
 from backend.src.config import BACKEND_CORS_ORIGINS
 from fastapi.middleware.cors import CORSMiddleware
 
 import uvicorn
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 
-from backend.src.auth.base_config import auth_backend, fastapi_users, current_user
+from backend.src.auth.base_config import auth_backend, fastapi_users
 from backend.src.auth.schemas import UserRead, UserCreate
 
 from backend.src.auth.router import router as router_user
@@ -34,16 +31,13 @@ app.mount(
 )
 
 
-app.include_router(router_user, prefix="/auth", tags=["auth"])
-app.include_router(router_vacancy, prefix="/vacancy", tags=["vacancy"])
-app.include_router(router_resume, prefix="/resume", tags=["resume"])
+app.include_router(router_user, prefix="api/v1/auth", tags=["auth"])
+app.include_router(fastapi_users.get_auth_router(auth_backend), tags=["auth"])
+app.include_router(fastapi_users.get_register_router(UserRead, UserCreate), tags=["auth"])
+
+app.include_router(router_vacancy, prefix="api/v1/vacancy", tags=["vacancy"])
+app.include_router(router_resume, prefix="api/v1/resume", tags=["resume"])
 app.include_router(router_pages, tags=["pages"])
-app.include_router(
-    fastapi_users.get_auth_router(auth_backend), tags=["auth"],
-)
-app.include_router(
-    fastapi_users.get_register_router(UserRead, UserCreate), tags=["auth"],
-)
 
 
 if __name__ == "__main__":
