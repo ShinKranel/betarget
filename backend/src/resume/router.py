@@ -7,9 +7,12 @@ from backend.src.auth.models import User
 from backend.src.vacancy.service import get_vacancy_by_id
 
 from .models import ResumeStage
-from .schemas import ResumeCreate, ResumeRead
-from .service import get_resume_by_id, get_resumes_by_user_id, get_vacancy_resumes_by_stage, create_resume, \
-    delete_resume_by_id
+from .schemas import ResumeCreate, ResumeRead, ResumeUpdate
+from .service import (
+    get_resume_by_id, get_resumes_by_user_id, 
+    get_vacancy_resumes_by_stage, create_resume,
+    delete_resume_by_id, update_resume
+)
 
 router = APIRouter()
 
@@ -54,3 +57,9 @@ async def create_user_resume(
 async def delete_resume(resume_id: int, user: User = Depends(current_user)):
     """Delete user resume by id."""
     return await delete_resume_by_id(resume_id, user.id)
+
+
+@router.put("/", response_model=ResumeUpdate)
+async def update_user_resume(updated_resume: ResumeUpdate, user: User = Depends(current_user)):
+    """Update resume"""
+    return await update_resume(updated_resume, user.id)
