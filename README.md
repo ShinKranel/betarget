@@ -7,7 +7,7 @@
 - **Data validation** - [Pydantic](https://docs.pydantic.dev).
 
 ### Frontend: 
-_*(text will be added soon)_
+- HTML, CSS, SCSS, JavaScript, Vue(in future)
 
 ### Other:
 - 🐳 [Docker Compose](https://www.docker.com).
@@ -33,8 +33,8 @@ _*(text will be added soon)_
 - --- ✅ Vacancy _in progress_
 - --- Resume _in progress_
 - ✅ Add docker - 14.06.2024
-- Project **v0.1.0** - first working version: register, login and crm pages ready - (exp 20.06.2024 - 1.07.2024)
-- Client entity. (exp 20.06.2024 - 1.07.2024) (will be in project **v0.1.0**)
+- Project **v0.1.0** - first working version: register, login and crm pages ready - (exp 1.07.2024 - 30.07.2024)
+- Client entity. (exp 1.07.2024 - 30.07.2024) (will be in project **v0.1.0**)
 - Add GitHub Action for automated tests. (will be in project **v0.1.0**)
 - Sending emails from crm. (will be in project **v0.2.0**)
 - Sending messages from crm to: telegram, whatsapp, etc. (will be in project **v0.2.0**)
@@ -44,9 +44,9 @@ _*(text will be added soon)_
 - Extension for browsers (will be in project **v0.4.0**-**v0.5.0**)
 
 ### LOGIN page
-[![API docs](img/login_betarget.png)](https://github.com/ShinKranel/betarget)
+[![API docs](design/login_betarget.png)](https://github.com/ShinKranel/betarget/)
 *will be in project v0.1.0
 
 ### CRM page
-[![API docs](img/crm_page_betarget.png)](https://github.com/ShinKranel/betarget)
+[![API docs](design/crm_page_betarget.png)](https://github.com/ShinKranel/betarget)
 *will be in project v0.1.0
