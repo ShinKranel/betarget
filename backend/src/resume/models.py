@@ -61,7 +61,7 @@ class Resume(Base):
     linkedin: Mapped[str | None]
     github: Mapped[str | None]
     email: Mapped[str | None]
-    phone_number: Mapped[str | None]
+    phone_number: Mapped[str | None]  # todo: change to PhoneNumber
 
     # TODO: add photo field
 
