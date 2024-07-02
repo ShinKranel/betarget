@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
 # TODO: change to BaseSettings from pydantic_settings
-# there was trouble with get .env file, so, I'll try load_env() this time
 load_dotenv()
 
 DB_USER = os.environ.get("DB_USER")
