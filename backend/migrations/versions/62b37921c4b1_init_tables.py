@@ -1,14 +1,8 @@
 """Init tables
 
-<<<<<<<< HEAD:backend/migrations/versions/b762042b6c9d_init_tables.py
-Revision ID: b762042b6c9d
+Revision ID: 62b37921c4b1
 Revises: 
-Create Date: 2024-06-28 19:46:07.786093
-========
-Revision ID: b5193f57078d
-Revises: 
-Create Date: 2024-07-02 09:08:16.968059
->>>>>>>> a27c1a2 (small changes):backend/migrations/versions/b5193f57078d_init_tables.py
+Create Date: 2024-07-02 09:40:45.253013
 
 """
 from typing import Sequence, Union
@@ -18,11 +12,7 @@ import sqlalchemy as sa
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:backend/migrations/versions/b762042b6c9d_init_tables.py
-revision: str = 'b762042b6c9d'
-========
-revision: str = 'b5193f57078d'
->>>>>>>> a27c1a2 (small changes):backend/migrations/versions/b5193f57078d_init_tables.py
+revision: str = '62b37921c4b1'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
