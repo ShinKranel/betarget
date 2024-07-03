@@ -58,7 +58,7 @@ async def delete_resume(resume_id: int, user: User = Depends(current_user)):
     return await delete_resume_by_id(resume_id, user.id)
 
 
-@router.put("/", response_model=ResumeUpdate)
+@router.put("/", response_model=ResumeRead)
 async def update_user_resume(updated_resume: ResumeUpdate, user: User = Depends(current_user)):
     """Update resume"""
     return await update_resume(updated_resume, user.id)
