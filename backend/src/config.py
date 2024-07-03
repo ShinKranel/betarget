@@ -27,6 +27,16 @@ class MailSettings(EnvSettings):
     MAIL_SSL: str
 
 
+class RedisSettings(EnvSettings):
+    REDIS_HOST: str
+    REDIS_PORT: str
+    REDIS_CONNECTION_RETRY: int = 5
+
+    @property
+    def REDIS_URL(self):
+        return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}"
+
+
 class DatabaseSettings(EnvSettings):
     DB_USER: str
     DB_PORT: str
@@ -68,12 +78,18 @@ class AuthSettings(EnvSettings):
     SECRET_JWT: str
 
 
+class AdminSettings(EnvSettings):
+    SECRET_SESSION: str
+
+
 class Settings:
     auth = AuthSettings()
+    admin = AdminSettings()
     database = DatabaseSettings()
     test_database = TestDatabaseSettings()
     middleware = MiddlewareSettings()
     mail = MailSettings()
+    redis = RedisSettings()
 
 
 settings = Settings()

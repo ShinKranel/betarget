@@ -2,9 +2,12 @@ from typing import Optional
 
 from fastapi import Depends, Request, Response
 from fastapi_users import BaseUserManager, IntegerIDMixin
+from fastapi_users.password import PasswordHelper
+from pwdlib import PasswordHash
+from pwdlib.hashers.argon2 import Argon2Hasher
 
 from backend.src.config import settings
-from backend.src.db import get_user_db
+from backend.src.db import get_user_db, async_session_maker
 from backend.src.auth.models import User
 from backend.src.mail.utils import (
     send_sucessful_login_msg,
@@ -16,6 +19,9 @@ from backend.src.mail.utils import (
 
 auth_settings = settings.auth
 SECRET = auth_settings.SECRET_MANAGER
+
+password_hash = PasswordHash((Argon2Hasher(),))
+password_helper = PasswordHelper(password_hash)
 
 
 class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
@@ -49,3 +55,15 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
 
 async def get_user_manager(user_db=Depends(get_user_db)):
     yield UserManager(user_db)
+
+
+async def verify_password(stored_hashed_password: str, given_password: str) -> bool:
+    is_verified, updated_hash = password_helper.verify_and_update(given_password, stored_hashed_password)
+    if is_verified and updated_hash:
+        async with async_session_maker() as session:
+            await session.execute(
+                f"UPDATE {User.__tablename__} SET hashed_password = :new_hash WHERE hashed_password = :old_hash",
+                {"new_hash": updated_hash, "old_hash": stored_hashed_password}
+            )
+            await session.commit()
+    return is_verified
