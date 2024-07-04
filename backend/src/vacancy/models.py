@@ -64,3 +64,9 @@ class Vacancy(Base):
     # relationships
     resumes = relationship("Resume", back_populates="vacancy", cascade="all, delete", passive_deletes=True)
     user = relationship("User", back_populates="vacancies")
+
+    def __doc__(self):
+        return f"Vacancy({self.id}){self.job_title} | {self.company}"
+
+    def __str__(self):
+        return f"({self.id}) {self.job_title} | {self.company}"

@@ -9,7 +9,7 @@ import sys
 
 sys.path = ['', '..'] + sys.path[1:]
 
-from backend.src.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
+from backend.src.config import settings
 from backend.src.base import Base
 
 from backend.src.auth.models import User
@@ -22,12 +22,13 @@ from backend.src.resume.models import Resume
 # access to the values within the .ini file in use.
 config = context.config
 
+db_settings = settings.database
 section = config.config_ini_section
-config.set_section_option(section, "DB_USER", DB_USER)
-config.set_section_option(section, "DB_PORT", DB_PORT)
-config.set_section_option(section, "DB_PASS", DB_PASS)
-config.set_section_option(section, "DB_HOST", DB_HOST)
-config.set_section_option(section, "DB_NAME", DB_NAME)
+config.set_section_option(section, "DB_USER", db_settings.DB_USER)
+config.set_section_option(section, "DB_PORT", db_settings.DB_PORT)
+config.set_section_option(section, "DB_PASS", db_settings.DB_PASS)
+config.set_section_option(section, "DB_HOST", db_settings.DB_HOST)
+config.set_section_option(section, "DB_NAME", db_settings.DB_NAME)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -96,5 +97,3 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
-
-

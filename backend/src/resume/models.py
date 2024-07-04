@@ -76,3 +76,10 @@ class Resume(Base):
     # relationships
     vacancy = relationship("Vacancy", back_populates="resumes")
     user = relationship("User", back_populates="resumes")
+
+    def __doc__(self):
+        return f"Resume({self.id}){self.first_name} {self.last_name} [{self.job_title}]"
+
+    def __str__(self):
+        return f"({self.id}) {self.first_name} {self.last_name} [{self.job_title}]"
+
