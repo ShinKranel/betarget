@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqladmin import Admin
 
 from backend.src.auth.base_config import auth_backend, fastapi_users
+from backend.src.logger import logger
 from backend.src.auth.schemas import UserRead, UserCreate
 from backend.src.config import settings
 from backend.src.db import engine
@@ -23,7 +24,7 @@ from backend.src.pages.router import router as router_pages
 
 
 async def start_up(app: FastAPI):
-    print('Starting up')
+    logger.debug('App started')
     admin_settings = settings.admin
     admin = Admin(app=app, engine=engine, authentication_backend=AdminAuth(secret_key=admin_settings.SECRET_SESSION))
     admin_views = [UserAdmin, ResumeAdmin, VacancyAdmin]
@@ -31,7 +32,7 @@ async def start_up(app: FastAPI):
 
 
 async def shut_down(app: FastAPI):
-    print('Shutting Down')
+    logger.debug('Shutting down')
 
 
 @asynccontextmanager

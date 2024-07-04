@@ -82,6 +82,10 @@ class AdminSettings(EnvSettings):
     SECRET_SESSION: str
 
 
+class LoggingSettings:
+    LOG_PATH = PROJECT_PATH / "logs"
+
+
 class Settings:
     auth = AuthSettings()
     admin = AdminSettings()
@@ -90,6 +94,7 @@ class Settings:
     middleware = MiddlewareSettings()
     mail = MailSettings()
     redis = RedisSettings()
+    log = LoggingSettings()
 
 
 settings = Settings()

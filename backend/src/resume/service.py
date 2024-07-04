@@ -5,6 +5,7 @@ from backend.src.db import async_session_maker
 from backend.src.resume.models import Resume, ResumeStage
 from backend.src.resume.schemas import ResumeRead, ResumeCreate, ResumeUpdate
 from backend.src.vacancy.schemas import VacancyRead
+from backend.src.logger import logger
 
 
 async def get_resume_by_id(resume_id: int, user_id: int) -> ResumeRead:
@@ -13,8 +14,10 @@ async def get_resume_by_id(resume_id: int, user_id: int) -> ResumeRead:
         resume = await session.get(Resume, resume_id)
 
         if not resume:
+            logger.warning(f"Resume with id {resume_id} not found for user {user_id}")
             raise HTTPException(status_code=404, detail="Resume not found")
         if resume.user_id != user_id:
+            logger.warning(f"Resume with id {resume_id} not found for user {user_id}")
             raise HTTPException(status_code=403, detail="Not enough permissions to read this resume")
 
         return resume
