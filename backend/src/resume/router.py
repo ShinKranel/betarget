@@ -22,7 +22,6 @@ async def get_user_resumes(
         vacancy_id: int | None = None,
         resume_stage: ResumeStage = "in_work",
         user: User = Depends(current_user)
-
 ):
     """
     Return user resumes.

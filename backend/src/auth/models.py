@@ -37,3 +37,9 @@ class User(SQLAlchemyBaseUserTable[int], Base):
 
     vacancies = relationship("Vacancy", back_populates="user", cascade="all, delete", passive_deletes=True)
     resumes = relationship("Resume", back_populates="user", cascade="all, delete", passive_deletes=True)
+
+    def __doc__(self):
+        return f"User({self.id}){self.username}"
+
+    def __str__(self):
+        return f"({self.id}) {self.username}"
