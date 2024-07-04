@@ -27,6 +27,8 @@ services:
       - .env-non-dev
     container_name: betarget
     command: ["sh", "/betarget/docker/app.sh"]
+    volumes:
+      - ./backend/logs:/betarget/backend/logs
     ports:
       - 9999:8080
     depends_on:
