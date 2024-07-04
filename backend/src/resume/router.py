@@ -5,6 +5,7 @@ from starlette import status
 from backend.src.auth.base_config import current_user
 from backend.src.auth.models import User
 from backend.src.vacancy.service import get_vacancy_by_id
+from backend.src.logger import logger
 
 from .models import ResumeStage
 from .schemas import ResumeCreate, ResumeRead, ResumeUpdate
@@ -29,6 +30,7 @@ async def get_user_resumes(
     If vacancy_id is None - get ALL user resumes.
     If vacancy_id is NOT None - get vacancy_id resumes by resume_stage filter
     """
+    logger.info(f"Get user resumes for vacancy {vacancy_id} for user {user}")
     if not vacancy_id:
         return await get_resumes_by_user_id(user.id)
 
@@ -38,6 +40,7 @@ async def get_user_resumes(
 @router.get("/{resume_id}", response_model=ResumeRead)
 async def get_user_resume(resume_id: int, user: User = Depends(current_user)):
     """Get user resume by id"""
+    logger.info(f"Get user resume with id {resume_id} for user {user}")
     return await get_resume_by_id(resume_id, user.id)
 
 
@@ -48,6 +51,7 @@ async def create_user_resume(
         user: User = Depends(current_user)
 ):
     """Creates a new resume."""
+    logger.info(f"Create new user resume for vacancy {vacancy_id} for user {user}")
     await get_vacancy_by_id(vacancy_id, user.id)
     return await create_resume(new_resume, vacancy_id, user.id)
 
@@ -55,10 +59,12 @@ async def create_user_resume(
 @router.delete("/{resume_id}")
 async def delete_resume(resume_id: int, user: User = Depends(current_user)):
     """Delete user resume by id."""
+    logger.info(f"Delete user resume with id {resume_id} for user {user}")
     return await delete_resume_by_id(resume_id, user.id)
 
 
 @router.put("/", response_model=ResumeRead)
 async def update_user_resume(updated_resume: ResumeUpdate, user: User = Depends(current_user)):
     """Update resume"""
+    logger.info(f"Update user resume with id {updated_resume.id} for user {user}")
     return await update_resume(updated_resume, user.id)

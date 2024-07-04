@@ -1,6 +1,7 @@
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 
-from config import settings
+from backend.src.config import settings
+from backend.src.logger import logger
 
 
 mail_settings = settings.mail
@@ -16,6 +17,7 @@ mail_config = ConnectionConfig(
 )
 
 async def send_email(subject: str, recipients: list[str], body: str):
+    logger.info(f"Sending email with subject {subject} to {recipients}")
     message = MessageSchema(
         subject=subject,
         recipients=recipients,

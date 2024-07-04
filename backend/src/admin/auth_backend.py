@@ -5,6 +5,7 @@ from starlette.requests import Request
 
 from backend.src.auth.manager import verify_password
 from backend.src.auth.service import get_user_by_username
+from backend.src.logger import logger
 
 
 class AdminAuth(AuthenticationBackend):
@@ -21,11 +22,14 @@ class AdminAuth(AuthenticationBackend):
                 "admin_session_token": session_token,
                 "admin_username": username
             })
+            logger.info(f"User {user} logged in admin panel")
             return True
 
+        logger.warning(f"User {user} failed to login in admin panel")
         return False
 
     async def logout(self, request: Request) -> bool:
+        logger.warning(f"User {request.user} logged out admin panel")
         request.session.clear()
         return True
 
