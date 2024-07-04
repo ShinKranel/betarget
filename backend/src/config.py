@@ -86,9 +86,15 @@ class LoggingSettings:
     LOG_PATH = PROJECT_PATH / "logs"
 
 
+class CelerySettings(EnvSettings):
+    CELERY_BROKER_URL: str
+    CELERY_RESULT_BACKEND: str
+
+
 class Settings:
     auth = AuthSettings()
     admin = AdminSettings()
+    celery = CelerySettings()
     database = DatabaseSettings()
     test_database = TestDatabaseSettings()
     middleware = MiddlewareSettings()
