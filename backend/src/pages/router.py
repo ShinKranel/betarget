@@ -19,6 +19,3 @@ def get_base_template(request: Request):
         "request": request
     }
     return templates.TemplateResponse("index.html", context)
-
-
-# @router.get("/admin")

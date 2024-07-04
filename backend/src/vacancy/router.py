@@ -38,7 +38,7 @@ async def delete_user_vacancy(vacancy_id: int, user: User = Depends(current_user
     return await delete_vacancy_by_id(vacancy_id, user.id)
 
 
-@router.put("/", response_model=VacancyUpdate)
+@router.put("/", response_model=VacancyRead)
 async def update_user_vacancy(updated_vacancy: VacancyUpdate, user: User = Depends(current_user)):
     """Update vacancy."""
     return await update_vacancy(updated_vacancy, user.id)
