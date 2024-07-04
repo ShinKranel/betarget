@@ -1,3 +1,5 @@
+version: '3.9'
+
 services:
   db:
     image: postgres:16
@@ -19,18 +21,49 @@ services:
     env_file:
       - .env-non-dev
 
-  app:
+  rabbitmq:
+    image: rabbitmq:3.13.4-management
+    restart: always
+    container_name: rabbitmq_betarget
+    expose:
+      - 5672
+      - 15672
+
+  base_service:
     build:
       context: .
     restart: always
     env_file:
       - .env-non-dev
-    container_name: betarget
-    command: ["sh", "/betarget/docker/app.sh"]
     volumes:
       - ./backend/logs:/betarget/backend/logs
+
+  celery:
+    extends:
+      service: base_service
+    container_name: celery_betarget
+    command: ["/bin/sh", "-c", "/betarget/docker/celery.sh"]
+    depends_on:
+      - rabbitmq
+
+  flower:
+    extends:
+      service: base_service
+    container_name: celery_betarget_flower
+    ports:
+      - 5555:5555
+    expose:
+      - 5555
+    command: ["/bin/sh", "-c", "/betarget/docker/flower.sh"]
+    depends_on:
+      - rabbitmq
+
+  app:
+    extends:
+      service: base_service
+    container_name: betarget
     ports:
       - 9999:8080
+    command: ["sh", "/betarget/docker/app.sh"]
     depends_on:
       - db
-      - redis
