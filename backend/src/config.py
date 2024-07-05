@@ -91,6 +91,13 @@ class CelerySettings(EnvSettings):
     CELERY_RESULT_BACKEND: str
 
 
+class S3StorageSettings(EnvSettings):
+    S3_ACCESS_KEY: str
+    S3_SECRET_KEY: str
+    S3_BUCKET_NAME: str
+    S3_ENDPOINT_URL: str
+
+
 class Settings:
     auth = AuthSettings()
     admin = AdminSettings()
@@ -101,6 +108,7 @@ class Settings:
     mail = MailSettings()
     redis = RedisSettings()
     log = LoggingSettings()
+    s3 = S3StorageSettings()
 
 
 settings = Settings()
