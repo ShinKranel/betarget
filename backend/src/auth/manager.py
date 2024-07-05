@@ -6,10 +6,10 @@ from fastapi_users.password import PasswordHelper
 from pwdlib import PasswordHash
 from pwdlib.hashers.argon2 import Argon2Hasher
 
-from backend.src.config import settings
-from backend.src.db import get_user_db, async_session_maker
-from backend.src.auth.models import User
-from backend.src.mail.utils import (
+from config import settings
+from db import get_user_db, async_session_maker
+from auth.models import User
+from mail.utils import (
     send_sucessful_login_msg,
     send_sucessful_register_msg,
     send_sucessful_reset_password_msg,

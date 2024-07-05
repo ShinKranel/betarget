@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from typing import Optional
 
-from backend.src.auth.models import User
-from backend.src.db import async_session_maker
+from auth.models import User
+from db import async_session_maker
 
 
 async def get_user_by_username(username: str) -> Optional[User]:

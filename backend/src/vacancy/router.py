@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Depends
 from starlette import status
 
-from backend.src.auth.models import User
-from backend.src.vacancy.schemas import VacancyCreate, VacancyRead, VacancyUpdate
-from backend.src.logger import logger
+from auth.models import User
+from vacancy.schemas import VacancyCreate, VacancyRead, VacancyUpdate
+from logger import logger
 
-from backend.src.auth.base_config import current_user
-from backend.src.vacancy.service import (
+from auth.base_config import current_user
+from vacancy.service import (
     get_vacancies_by_user_id, get_vacancy_by_id, 
     create_vacancy, delete_vacancy_by_id, update_vacancy
 )

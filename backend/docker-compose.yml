@@ -4,27 +4,27 @@ services:
   db:
     image: postgres:16
     restart: always
-    container_name: db_betarget
+    container_name: db_betarget_backend
     command: -p 1221
     expose:
       - 1221
     env_file:
-      - .env-non-dev
+      - .env
 
   redis:
     image: redis:7
     restart: always
-    container_name: redis_betarget
+    container_name: redis_betarget_backend
     command: --port 5370
     expose:
       - 5370
     env_file:
-      - .env-non-dev
+      - .env
 
   rabbitmq:
     image: rabbitmq:3.13.4-management
     restart: always
-    container_name: rabbitmq_betarget
+    container_name: rabbitmq_betarget_backend
     expose:
       - 5672
       - 15672
@@ -34,36 +34,36 @@ services:
       context: .
     restart: always
     env_file:
-      - .env-non-dev
+      - .env
     volumes:
-      - ./backend/logs:/betarget/backend/logs
+      - ./logs:/betarget_backend/logs
 
   celery:
     extends:
       service: base_service
-    container_name: celery_betarget
-    command: ["/bin/sh", "-c", "/betarget/docker/celery.sh"]
+    container_name: celery_betarget_backend
+    command: ["/bin/sh", "-c", "/betarget_backend/docker/celery.sh"]
     depends_on:
       - rabbitmq
 
   flower:
     extends:
       service: base_service
-    container_name: celery_betarget_flower
+    container_name: celery_betarget_backend_flower
     ports:
       - 5555:5555
     expose:
       - 5555
-    command: ["/bin/sh", "-c", "/betarget/docker/flower.sh"]
+    command: ["/bin/sh", "-c", "/betarget_backend/docker/flower.sh"]
     depends_on:
       - rabbitmq
 
   app:
     extends:
       service: base_service
-    container_name: betarget
+    container_name: betarget_backend
     ports:
       - 9999:8080
-    command: ["sh", "/betarget/docker/app.sh"]
+    command: ["sh", "/betarget_backend/docker/app.sh"]
     depends_on:
       - db

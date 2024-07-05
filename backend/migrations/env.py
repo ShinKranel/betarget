@@ -9,12 +9,12 @@ import sys
 
 sys.path = ['', '..'] + sys.path[1:]
 
-from backend.src.config import settings
-from backend.src.base import Base
+from config import settings
+from base import Base
 
-from backend.src.auth.models import User
-from backend.src.vacancy.models import Vacancy
-from backend.src.resume.models import Resume
+from auth.models import User
+from vacancy.models import Vacancy
+from resume.models import Resume
 
 # sys.path.append(os.path.join(sys.path[0], 'src'))
 

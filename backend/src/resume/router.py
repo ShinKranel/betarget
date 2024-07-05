@@ -2,10 +2,10 @@ from fastapi import APIRouter, Depends
 
 from starlette import status
 
-from backend.src.auth.base_config import current_user
-from backend.src.auth.models import User
-from backend.src.vacancy.service import get_vacancy_by_id
-from backend.src.logger import logger
+from auth.base_config import current_user
+from auth.models import User
+from vacancy.service import get_vacancy_by_id
+from logger import logger
 
 from .models import ResumeStage
 from .schemas import ResumeCreate, ResumeRead, ResumeUpdate

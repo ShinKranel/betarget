@@ -3,8 +3,8 @@ from pathlib import Path
 
 from aiobotocore.session import get_session
 
-from backend.src.config import settings
-from backend.src.logger import logger
+from config import settings
+from logger import logger
 
 
 class S3Client:

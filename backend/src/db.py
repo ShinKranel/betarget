@@ -10,9 +10,9 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.engine.interfaces import DBAPICursor, _DBAPIAnyExecuteParams
 from sqlalchemy.engine.interfaces import ExecutionContext
 
-from backend.src.auth.models import User
-from backend.src.config import settings
-from backend.src.logger import db_query_logger
+from auth.models import User
+from config import settings
+from logger import db_query_logger
 
 
 db_settings = settings.database

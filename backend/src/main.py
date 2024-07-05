@@ -2,25 +2,23 @@ from contextlib import asynccontextmanager
 
 import uvicorn
 from fastapi import FastAPI
-from starlette.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from sqladmin import Admin
 
-from backend.src.auth.base_config import auth_backend, fastapi_users
-from backend.src.logger import logger
-from backend.src.auth.schemas import UserRead, UserCreate
-from backend.src.config import settings
-from backend.src.db import engine
+from auth.base_config import auth_backend, fastapi_users
+from logger import logger
+from auth.schemas import UserRead, UserCreate
+from config import settings
+from db import engine
 
-from backend.src.vacancy.admin import VacancyAdmin
-from backend.src.resume.admin import ResumeAdmin
-from backend.src.auth.admin import UserAdmin
-from backend.src.admin.auth_backend import AdminAuth
+from vacancy.admin import VacancyAdmin
+from resume.admin import ResumeAdmin
+from auth.admin import UserAdmin
+from admin.auth_backend import AdminAuth
 
-from backend.src.auth.router import router as router_user
-from backend.src.resume.router import router as router_resume
-from backend.src.vacancy.router import router as router_vacancy
-from backend.src.pages.router import router as router_pages
+from auth.router import router as router_user
+from resume.router import router as router_resume
+from vacancy.router import router as router_vacancy
 
 
 async def start_up(app: FastAPI):
@@ -54,12 +52,6 @@ app.add_middleware(
                    "Authorization"],
 )
 
-app.mount(
-    "/static",
-    StaticFiles(directory='frontend/src/static'),
-    name="static",
-)
-
 auth_prefix = '/api/v1/auth'
 app.include_router(router_user, prefix=auth_prefix, tags=["auth"])
 app.include_router(fastapi_users.get_reset_password_router(), prefix=auth_prefix, tags=["auth"])
@@ -68,7 +60,6 @@ app.include_router(fastapi_users.get_register_router(UserRead, UserCreate), tags
 
 app.include_router(router_vacancy, prefix="/api/v1/vacancy", tags=["vacancy"])
 app.include_router(router_resume, prefix="/api/v1/resume", tags=["resume"])
-app.include_router(router_pages, tags=["pages"])
 
 
 if __name__ == "__main__":
