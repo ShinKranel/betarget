@@ -7,10 +7,10 @@ from sqlalchemy import NullPool
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from fastapi.testclient import TestClient
 
-from backend.src.base import Base
-from backend.src.config import settings
-from backend.src.db import get_async_session
-from backend.src.main import app
+from base import Base
+from config import settings
+from db import get_async_session
+from main import app
 from utils import get_auth_token
 
 test_db_settigns = settings.test_database

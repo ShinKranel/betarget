@@ -86,15 +86,29 @@ class LoggingSettings:
     LOG_PATH = PROJECT_PATH / "logs"
 
 
+class CelerySettings(EnvSettings):
+    CELERY_BROKER_URL: str
+    CELERY_RESULT_BACKEND: str
+
+
+class S3StorageSettings(EnvSettings):
+    S3_ACCESS_KEY: str
+    S3_SECRET_KEY: str
+    S3_BUCKET_NAME: str
+    S3_ENDPOINT_URL: str
+
+
 class Settings:
     auth = AuthSettings()
     admin = AdminSettings()
+    celery = CelerySettings()
     database = DatabaseSettings()
     test_database = TestDatabaseSettings()
     middleware = MiddlewareSettings()
     mail = MailSettings()
     redis = RedisSettings()
     log = LoggingSettings()
+    s3 = S3StorageSettings()
 
 
 settings = Settings()

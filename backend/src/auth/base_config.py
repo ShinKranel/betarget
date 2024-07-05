@@ -2,9 +2,9 @@ from fastapi_users import FastAPIUsers
 from fastapi_users.authentication import CookieTransport, AuthenticationBackend
 from fastapi_users.authentication import JWTStrategy
 
-from backend.src.auth.manager import get_user_manager
-from backend.src.auth.models import User
-from backend.src.config import settings
+from auth.manager import get_user_manager
+from auth.models import User
+from config import settings
 
 cookie_transport = CookieTransport(
     cookie_name="bonds",

@@ -1,10 +1,10 @@
 from fastapi import HTTPException
 from sqlalchemy import select
 
-from backend.src.db import async_session_maker
-from backend.src.vacancy.models import Vacancy
-from backend.src.vacancy.schemas import VacancyCreate, VacancyRead, VacancyUpdate
-from backend.src.logger import logger
+from db import async_session_maker
+from vacancy.models import Vacancy
+from vacancy.schemas import VacancyCreate, VacancyRead, VacancyUpdate
+from logger import logger
 
 
 async def get_vacancy_by_id(vacancy_id: int, user_id: int) -> VacancyRead:

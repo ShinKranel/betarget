@@ -1,7 +1,6 @@
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
+from fastapi_mail import ConnectionConfig
 
-from backend.src.config import settings
-from backend.src.logger import logger
+from config import settings
 
 
 mail_settings = settings.mail
@@ -15,15 +14,3 @@ mail_config = ConnectionConfig(
     MAIL_SSL_TLS=bool(mail_settings.MAIL_SSL),
     USE_CREDENTIALS=True
 )
-
-async def send_email(subject: str, recipients: list[str], body: str):
-    logger.info(f"Sending email with subject {subject} to {recipients}")
-    message = MessageSchema(
-        subject=subject,
-        recipients=recipients,
-        body=body,
-        subtype="html"
-    )
-
-    fm = FastMail(mail_config)
-    await fm.send_message(message)

@@ -1,11 +1,11 @@
 from fastapi import HTTPException
 from sqlalchemy import select
 
-from backend.src.db import async_session_maker
-from backend.src.resume.models import Resume, ResumeStage
-from backend.src.resume.schemas import ResumeRead, ResumeCreate, ResumeUpdate
-from backend.src.vacancy.schemas import VacancyRead
-from backend.src.logger import logger
+from db import async_session_maker
+from resume.models import Resume, ResumeStage
+from resume.schemas import ResumeRead, ResumeCreate, ResumeUpdate
+from vacancy.schemas import VacancyRead
+from logger import logger
 
 
 async def get_resume_by_id(resume_id: int, user_id: int) -> ResumeRead:

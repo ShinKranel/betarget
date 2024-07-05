@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field, EmailStr
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
-from backend.src.resume.models import Gender, InterestInJob, ResumeStage
+from resume.models import Gender, InterestInJob, ResumeStage
 
 
 class ResumeCreate(BaseModel):
