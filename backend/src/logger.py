@@ -10,16 +10,15 @@ def create_log_files_if_not_exist():
         log_settings.LOG_PATH.mkdir(parents=True)
 
 
-def setup_logger():
-    logger = logging.getLogger('AppLogger')
+def setup_logger(logger_name: str, filename: str = 'app.log'):
+    logger = logging.getLogger(logger_name)
     logger.setLevel(logging.DEBUG)
 
     log_settings = settings.log
-    file_name = 'app.log'
 
     create_log_files_if_not_exist()
 
-    file_handler = RotatingFileHandler(filename=log_settings.LOG_PATH / file_name, maxBytes=5*1024*1024, backupCount=2)
+    file_handler = RotatingFileHandler(filename=log_settings.LOG_PATH / filename, maxBytes=5*1024*1024, backupCount=2)
     file_handler.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -30,4 +29,5 @@ def setup_logger():
     return logger
 
 
-logger = setup_logger()
+logger = setup_logger(logger_name='AppLogger')
+db_query_logger = setup_logger(logger_name='DBQueryLogger', filename='db.log')
