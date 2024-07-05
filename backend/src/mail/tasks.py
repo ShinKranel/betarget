@@ -2,9 +2,9 @@ import asyncio
 
 from fastapi_mail import FastMail, MessageSchema
 
-from backend.src.tasks_celery import celery_app
-from backend.src.logger import logger
-from backend.src.mail.mail import mail_config
+from tasks_celery import celery_app
+from logger import logger
+from mail.mail import mail_config
 
 
 @celery_app.task

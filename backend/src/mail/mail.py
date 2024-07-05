@@ -1,6 +1,6 @@
 from fastapi_mail import ConnectionConfig
 
-from backend.src.config import settings
+from config import settings
 
 
 mail_settings = settings.mail

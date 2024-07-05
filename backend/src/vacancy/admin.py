@@ -1,6 +1,6 @@
 from sqladmin import ModelView
 
-from backend.src.vacancy.models import Vacancy
+from vacancy.models import Vacancy
 
 
 class VacancyAdmin(ModelView, model=Vacancy):

@@ -1,6 +1,6 @@
 from celery import Celery
 
-from backend.src.config import settings
+from config import settings
 
 celery_settings = settings.celery
 celery_app = Celery(
@@ -18,4 +18,4 @@ celery_app.conf.update(
 )
 
 # Ensure tasks are discovered
-celery_app.autodiscover_tasks(['backend.src.mail'])
+celery_app.autodiscover_tasks(['src.mail'])

@@ -1,6 +1,6 @@
 from sqladmin import ModelView
 
-from backend.src.resume.models import Resume, Gender, InterestInJob, ResumeStage
+from resume.models import Resume, Gender, InterestInJob, ResumeStage
 
 
 class ResumeAdmin(ModelView, model=Resume):

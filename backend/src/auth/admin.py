@@ -1,6 +1,6 @@
 from sqladmin import ModelView
 
-from backend.src.auth.models import User
+from auth.models import User
 
 class UserAdmin(ModelView, model=User):
     name='User'

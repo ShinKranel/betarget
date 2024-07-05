@@ -1,7 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
-from backend.src.config import settings
+from config import settings
 
 
 def create_log_files_if_not_exist():

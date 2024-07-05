@@ -3,9 +3,9 @@ import secrets
 from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
 
-from backend.src.auth.manager import verify_password
-from backend.src.auth.service import get_user_by_username
-from backend.src.logger import logger
+from auth.manager import verify_password
+from auth.service import get_user_by_username
+from logger import logger
 
 
 class AdminAuth(AuthenticationBackend):
