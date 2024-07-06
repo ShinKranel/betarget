@@ -1,8 +1,9 @@
 import enum
 
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import ForeignKey, String, Column
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy_utils.types.url import URLType
 
 from base import Base
 
@@ -40,46 +41,59 @@ class Resume(Base):
     rating: Mapped[int | None] = None
 
     # content
-    first_name: Mapped[str]
-    last_name: Mapped[str | None]
     job_title: Mapped[str]
-    age: Mapped[int | None]
-    gender: Mapped[Gender | None]
-    city: Mapped[str | None]
     expected_salary: Mapped[int | None]
     interest_in_job: Mapped[InterestInJob | None]
     skills: Mapped[ARRAY | None] = mapped_column(ARRAY(String(255)))
-    about: Mapped[str | None]
     experience: Mapped[str | None]
     education: Mapped[str | None]
     ready_to_relocate: Mapped[bool | None]
     ready_for_business_trips: Mapped[bool | None]
 
-    # contacts
-    telegram: Mapped[str | None]
-    whatsapp: Mapped[str | None]
-    linkedin: Mapped[str | None]
-    github: Mapped[str | None]
-    email: Mapped[str | None]
-    phone_number: Mapped[str | None]  # todo: change to PhoneNumber
-
-    # TODO: add photo field
-
-    # foreign keys
-    user_id: Mapped[int] = mapped_column(
-        ForeignKey("user.id", ondelete="CASCADE"), nullable=False
-    )
     vacancy_id: Mapped[int] = mapped_column(
         ForeignKey("vacancy.id", ondelete="CASCADE"), nullable=False
+    )
+    candidate_id: Mapped[int] = mapped_column(
+        ForeignKey("candidate.id"), nullable=False
     )
 
     # relationships
     vacancy = relationship("Vacancy", back_populates="resumes")
-    user = relationship("User", back_populates="resumes")
+    candidate = relationship("Candidate", back_populates="resume", lazy="joined")
 
     def __doc__(self):
-        return f"Resume({self.id}){self.first_name} {self.last_name} [{self.job_title}]"
-
+        return f"Resume({self.id}) {self.job_title}"
+    
     def __str__(self):
-        return f"({self.id}) {self.first_name} {self.last_name} [{self.job_title}]"
+        return f"({self.id}) {self.job_title}"
 
+
+class Candidate(Base):
+    __tablename__ = "candidate"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    first_name: Mapped[str]
+    last_name: Mapped[str | None]
+    age: Mapped[int | None]
+    gender: Mapped[Gender | None]
+    city: Mapped[str | None]
+    about: Mapped[str | None]
+
+    # contacts
+    telegram: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
+    whatsapp: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
+    linkedin: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
+    github: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
+    email: Mapped[str | None]
+    phone_number: Mapped[str | None]
+
+    profile_picture: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
+
+    # relationships
+    resume = relationship("Resume", back_populates="candidate", cascade="all, delete", lazy="joined")
+
+    def __doc__(self):
+        return f"Candidate({self.id}) {self.first_name} {self.last_name}"
+    
+    def __str__(self):
+        return f"({self.id}) {self.first_name} {self.last_name}"

@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, UUID4
 
 from vacancy.models import WorkFormat, Experience, Education, EmploymentType
 
@@ -18,7 +18,7 @@ class VacancyCreate(BaseModel):
 
 class VacancyRead(BaseModel):
     id: int
-    user_id: int
+    user_id: UUID4
     job_title: str | None = Field(None, min_length=1, max_length=60)
     city: str | None = Field(None, max_length=50)
     company: str = Field(..., min_length=1, max_length=50)

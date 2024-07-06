@@ -79,6 +79,8 @@ class AuthSettings(EnvSettings):
 
 
 class AdminSettings(EnvSettings):
+    ADMIN_USERNAME: str
+    ADMIN_PASSWORD: str
     SECRET_SESSION: str
 
 
