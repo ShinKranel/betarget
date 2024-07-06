@@ -18,4 +18,4 @@ celery_app.conf.update(
 )
 
 # Ensure tasks are discovered
-celery_app.autodiscover_tasks(['src.mail'])
+celery_app.autodiscover_tasks(['mail'])

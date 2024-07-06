@@ -52,9 +52,8 @@ app.add_middleware(
                    "Authorization"],
 )
 
-auth_prefix = '/api/v1/auth'
-app.include_router(router_user, prefix=auth_prefix, tags=["auth"])
-app.include_router(fastapi_users.get_reset_password_router(), prefix=auth_prefix, tags=["auth"])
+app.include_router(router_user, tags=["auth"])
+app.include_router(fastapi_users.get_reset_password_router(), tags=["auth"])
 app.include_router(fastapi_users.get_auth_router(auth_backend), tags=["auth"])
 app.include_router(fastapi_users.get_register_router(UserRead, UserCreate), tags=["auth"])
 
