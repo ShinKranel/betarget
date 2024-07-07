@@ -1,8 +1,10 @@
 import enum
+from datetime import datetime
 
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import ForeignKey, String, text
 from sqlalchemy.dialects.postgresql import ARRAY, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from config import settings
 
 from base import Base
 
@@ -56,6 +58,12 @@ class Vacancy(Base):
     employment_type: Mapped[EmploymentType]
     skills: Mapped[ARRAY] = mapped_column(ARRAY(String(255)))
     description: Mapped[str]
+    created_at: Mapped[datetime] = mapped_column(
+        server_default=text("TIMEZONE('utc', now())")
+    )
+    expiration_date: Mapped[datetime] = mapped_column(
+        server_default=text(f"TIMEZONE('utc', now() + INTERVAL '{settings.vacancy.EXPIRATION_TIME} day')")
+    )
 
     # foreign keys
     user_id: Mapped[UUID] = mapped_column(

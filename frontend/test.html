@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SSE Example</title>
+</head>
+
+<body>
+    <h1>SSE Example</h1>    
+    <div id="events"></div>
+    <script>
+        const eventSource = new EventSource('http://localhost:9999/api/v1/sse/events'); // This should match your FastAPI endpoint
+
+        eventSource.onmessage = function (event) {
+            // Generic message received from the server
+            console.log('Message:', event.data);
+            document.getElementById('events').innerHTML += `<p>${event.data}</p>`;
+        };
+
+        eventSource.addEventListener('vacancy_expiration', function (event) {
+            // Custom event received from the server
+            console.log('Vacancy Expiration:', event.data);
+            document.getElementById('events').innerHTML += `<p>Vacancy Expiration: ${event.data}</p>`;
+        });
+
+        eventSource.onerror = function (event) {
+            console.error('Error:', event);
+        };
+    </script>
+</body>
+
+</html>

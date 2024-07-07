@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel, Field, UUID4
 
 from vacancy.models import WorkFormat, Experience, Education, EmploymentType
@@ -29,6 +31,8 @@ class VacancyRead(BaseModel):
     employment_type: EmploymentType | None
     skills: list[str] | None = Field(None, max_items=20)
     description: str | None = Field(None, max_length=2000)
+    created_at: datetime
+    expiration_date: datetime
 
 
 class VacancyUpdate(VacancyRead):

@@ -105,6 +105,14 @@ class RequestLimiterSettings:
     DEFAULT_LIMIT: int = RateLimiter(times=3, seconds=5)
 
 
+class VacancySettings:
+    EXPIRATION_TIME: int = 30
+
+
+class SSESettings:
+    EVENT_LOOP_RETRY_TIME: int = 60
+
+
 class Settings:
     auth = AuthSettings()
     admin = AdminSettings()
@@ -117,6 +125,8 @@ class Settings:
     log = LoggingSettings()
     s3 = S3StorageSettings()
     request_limiter = RequestLimiterSettings()
+    vacancy = VacancySettings()
+    sse = SSESettings()
 
 
 settings = Settings()
