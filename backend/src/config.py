@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from fastapi_limiter.depends import RateLimiter
 from dotenv import load_dotenv
 
 
@@ -100,6 +101,10 @@ class S3StorageSettings(EnvSettings):
     S3_ENDPOINT_URL: str
 
 
+class RequestLimiterSettings:
+    DEFAULT_LIMIT: int = RateLimiter(times=3, seconds=5)
+
+
 class Settings:
     auth = AuthSettings()
     admin = AdminSettings()
@@ -111,6 +116,7 @@ class Settings:
     redis = RedisSettings()
     log = LoggingSettings()
     s3 = S3StorageSettings()
+    request_limiter = RequestLimiterSettings()
 
 
 settings = Settings()
