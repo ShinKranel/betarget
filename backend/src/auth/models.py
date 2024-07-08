@@ -38,7 +38,6 @@ class User(SQLAlchemyBaseUserTable[uuid.UUID], Base):
         Boolean, default=False, nullable=False
     )
 
-    
     # contacts
     telegram: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
     whatsapp: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
@@ -46,6 +45,7 @@ class User(SQLAlchemyBaseUserTable[uuid.UUID], Base):
     github: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
     email: Mapped[str | None]
     phone_number: Mapped[str | None]
+    verification_token: Mapped[str | None]
 
     profile_picture: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
 
