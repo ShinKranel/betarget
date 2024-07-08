@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from starlette import status
 
 from auth.base_config import current_user
-from auth.models import User
+from user.models import User
 from vacancy.service import get_vacancy_by_id
 from logger import logger
 

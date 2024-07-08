@@ -10,7 +10,7 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.engine.interfaces import DBAPICursor, _DBAPIAnyExecuteParams
 from sqlalchemy.engine.interfaces import ExecutionContext
 
-from auth.models import User
+from user.models import User
 from config import settings
 from logger import db_query_logger
 

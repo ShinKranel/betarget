@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from starlette import status
 
-from auth.models import User
+from user.models import User
 from vacancy.schemas import VacancyCreate, VacancyRead, VacancyUpdate
 from logger import logger
 

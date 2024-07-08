@@ -7,6 +7,8 @@ from config import settings
 from logger import logger
 
 
+s3_settings = settings.s3
+
 class S3Client:
     def __init__(self, access_key: str, secret_key: str, bucket_name: str, end_point_url: str):
         self.bucket_name = bucket_name
@@ -25,7 +27,7 @@ class S3Client:
         ) as client:
             yield client
 
-    async def upload_file(self, object_name: str, file_path: Path | None = None, file_data: bytes | None = None):
+    async def upload_file(self, object_name: str, file_path: Path | None = None, file_data: bytes | None = None) -> str | None:
         async with self.get_client() as client:
             if file_path:
                 with open(file_path, 'rb') as f:
@@ -36,9 +38,12 @@ class S3Client:
                     Key=object_name,
                     Body=file_data
                 )
+                url = s3_settings.S3_PUBLIC_DOMAIN + '/' + object_name
                 logger.info(f"File {object_name} is uploaded")
+                return url
             else:
                 logger.warning(f"File {object_name} can't be uploaded")
+                return None
 
     async def download_file(self, object_name: str) -> bytes:
         async with self.get_client() as client:
@@ -51,7 +56,6 @@ class S3Client:
             return file_data
 
 
-s3_settings = settings.s3
 s3_client = S3Client(
     access_key=s3_settings.S3_ACCESS_KEY,
     secret_key=s3_settings.S3_SECRET_KEY,
