@@ -7,7 +7,7 @@ from sqladmin import Admin
 from fastapi_limiter import FastAPILimiter
 
 from auth.base_config import auth_backend, fastapi_users
-from auth.schemas import UserRead, UserCreate
+from user.schemas import UserRead, UserCreate
 from logger import logger
 from config import settings
 from db import engine
@@ -16,12 +16,13 @@ from sse import sse_router
 
 from vacancy.admin import VacancyAdmin
 from resume.admin import ResumeAdmin, CandidateAdmin
-from auth.admin import UserAdmin
+from user.admin import UserAdmin
 from admin.auth_backend import AdminAuth
 
-from auth.router import router as router_user
+from auth.router import router as router_auth
 from resume.router import router as router_resume
 from vacancy.router import router as router_vacancy
+from user.router import router as router_user
 
 
 async def __init_admin():
@@ -78,10 +79,9 @@ app.add_middleware(
     ],
 )
 
-
 request_limiter_settings = settings.request_limiter
 app.include_router(
-    router_user, 
+    router_auth, 
     tags=["auth"],
     dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
 )
@@ -98,6 +98,12 @@ app.include_router(
 app.include_router(
     fastapi_users.get_register_router(UserRead, UserCreate), 
     tags=["auth"],
+    dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+)
+app.include_router(
+    router_user,
+    prefix="/api/v1/user",
+    tags=["user"],
     dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
 )
 app.include_router(

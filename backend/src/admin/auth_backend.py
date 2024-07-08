@@ -4,7 +4,7 @@ from sqladmin.authentication import AuthenticationBackend
 from starlette.requests import Request
 
 from auth.manager import verify_password
-from auth.service import get_user_by_username
+from user.service import get_user_by_username
 from logger import logger
 from config import settings
 

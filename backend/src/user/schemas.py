@@ -1,4 +1,4 @@
-from pydantic import EmailStr, AnyUrl , UUID4,  Field, field_validator
+from pydantic import EmailStr, AnyUrl , UUID4,  Field, field_validator, BaseModel
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
 
@@ -54,5 +54,12 @@ class UserCreate(schemas.BaseUserCreate):
         return value 
 
 
-class UserUpdate(UserRead):
-    pass
+class UserUpdate(BaseModel):
+    username: str = Field(..., min_length=1, max_length=30)
+    telegram: AnyUrl | None = Field(None, max_length=60)
+    whatsapp: AnyUrl | None = Field(None, max_length=60)
+    linkedin: AnyUrl | None = Field(None, max_length=150)
+    github: AnyUrl | None = Field(None, max_length=150)
+    email: EmailStr | None
+    phone_number: PhoneNumber | None
+           

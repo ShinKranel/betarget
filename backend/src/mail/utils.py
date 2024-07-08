@@ -1,5 +1,5 @@
 from mail.tasks import send_email
-from auth.models import User
+from user.models import User
 
 
 async def send_sucessful_login_msg(user: User):

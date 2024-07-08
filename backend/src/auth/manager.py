@@ -11,7 +11,7 @@ from pwdlib.hashers.argon2 import Argon2Hasher
 from config import settings
 from db import get_user_db, async_session_maker
 from logger import logger
-from auth.models import User
+from user.models import User
 from auth.service import update_user_verification_token
 from mail.utils import (
     send_sucessful_login_msg,
