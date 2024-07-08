@@ -12,7 +12,7 @@ from config import settings
 from db import engine
 
 from vacancy.admin import VacancyAdmin
-from resume.admin import ResumeAdmin
+from resume.admin import ResumeAdmin, CandidateAdmin
 from auth.admin import UserAdmin
 from admin.auth_backend import AdminAuth
 
@@ -25,7 +25,7 @@ async def start_up(app: FastAPI):
     logger.debug('App started')
     admin_settings = settings.admin
     admin = Admin(app=app, engine=engine, authentication_backend=AdminAuth(secret_key=admin_settings.SECRET_SESSION))
-    admin_views = [UserAdmin, ResumeAdmin, VacancyAdmin]
+    admin_views = [UserAdmin, ResumeAdmin, VacancyAdmin, CandidateAdmin]
     [admin.add_view(view) for view in admin_views]
 
 

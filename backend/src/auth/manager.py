@@ -1,7 +1,8 @@
 from typing import Optional
+from uuid import UUID
 
 from fastapi import Depends, Request, Response
-from fastapi_users import BaseUserManager, IntegerIDMixin
+from fastapi_users import BaseUserManager, UUIDIDMixin
 from fastapi_users.password import PasswordHelper
 from pwdlib import PasswordHash
 from pwdlib.hashers.argon2 import Argon2Hasher
@@ -24,7 +25,7 @@ password_hash = PasswordHash((Argon2Hasher(),))
 password_helper = PasswordHelper(password_hash)
 
 
-class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
+class UserManager(UUIDIDMixin, BaseUserManager[User, UUID]):
     reset_password_token_secret = SECRET
     verification_token_secret = SECRET
 

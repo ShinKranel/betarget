@@ -1,7 +1,7 @@
 import enum
 
 from sqlalchemy import ForeignKey, String
-from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.dialects.postgresql import ARRAY, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from base import Base
@@ -54,11 +54,11 @@ class Vacancy(Base):
     salary: Mapped[int | None] = None
     education: Mapped[Education | None] = None
     employment_type: Mapped[EmploymentType]
-    skills: Mapped[ARRAY] = mapped_column(ARRAY(String(255)))  # TODO: change to list-like
+    skills: Mapped[ARRAY] = mapped_column(ARRAY(String(255)))
     description: Mapped[str]
 
     # foreign keys
-    user_id: Mapped[int] = mapped_column(
+    user_id: Mapped[UUID] = mapped_column(
         ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
 
     # relationships
