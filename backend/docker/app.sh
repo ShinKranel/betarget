@@ -1,4 +1,24 @@
 #!/bin/bash
-alembic -c alembic.ini revision --autogenerate -m "Init tables"
+echo "Script is running"
+# Check if there are any .py files in migrations/versions
+files=$(find migrations/versions -type f -name "*.py")
+echo "Files found: $files"
+# If no .py files are found, create a new revision
+if [ -z "$files" ]; then
+  echo "No migration files found. Creating a new revision."
+  alembic -c alembic.ini revision --autogenerate -m "Init tables"
+fi
+files=$(find migrations/versions -type f -name "*.py")
+for file in $files; do
+  echo "Processing file: $file"
+    if ! grep -q "import sqlalchemy_utils" "$file"; then
+      echo "Adding import to: $file"
+      sed -i '1i import sqlalchemy_utils' "$file"
+    else
+      echo "Import statement for sqlalchemy_utils already exists in: $file"
+    fi
+done
+# Run Alembic upgrade
 alembic -c alembic.ini upgrade head
-gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8080
+# Start Gunicorn server
+exec gunicorn src.main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8080
