@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException
 
-from auth.models import User
-from auth.schemas import UserRead
+from user.models import User
+from user.schemas import UserRead
 from auth.base_config import current_user
 from auth.service import verify_verification_token
 from auth.manager import send_verification

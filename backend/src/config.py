@@ -99,6 +99,7 @@ class S3StorageSettings(EnvSettings):
     S3_SECRET_KEY: str
     S3_BUCKET_NAME: str
     S3_ENDPOINT_URL: str
+    S3_PUBLIC_DOMAIN: str
 
 
 class RequestLimiterSettings:
