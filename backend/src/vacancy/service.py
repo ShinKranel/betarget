@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from sqlalchemy import select
+from datetime import datetime, UTC
 
 from db import async_session_maker
 from vacancy.models import Vacancy
@@ -64,3 +65,13 @@ async def update_vacancy(updated_vacancy: VacancyUpdate, user_id: int) -> Vacanc
         await session.commit()
         await session.refresh(vacancy)
         return vacancy
+
+
+async def get_expired_vacancies() -> list[VacancyRead]:
+    """Get all expired vacancies"""
+    async with async_session_maker() as session:
+        current_time = datetime.now(UTC).replace(tzinfo=None)
+        query = select(Vacancy.__table__.columns).where(Vacancy.expiration_date <= current_time)
+        sql_response = await session.execute(query)
+        vacancies = sql_response.mappings().all()
+        return vacancies

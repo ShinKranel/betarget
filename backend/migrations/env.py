@@ -12,7 +12,7 @@ sys.path = ['', '..'] + sys.path[1:]
 from config import settings
 from base import Base
 
-from auth.models import User
+from user.models import User
 from vacancy.models import Vacancy
 from resume.models import Resume
 

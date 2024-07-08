@@ -42,28 +42,30 @@ services:
     extends:
       service: base_service
     container_name: celery_betarget_backend
-    command: ["/bin/sh", "-c", "/betarget_backend/docker/celery.sh"]
+    command: ["/bin/sh", "-c", "./docker/celery.sh"]
+    volumes:
+      - ./logs:/betarget_backend/logs
     depends_on:
       - rabbitmq
 
   flower:
     extends:
       service: base_service
-    container_name: celery_betarget_backend_flower
+    container_name: flower_betarget_backend
     ports:
       - 5555:5555
     expose:
       - 5555
-    command: ["/bin/sh", "-c", "/betarget_backend/docker/flower.sh"]
+    command: ["/bin/sh", "-c", "./docker/flower.sh"]
     depends_on:
       - rabbitmq
 
   app:
     extends:
       service: base_service
-    container_name: betarget_backend
+    container_name: app_betarget_backend
     ports:
       - 9999:8080
-    command: ["sh", "/betarget_backend/docker/app.sh"]
+    command: ["sh", "./docker/app.sh"]
     depends_on:
       - db

@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from fastapi_limiter.depends import RateLimiter
 from dotenv import load_dotenv
 
 
@@ -79,6 +80,8 @@ class AuthSettings(EnvSettings):
 
 
 class AdminSettings(EnvSettings):
+    ADMIN_USERNAME: str
+    ADMIN_PASSWORD: str
     SECRET_SESSION: str
 
 
@@ -96,6 +99,19 @@ class S3StorageSettings(EnvSettings):
     S3_SECRET_KEY: str
     S3_BUCKET_NAME: str
     S3_ENDPOINT_URL: str
+    S3_PUBLIC_DOMAIN: str
+
+
+class RequestLimiterSettings:
+    DEFAULT_LIMIT: int = RateLimiter(times=3, seconds=5)
+
+
+class VacancySettings:
+    EXPIRATION_TIME: int = 30
+
+
+class SSESettings:
+    EVENT_LOOP_RETRY_TIME: int = 60
 
 
 class Settings:
@@ -109,6 +125,9 @@ class Settings:
     redis = RedisSettings()
     log = LoggingSettings()
     s3 = S3StorageSettings()
+    request_limiter = RequestLimiterSettings()
+    vacancy = VacancySettings()
+    sse = SSESettings()
 
 
 settings = Settings()

@@ -3,7 +3,7 @@ from fastapi_users.authentication import CookieTransport, AuthenticationBackend
 from fastapi_users.authentication import JWTStrategy
 
 from auth.manager import get_user_manager
-from auth.models import User
+from user.models import User
 from config import settings
 
 cookie_transport = CookieTransport(

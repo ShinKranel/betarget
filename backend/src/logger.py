@@ -30,4 +30,6 @@ def setup_logger(logger_name: str, filename: str = 'app.log'):
 
 
 logger = setup_logger(logger_name='AppLogger')
+celery_logger = setup_logger(logger_name='CeleryLogger', filename='celery.log')
+sse_logger = setup_logger(logger_name='S3Logger', filename='sse.log')
 db_query_logger = setup_logger(logger_name='DBQueryLogger', filename='db.log')

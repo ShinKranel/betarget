@@ -1,4 +1,5 @@
 from celery import Celery
+from celery.schedules import crontab
 
 from config import settings
 
@@ -18,4 +19,21 @@ celery_app.conf.update(
 )
 
 # Ensure tasks are discovered
-celery_app.autodiscover_tasks(['src.mail'])
+celery_app.autodiscover_tasks(['mail'])
+celery_app.autodiscover_tasks(['vacancy'])
+
+# Calls tasks at 00:00 every day
+celery_app.conf.beat_schedule = {
+    "check_expired_vacancies": {
+        "task": "vacancy.tasks.check_expired_vacancies",
+        "schedule": crontab(minute=0, hour=0),
+    },
+}
+
+# Calls task every 15 seconds (only for test)
+# celery_app.conf.beat_schedule = {
+#     "check_expired_vacancies": {
+#         "task": "vacancy.tasks.check_expired_vacancies",
+#         "schedule": 15.0,
+#     },
+# }
