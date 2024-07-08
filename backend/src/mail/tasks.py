@@ -3,7 +3,7 @@ import asyncio
 from fastapi_mail import FastMail, MessageSchema
 
 from tasks_celery import celery_app
-from logger import logger
+from logger import celery_logger as logger
 from mail.mail import mail_config
 
 @celery_app.task

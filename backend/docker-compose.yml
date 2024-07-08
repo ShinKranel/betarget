@@ -43,6 +43,8 @@ services:
       service: base_service
     container_name: celery_betarget_backend
     command: ["/bin/sh", "-c", "./docker/celery.sh"]
+    volumes:
+      - ./logs:/betarget_backend/logs
     depends_on:
       - rabbitmq
 

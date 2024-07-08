@@ -18,6 +18,8 @@ class VacancyAdmin(ModelView, model=Vacancy):
         "employment_type",
         "skills",
         "description",
+        "created_at",
+        "expiration_date",
         "user_id"
     ]
 
@@ -33,6 +35,8 @@ class VacancyAdmin(ModelView, model=Vacancy):
         "employment_type": "Employment Type",
         "skills": "Skills",
         "description": "Description",
+        "created_at": "Created At",
+        "expiration_date": "Expiration Date",
         "user_id": "User ID",
     }
 

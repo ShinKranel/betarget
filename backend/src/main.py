@@ -12,6 +12,7 @@ from logger import logger
 from config import settings
 from db import engine
 from redis_ import redis_connection
+from sse import sse_router
 
 from vacancy.admin import VacancyAdmin
 from resume.admin import ResumeAdmin, CandidateAdmin
@@ -110,6 +111,11 @@ app.include_router(
     prefix="/api/v1/resume",
     tags=["resume"],
     dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+)
+app.include_router(
+    sse_router,
+    prefix="/api/v1/sse",
+    tags=["sse"],
 )
 
 
