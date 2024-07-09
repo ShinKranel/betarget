@@ -409,17 +409,17 @@ body {
   font-size: 12.7px;
   color: $color-secondary-font;
 }
-.resume-list__score {
+.resume-list__rating {
   font-size: 10px;
   color: $color-secondary-font;
   font-weight: 500;
 }
-.resume-list__score-number {
+.resume-list__rating-number {
   color: $color-button;
   font-size: 14px;
 }
 
-.resume-list__score-number_good {
+.resume-list__rating-number_good {
   color: $color-good-rating-font;
 }
 // #endregion
@@ -662,6 +662,10 @@ body {
   font-size: 24px;
   line-height: 24px;
   color: $color-button-hover;
+}
+
+.resume-info__rating-result-span_good {
+  color: $color-good-rating-font;
 }
 
 .resume-info__rating-slider {

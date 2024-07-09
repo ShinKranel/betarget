@@ -69,13 +69,13 @@ function renderResumeList(resumes) {
     resumeJobTitleElement.textContent = resume.jobTitle;
 
     const resumeScoreElement = document.createElement("div");
-    resumeScoreElement.classList.add("resume-list__score");
+    resumeScoreElement.classList.add("resume-list__rating");
 
     const resumeScoreNumberElement = document.createElement("span");
-    resumeScoreNumberElement.classList.add("resume-list__score-number");
+    resumeScoreNumberElement.classList.add("resume-list__rating-number");
     resumeScoreNumberElement.textContent = resume.rating;
     if (resume.rating >= 8) {
-      resumeScoreNumberElement.classList.add("resume-list__score-number_good");
+      resumeScoreNumberElement.classList.add("resume-list__rating-number_good");
     }
     if (resume.rating == 0) {
       resumeScoreElement.style.display = "none";
@@ -203,6 +203,11 @@ function renderResume(resume) {
     const snappedValue = Math.round(value / step) * step;
     slider.value = snappedValue;
     rating.textContent = snappedValue;
+    if (snappedValue >= 8) {
+      rating.classList.add("resume-info__rating-result-span_good");
+    } else {
+      rating.classList.remove("resume-info__rating-result-span_good");
+    }
   });
 
   decreaseButton.addEventListener("click", () => {
