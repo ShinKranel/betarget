@@ -55,7 +55,7 @@ class ResumeCreate(BaseModel):
     job_title: str = Field(..., min_length=1, max_length=60)
     expected_salary: int | None = Field(None, ge=0)
     interest_in_job: InterestInJob | None
-    skills: list[str] | None = Field(None, max_items=20)
+    skills: list[str] | None = Field(None, max_length=20)
     experience: str | None = Field(None, max_length=2000)
     education: str | None = Field(None, max_length=2000)
     ready_to_relocate: bool | None
@@ -74,7 +74,7 @@ class ResumeRead(BaseModel):
     job_title: str = Field(..., min_length=1, max_length=60)
     expected_salary: int | None = Field(None, ge=0)
     interest_in_job: InterestInJob | None
-    skills: list[str] | None = Field(None, max_items=20)
+    skills: list[str] | None = Field(None, max_length=20)
     experience: str | None = Field(None, max_length=2000)
     education: str | None = Field(None, max_length=2000)
     ready_to_relocate: bool | None

@@ -103,6 +103,7 @@ class S3StorageSettings(EnvSettings):
 
 
 class RequestLimiterSettings:
+    ENABLED = False
     DEFAULT_LIMIT: int = RateLimiter(times=3, seconds=5)
 
 

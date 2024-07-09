@@ -14,7 +14,7 @@ class VacancyCreate(BaseModel):
     salary: int | None = Field(None, ge=0)
     education: Education | None
     employment_type: EmploymentType | None
-    skills: list[str] | None = Field(None, max_items=20)
+    skills: list[str] | None = Field(None, max_length=20)
     description: str | None = Field(None, max_length=2000)
 
 
@@ -29,7 +29,7 @@ class VacancyRead(BaseModel):
     salary: int | None = Field(None, ge=0)
     education: Education | None
     employment_type: EmploymentType | None
-    skills: list[str] | None = Field(None, max_items=20)
+    skills: list[str] | None = Field(None, max_length=20)
     description: str | None = Field(None, max_length=2000)
     created_at: datetime
     expiration_date: datetime

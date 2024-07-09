@@ -25,7 +25,9 @@ from vacancy.router import router as router_vacancy
 from user.router import router as router_user
 
 
-async def __init_admin():
+request_limiter_settings = settings.request_limiter
+
+async def init_admin():
     admin_settings = settings.admin
     admin = Admin(
         app=app,
@@ -36,23 +38,24 @@ async def __init_admin():
     [admin.add_view(view) for view in admin_views]
 
 
-async def __init_limiter():
+async def init_limiter():
     await FastAPILimiter.init(redis=redis_connection)
 
 
-async def __close_limiter():
-    await FastAPILimiter.close(redis=redis_connection)
-
+async def close_limiter():
+    await FastAPILimiter.close()
 
 async def start_up(app: FastAPI):
     logger.debug("App started")
-    await __init_admin()
-    await __init_limiter()
+    await init_admin()
+    if request_limiter_settings.ENABLED:
+        await init_limiter()
 
 
 async def shut_down(app: FastAPI):
     logger.debug("Shutting down")
-    await __close_limiter()
+    if request_limiter_settings.ENABLED:
+        await close_limiter()
 
 
 @asynccontextmanager
@@ -79,44 +82,48 @@ app.add_middleware(
     ],
 )
 
-request_limiter_settings = settings.request_limiter
+if request_limiter_settings.ENABLED:
+    dependencies = [Depends(request_limiter_settings.DEFAULT_LIMIT)]
+else:
+    dependencies = None
+
 app.include_router(
     router_auth, 
     tags=["auth"],
-    dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+    dependencies=dependencies,
 )
 app.include_router(
     fastapi_users.get_reset_password_router(), 
     tags=["auth"],
-    dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+    dependencies=dependencies,
 )
 app.include_router(
     fastapi_users.get_auth_router(auth_backend), 
     tags=["auth"],
-    dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+    dependencies=dependencies,
 )
 app.include_router(
     fastapi_users.get_register_router(UserRead, UserCreate), 
     tags=["auth"],
-    dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+    dependencies=dependencies,
 )
 app.include_router(
     router_user,
     prefix="/api/v1/user",
     tags=["user"],
-    dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+    dependencies=dependencies,
 )
 app.include_router(
     router_vacancy,
     prefix="/api/v1/vacancy",
     tags=["vacancy"],
-    dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+    dependencies=dependencies,
 )
 app.include_router(
     router_resume,
     prefix="/api/v1/resume",
     tags=["resume"],
-    dependencies=[Depends(request_limiter_settings.DEFAULT_LIMIT)],
+    dependencies=dependencies,
 )
 app.include_router(
     sse_router,
