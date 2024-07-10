@@ -5,9 +5,28 @@ services:
     image: postgres:16
     restart: always
     container_name: db_betarget_backend
-    command: -p 1221
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
     expose:
       - 1221
+    ports:
+      - "${DB_PORT}:1221"
+    env_file:
+      - .env
+
+  db-test:
+    image: postgres:16
+    container_name: test_db_betarget_backend
+    environment:
+      POSTGRES_DB: ${DB_TEST_NAME}
+      POSTGRES_USER: ${DB_TEST_USER}
+      POSTGRES_PASSWORD: ${DB_TEST_PASS}
+    expose:
+      - 5432
+    ports:
+      - "${DB_TEST_PORT}:5432"
     env_file:
       - .env
 
@@ -69,3 +88,4 @@ services:
     command: ["sh", "./docker/app.sh"]
     depends_on:
       - db
+      - db-test

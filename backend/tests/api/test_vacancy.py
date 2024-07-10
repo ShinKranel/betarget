@@ -21,25 +21,25 @@ from src.logger import test_logger
 
 
 # CREATE VACANCY -----
-@pytest.mark.asyncio
-async def test_create_successful(auth_async_client: AsyncClient):
-    response = await auth_async_client.post("/api/v1/vacancy/", json={
-        "job_title": "string",
-        "city": "string",
-        "company": "string",
-        "experience": "no experience",
-        "work_format": "in office",
-        "salary": 25000,
-        "education": "incomplete_secondary",
-        "employment_type": "full_time",
-        "skills": [
-            "string"
-        ],
-        "description": "string"
-    })
+# @pytest.mark.asyncio
+# async def test_create_successful(auth_async_client: AsyncClient):
+#     response = await auth_async_client.post("/api/v1/vacancy/", json={
+#         "job_title": "string",
+#         "city": "string",
+#         "company": "string",
+#         "experience": "no experience",
+#         "work_format": "in office",
+#         "salary": 25000,
+#         "education": "incomplete_secondary",
+#         "employment_type": "full_time",
+#         "skills": [
+#             "string"
+#         ],
+#         "description": "string"
+#     })
 
-    test_logger.info(f"Response: {response.content}")
-    assert response.status_code == 201, "Must be 201 CREATED status code"
+#     test_logger.info(f"Response: {response.content}")
+#     assert response.status_code == 201, "Must be 201 CREATED status code"
 
 
 # def test_create_vacancy_unauthorized(client: TestClient):

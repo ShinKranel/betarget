@@ -3,7 +3,7 @@ from sqlalchemy import select
 from typing import Optional
 
 from user.models import User
-from user.schemas import UserRead, UserUpdate
+from user.schemas import UserCreate, UserRead, UserUpdate
 from s3_storage import s3_client
 from logger import logger
 from db import async_session_maker
@@ -13,12 +13,12 @@ async def get_user_by_username(username: str) -> Optional[User]:
     async with async_session_maker() as session:
         query = select(User).where(username == User.username)
         user = (await session.execute(query)).scalar_one_or_none()
-        return user 
+        return user
     
 
 async def delete_user(user: User) -> dict[str, str]:
     async with async_session_maker() as session:
-        session.delete(user)
+        await session.delete(user)
         await session.commit()
         logger.info(f"User {user} deleted")
         return {"message": f"User {user} deleted"}
