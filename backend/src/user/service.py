@@ -55,4 +55,4 @@ async def update_user_profile_picture(user: User, profile_picture: UploadFile | 
         session.add(db_user)
         await session.commit()
         await session.refresh(db_user)
-        return db_user
+        return db_user.profile_picture

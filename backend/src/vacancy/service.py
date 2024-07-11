@@ -59,6 +59,11 @@ async def update_vacancy(updated_vacancy: VacancyUpdate, user_id: int) -> Vacanc
         updated_data = updated_vacancy.model_dump(exclude_unset=True)
         
         for key, value in updated_data.items():
+            if key in ["created_at", "expiration_date"]:
+                if isinstance(value, str):
+                    value = datetime.fromisoformat(value)
+                if value.tzinfo is not None:  # Check if datetime is timezone-aware
+                    value = value.replace(tzinfo=None)  # Remove timezone information
             setattr(vacancy, key, value)
         
         session.add(vacancy)
