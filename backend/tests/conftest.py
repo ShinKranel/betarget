@@ -15,11 +15,29 @@ test_urls = {
         "register": "/register",
         "login": "/login",
         "logout": "/logout",
+        "forgot_password": "/forgot-password",
+        "reset_password": "/reset-password",
+        "ask_verification": "/ask_verification",
+        "verify_account": "/verify-account",
     },
     "user": {
         "update": f"{api_prefix}/user/",
         "delete": f"{api_prefix}/user/",
         "update_profile_image": f"{api_prefix}/user/update_profile_image",
+    },
+    "vacancy": {
+        "get_all_vacancies": f"{api_prefix}/vacancy/",
+        "create_user_vacancy": f"{api_prefix}/vacancy/",
+        "update_user_vacancy": f"{api_prefix}/vacancy/",
+        "get_user_vacancy": f"{api_prefix}/vacancy/",
+        "delete_user_vacancy": f"{api_prefix}/vacancy/",
+    },
+    "resume": {
+        "get_all_resumes": f"{api_prefix}/resume/",
+        "create_user_resume": f"{api_prefix}/resume/",
+        "update_user_resume": f"{api_prefix}/resume/",
+        "get_user_resume": f"{api_prefix}/resume/",
+        "delete_user_resume": f"{api_prefix}/resume/",
     }
 }
 
@@ -46,6 +64,57 @@ async def user_data() -> dict:
         "github": "https://example.com/",
         "phone_number": "+77777777777",
         "profile_picture": "https://example.com/",
+    }
+
+
+@pytest.fixture
+async def vacancy_data() -> dict:
+    return {
+        "job_title": "string",
+        "city": "string",
+        "company": "string",
+        "experience": "no experience",
+        "work_format": "in office",
+        "salary": 25000,
+        "education": "incomplete_secondary",
+        "employment_type": "full_time",
+        "skills": [
+            "string"
+        ],
+        "description": "string"
+    }
+
+
+@pytest.fixture
+async def resume_data() -> dict:
+    return {
+    "resume_stage": "in_work",
+    "rating": 5,
+    "job_title": "string",
+    "expected_salary": 12000,
+    "interest_in_job": "looking for job",
+    "skills": [
+        "string"
+    ],
+    "experience": "string",
+    "education": "string",
+    "ready_to_relocate": True,
+    "ready_for_business_trips": False,
+    "candidate": {
+        "first_name": "string",
+        "last_name": "string",
+        "age": 33,
+        "gender": "male",
+        "city": "string",
+        "about": "string",
+        "telegram": "https://example.com/",
+        "whatsapp": "https://example.com/",
+        "linkedin": "https://example.com/",
+        "github": "https://example.com/",
+        "email": "user@example.com",
+        "phone_number": "+77777777777",
+        "profile_picture": "https://example.com/"
+    }
     }
 
 @pytest_asyncio.fixture

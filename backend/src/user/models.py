@@ -45,6 +45,7 @@ class User(SQLAlchemyBaseUserTable[uuid.UUID], Base):
     email: Mapped[str | None] 
     phone_number: Mapped[str | None]
     verification_token: Mapped[str | None]
+    reset_password_token: Mapped[str | None]
 
     profile_picture: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
 

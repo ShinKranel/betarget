@@ -16,12 +16,15 @@ async def get_user_by_username(username: str) -> Optional[User]:
         return user
     
 
-async def delete_user(user: User) -> dict[str, str]:
+async def delete_user(user: User):
     async with async_session_maker() as session:
-        await session.delete(user)
+        stmt = select(User).where(User.id == user.id)
+        result = await session.execute(stmt)
+        db_user = result.scalar_one_or_none()
+        await session.refresh(db_user)
+        await session.delete(db_user)
         await session.commit()
-        logger.info(f"User {user} deleted")
-        return {"message": f"User {user} deleted"}
+        logger.info(f"User {db_user} deleted")
     
 
 async def update_user(user: User, updated_user: UserUpdate) -> UserRead:

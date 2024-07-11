@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
+from uuid import UUID
 
 from db import async_session_maker
 from resume.models import Resume, ResumeStage, Candidate
@@ -65,7 +66,7 @@ async def delete_candidate(candidate_id: int) -> dict:
 
 
 # Updated Resume CRUD methods --------------------------------
-async def get_resume_by_id(resume_id: int, user_id: int) -> ResumeRead:
+async def get_resume_by_id(resume_id: int, user_id: UUID) -> ResumeRead:
     """Get resume by resume_id with candidate info"""
     async with async_session_maker() as session:
         resume = await session.get(
@@ -83,7 +84,7 @@ async def get_resume_by_id(resume_id: int, user_id: int) -> ResumeRead:
         return resume
 
 
-async def get_resumes_by_user_id(user_id: int) -> list[ResumeRead]:
+async def get_resumes_by_user_id(user_id: UUID) -> list[ResumeRead]:
     """Get resumes by user_id with candidate info"""
     async with async_session_maker() as session:
         query = (
@@ -97,7 +98,7 @@ async def get_resumes_by_user_id(user_id: int) -> list[ResumeRead]:
         return resumes
 
 
-async def get_vacancy_resumes_by_stage(vacancy_id: int, resume_stage: ResumeStage, user_id: int):
+async def get_vacancy_resumes_by_stage(vacancy_id: int, resume_stage: ResumeStage, user_id: UUID):
     """Get vacancy resumes by resume_stage with candidate info"""
     async with async_session_maker() as session:
         vacancy = await session.get(Vacancy, vacancy_id)
@@ -118,7 +119,7 @@ async def get_vacancy_resumes_by_stage(vacancy_id: int, resume_stage: ResumeStag
         return resumes
 
 
-async def create_resume(new_resume: ResumeCreate, vacancy_id: int, user_id: int):
+async def create_resume(new_resume: ResumeCreate, vacancy_id: int, user_id: UUID):
     """Create a new resume for current user with candidate info"""
     async with async_session_maker() as session:
         vacancy = await session.get(Vacancy, vacancy_id)
@@ -139,17 +140,27 @@ async def create_resume(new_resume: ResumeCreate, vacancy_id: int, user_id: int)
         return resume
 
 
-async def delete_resume_by_id(resume_id: int, user_id: int):
+async def delete_resume_by_id(resume_id: int, user_id: UUID):
     """Delete resume and potentially the candidate"""
     async with async_session_maker() as session:
         resume = await get_resume_by_id(resume_id, user_id)
-        await session.delete(resume)
         await delete_candidate(resume.candidate_id)
+        await session.delete(resume)
+        await session.commit()
+        return {"success": f"Resume with id {resume.id} deleted."}
+    
+
+async def delete_resume_without_check(resume_id: int):
+    """Delete resume without checking permissions"""
+    async with async_session_maker() as session:
+        resume = await session.get(Resume, resume_id)
+        await delete_candidate(resume.candidate_id)
+        await session.delete(resume)
         await session.commit()
         return {"success": f"Resume with id {resume.id} deleted."}
 
 
-async def update_resume(updated_resume: ResumeUpdate, user_id: int) -> ResumeRead:
+async def update_resume(updated_resume: ResumeUpdate, user_id: UUID) -> ResumeRead:
     """Update resume with updated_resume and user_id with candidate info"""
     async with async_session_maker() as session:
         resume = await get_resume_by_id(updated_resume.id, user_id)

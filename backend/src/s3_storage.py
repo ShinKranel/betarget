@@ -54,6 +54,14 @@ class S3Client:
             file_data = await response['Body'].read()
             logger.info(f"File {object_name} is downloaded")
             return file_data
+        
+    async def delete_file(self, object_name: str):
+        async with self.get_client() as client:
+            await client.delete_object(
+                Bucket=self.bucket_name,
+                Key=object_name
+            )
+            logger.info(f"File {object_name} is deleted")
 
 
 s3_client = S3Client(
