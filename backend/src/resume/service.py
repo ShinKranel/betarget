@@ -42,7 +42,7 @@ async def update_candidate(updated_candidate: CandidateUpdate) -> CandidateRead:
             raise HTTPException(status_code=404, detail="Candidate not found")
 
         updated_data = updated_candidate.model_dump(exclude_unset=True)
-        for key, value in updated_data.items():
+        for key, value in updated_data.items(): 
             setattr(candidate, key, value)
 
         session.add(candidate)

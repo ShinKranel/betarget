@@ -1,4 +1,4 @@
-from pydantic import BaseModel, AnyUrl, Field, EmailStr
+from pydantic import BaseModel, AnyHttpUrl, Field, EmailStr, field_validator
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
 from resume.models import Gender, InterestInJob, ResumeStage
@@ -13,14 +13,21 @@ class CandidateCreate(BaseModel):
     city: str | None = Field(None, max_length=50)
     about: str | None = Field(None, max_length=2000)
 
-    telegram: str | None = Field(None, max_length=60)
-    whatsapp: str | None = Field(None, max_length=60)
-    linkedin: str | None = Field(None, max_length=150)
-    github: str | None = Field(None, max_length=150)
+    telegram: AnyHttpUrl | None = Field(None)
+    whatsapp: AnyHttpUrl | None = Field(None)
+    linkedin: AnyHttpUrl | None = Field(None)
+    github: AnyHttpUrl | None = Field(None)
     email: EmailStr | None
     phone_number: PhoneNumber | None
     
-    profile_picture: AnyUrl | None = Field(None)
+    profile_picture: AnyHttpUrl | None = Field(None)
+
+    @field_validator("telegram", "whatsapp", "linkedin", "github", "profile_picture")
+    def validate_urls(cls, v):
+        if v is None:
+            return "https://example.com"
+        return str(v)
+
 
 
 class CandidateRead(BaseModel):
@@ -33,14 +40,21 @@ class CandidateRead(BaseModel):
     city: str | None = Field(None, max_length=50)
     about: str | None = Field(None, max_length=2000)
 
-    telegram: AnyUrl | None
-    whatsapp: AnyUrl | None
-    linkedin: AnyUrl | None
-    github: AnyUrl | None
+    telegram: AnyHttpUrl | None = Field(None)
+    whatsapp: AnyHttpUrl | None = Field(None)
+    linkedin: AnyHttpUrl | None = Field(None)
+    github: AnyHttpUrl | None = Field(None)
     email: EmailStr | None
     phone_number: PhoneNumber | None
     
-    profile_picture: AnyUrl | None = Field(None)
+    profile_picture: AnyHttpUrl | None = Field(None)
+
+    @field_validator("telegram", "whatsapp", "linkedin", "github", "profile_picture")
+    def validate_urls(cls, v):
+        if v is None:
+            return "https://example.com"
+        return str(v)
+
 
 
 class CandidateUpdate(CandidateRead):

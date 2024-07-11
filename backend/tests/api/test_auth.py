@@ -5,24 +5,6 @@ from conftest import test_urls
 from src.user.service import get_user_by_username, delete_user
 
 
-@pytest.fixture
-async def user_data() -> dict:
-    return {
-        "username": "test_user",
-        "email": "test@ex.com",
-        "password": "SuperUsername1233",
-        "is_active": True,
-        "is_superuser": False,
-        "is_verified": False,
-        "telegram": "https://example.com/",
-        "whatsapp": "https://example.com/",
-        "linkedin": "https://example.com/",
-        "github": "https://example.com/",
-        "phone_number": "+77777777777",
-        "profile_picture": "https://example.com/",
-    }
-
-
 @pytest.mark.asyncio
 async def test_register_successfully(async_client: AsyncClient, user_data: dict):
     db_user = await get_user_by_username(username=user_data.get("username"))

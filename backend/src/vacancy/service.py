@@ -52,7 +52,7 @@ async def delete_vacancy_by_id(vacancy_id: int, user_id: int):
         return {"status": f"Vacancy with id {vacancy.id} deleted successfully"}
 
 
-async def update_vacancy(updated_vacancy: VacancyUpdate, user_id: int) -> VacancyUpdate:
+async def update_vacancy(updated_vacancy: VacancyUpdate, user_id: int) -> VacancyRead:
     """Update vacancy with updated_vacancy and user_id"""
     async with async_session_maker() as session:
         vacancy = await get_vacancy_by_id(updated_vacancy.id, user_id)

@@ -1,5 +1,5 @@
 # Ignore Python virtual environment
-.venv
+.venv/
 
 # Ignore build artifacts
 build/

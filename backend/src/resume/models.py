@@ -1,9 +1,8 @@
 import enum
 
-from sqlalchemy import ForeignKey, String, Column
+from sqlalchemy import ForeignKey, String
 from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy_utils.types.url import URLType
+from sqlalchemy.orm import Mapped, relationship, mapped_column
 
 from base import Base
 
@@ -80,14 +79,14 @@ class Candidate(Base):
     about: Mapped[str | None]
 
     # contacts
-    telegram: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
-    whatsapp: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
-    linkedin: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
-    github: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
+    telegram: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    whatsapp: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    linkedin: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    github: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
     email: Mapped[str | None]
     phone_number: Mapped[str | None]
 
-    profile_picture: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
+    profile_picture: Mapped[str | None]  = mapped_column(String, nullable=True, default="https://example.com")
 
     # relationships
     resume = relationship("Resume", back_populates="candidate", cascade="all, delete", lazy="joined")

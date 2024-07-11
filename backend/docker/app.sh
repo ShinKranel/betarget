@@ -9,15 +9,7 @@ if [ -z "$files" ]; then
   alembic -c alembic.ini revision --autogenerate -m "Init tables"
 fi
 files=$(find migrations/versions -type f -name "*.py")
-for file in $files; do
-  echo "Processing file: $file"
-    if ! grep -q "import sqlalchemy_utils" "$file"; then
-      echo "Adding import to: $file"
-      sed -i '1i import sqlalchemy_utils' "$file"
-    else
-      echo "Import statement for sqlalchemy_utils already exists in: $file"
-    fi
-done
+
 # Run Alembic upgrade
 alembic -c alembic.ini upgrade head
 # Start Gunicorn server
