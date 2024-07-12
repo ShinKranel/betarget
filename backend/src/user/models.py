@@ -2,10 +2,9 @@ from datetime import datetime
 import uuid
 
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
-from sqlalchemy import String, Boolean, Column, text
+from sqlalchemy import String, Boolean, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy_utils.types.url import URLType
 
 from base import Base
 
@@ -39,15 +38,16 @@ class User(SQLAlchemyBaseUserTable[uuid.UUID], Base):
     )
 
     # contacts
-    telegram: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
-    whatsapp: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
-    linkedin: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
-    github: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
-    email: Mapped[str | None]
+    telegram: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    whatsapp: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    linkedin: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    github: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    email: Mapped[str | None] 
     phone_number: Mapped[str | None]
     verification_token: Mapped[str | None]
+    reset_password_token: Mapped[str | None]
 
-    profile_picture: Mapped[URLType | None] = Column(URLType(), default=None, nullable=True)
+    profile_picture: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
 
     vacancies = relationship("Vacancy", back_populates="user", cascade="all, delete", passive_deletes=True)
 

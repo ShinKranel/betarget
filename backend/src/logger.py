@@ -18,6 +18,9 @@ def setup_logger(logger_name: str, filename: str = 'app.log'):
 
     create_log_files_if_not_exist()
 
+    if not (log_settings.LOG_PATH / filename).exists():
+        (log_settings.LOG_PATH / filename).touch()
+        
     file_handler = RotatingFileHandler(filename=log_settings.LOG_PATH / filename, maxBytes=5*1024*1024, backupCount=2)
     file_handler.setLevel(logging.DEBUG)
 
@@ -33,3 +36,4 @@ logger = setup_logger(logger_name='AppLogger')
 celery_logger = setup_logger(logger_name='CeleryLogger', filename='celery.log')
 sse_logger = setup_logger(logger_name='S3Logger', filename='sse.log')
 db_query_logger = setup_logger(logger_name='DBQueryLogger', filename='db.log')
+test_logger = setup_logger(logger_name='TestLogger', filename='test.log')

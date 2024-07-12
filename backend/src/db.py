@@ -15,9 +15,15 @@ from config import settings
 from logger import db_query_logger
 
 
+test_db_settings = settings.test_database
 db_settings = settings.database
+test_settings = settings.test
 
-engine = create_async_engine(db_settings.DATABASE_URL_ASYNC)
+if test_settings.IS_TESTING:
+    engine = create_async_engine(test_db_settings.DATABASE_URL_ASYNC)
+else:
+    engine = create_async_engine(db_settings.DATABASE_URL_ASYNC)
+    
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 
