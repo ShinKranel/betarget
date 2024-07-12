@@ -30,10 +30,11 @@ celery_app.conf.beat_schedule = {
     },
 }
 
-# Calls task every 15 seconds (only for test)
-# celery_app.conf.beat_schedule = {
-#     "check_expired_vacancies": {
-#         "task": "vacancy.tasks.check_expired_vacancies",
-#         "schedule": 15.0,
-#     },
-# }
+if settings.test.IS_TESTING:
+    # Calls task every 15 seconds (only for test)
+    celery_app.conf.beat_schedule = {
+        "check_expired_vacancies": {
+            "task": "vacancy.tasks.check_expired_vacancies",
+            "schedule": 15.0,
+        },
+    }

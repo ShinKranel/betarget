@@ -38,6 +38,9 @@ test_urls = {
         "update_user_resume": f"{api_prefix}/resume/",
         "get_user_resume": f"{api_prefix}/resume/",
         "delete_user_resume": f"{api_prefix}/resume/",
+    },
+    "sse": {
+        "events": f"{api_prefix}/sse/events",
     }
 }
 

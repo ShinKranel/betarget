@@ -2,7 +2,6 @@ import pytest
 from httpx import AsyncClient
 
 from conftest import test_urls
-from src.logger import test_logger
 from src.resume.service import delete_resume_without_check
 from src.vacancy.service import delete_vacancy_without_checking
 
