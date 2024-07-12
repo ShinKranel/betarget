@@ -12,7 +12,7 @@ from config import settings
 from db import get_user_db, async_session_maker
 from logger import logger
 from user.models import User
-from auth.service import update_user_verification_token
+from auth.service import update_user_verification_token, update_user_reset_password_token
 from mail.utils import (
     send_sucessful_login_msg,
     send_sucessful_register_msg,
@@ -48,6 +48,7 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, UUID]):
 
     async def on_after_forgot_password(self, user: User, token: str, request: Optional[Request] = None):
         logger.debug(f"User {user.id} has forgot their password. Reset token: {token}")
+        await update_user_reset_password_token(user_id=user.id, token=token)
         await send_sucessful_forgot_password_msg(user=user, reset_token=token)
 
     async def on_after_reset_password(self, user: User, request: Optional[Request] = None):

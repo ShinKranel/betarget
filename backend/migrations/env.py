@@ -17,18 +17,26 @@ from vacancy.models import Vacancy
 from resume.models import Resume
 
 # sys.path.append(os.path.join(sys.path[0], 'src'))
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
 db_settings = settings.database
+test_db_settings = settings.test_database
 section = config.config_ini_section
-config.set_section_option(section, "DB_USER", db_settings.DB_USER)
-config.set_section_option(section, "DB_PORT", db_settings.DB_PORT)
-config.set_section_option(section, "DB_PASS", db_settings.DB_PASS)
-config.set_section_option(section, "DB_HOST", db_settings.DB_HOST)
-config.set_section_option(section, "DB_NAME", db_settings.DB_NAME)
+
+if settings.test.IS_TESTING:
+    config.set_section_option(section, "DB_USER", test_db_settings.DB_TEST_USER)
+    config.set_section_option(section, "DB_PORT", test_db_settings.DB_TEST_PORT)
+    config.set_section_option(section, "DB_PASS", test_db_settings.DB_TEST_PASS)
+    config.set_section_option(section, "DB_HOST", test_db_settings.DB_TEST_HOST)
+    config.set_section_option(section, "DB_NAME", test_db_settings.DB_TEST_NAME)
+else:
+    config.set_section_option(section, "DB_USER", db_settings.DB_USER)
+    config.set_section_option(section, "DB_PORT", db_settings.DB_PORT)
+    config.set_section_option(section, "DB_PASS", db_settings.DB_PASS)
+    config.set_section_option(section, "DB_HOST", db_settings.DB_HOST)
+    config.set_section_option(section, "DB_NAME", db_settings.DB_NAME)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

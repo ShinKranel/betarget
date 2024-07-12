@@ -1,8 +1,9 @@
 # Ignore Python virtual environment
-.venv
+.venv/
 
 # Ignore build artifacts
 build/
 dist/
 *.pyc
 __pycache__/
+.pytest_cache/

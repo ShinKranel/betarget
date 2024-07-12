@@ -70,8 +70,15 @@ class TestDatabaseSettings(EnvSettings):
         return f"postgresql+psycopg2://{self.DB_TEST_USER}:{self.DB_TEST_PASS}@{self.DB_TEST_HOST}:{self.DB_TEST_PORT}/{self.DB_TEST_NAME}"
 
 
-class MiddlewareSettings(EnvSettings):
-    BACKEND_CORS_ORIGINS: str
+class TestSettings:
+    IS_TESTING = True
+    BASE_URL = "http://localhost:9999"
+
+
+class MiddlewareSettings:
+    BACKEND_CORS_ORIGINS = [
+        "http://localhost:8080",
+    ]
 
 
 class AuthSettings(EnvSettings):
@@ -103,6 +110,7 @@ class S3StorageSettings(EnvSettings):
 
 
 class RequestLimiterSettings:
+    ENABLED = False
     DEFAULT_LIMIT: int = RateLimiter(times=3, seconds=5)
 
 
@@ -120,6 +128,7 @@ class Settings:
     celery = CelerySettings()
     database = DatabaseSettings()
     test_database = TestDatabaseSettings()
+    test = TestSettings()
     middleware = MiddlewareSettings()
     mail = MailSettings()
     redis = RedisSettings()

@@ -1,66 +1,139 @@
 import asyncio
-from typing import AsyncGenerator
 
+from typing import AsyncGenerator, Generator
 import pytest
-from httpx import AsyncClient
-from sqlalchemy import NullPool
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-from fastapi.testclient import TestClient
+import pytest_asyncio
+from httpx import AsyncClient, ASGITransport
 
-from base import Base
-from config import settings
-from db import get_async_session
-from main import app
-from utils import get_auth_token
+from src.config import settings
+from src.main import app
 
-test_db_settigns = settings.test_database
+api_prefix = "/api/v1"
 
-engine_test = create_async_engine(test_db_settigns.DATABASE_URL_ASYNC, poolclass=NullPool)
-async_session_maker = async_sessionmaker(engine_test, expire_on_commit=False)
-Base.metadata.bind = engine_test
-
-
-async def override_get_async_session() -> AsyncGenerator[AsyncSession, None]:
-    async with async_session_maker() as session:
-        yield session
-
-app.dependency_overrides[get_async_session] = override_get_async_session
-
-
-@pytest.fixture(autouse=True, scope="session")
-async def prepare_database():
-    async with engine_test.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    yield
-    async with engine_test.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
+test_urls = {
+    "auth": {
+        "register": "/register",
+        "login": "/login",
+        "logout": "/logout",
+        "forgot_password": "/forgot-password",
+        "reset_password": "/reset-password",
+        "ask_verification": "/ask_verification",
+        "verify_account": "/verify-account",
+    },
+    "user": {
+        "update": f"{api_prefix}/user/",
+        "delete": f"{api_prefix}/user/",
+        "update_profile_image": f"{api_prefix}/user/update_profile_image",
+    },
+    "vacancy": {
+        "get_all_vacancies": f"{api_prefix}/vacancy/",
+        "create_user_vacancy": f"{api_prefix}/vacancy/",
+        "update_user_vacancy": f"{api_prefix}/vacancy/",
+        "get_user_vacancy": f"{api_prefix}/vacancy/",
+        "delete_user_vacancy": f"{api_prefix}/vacancy/",
+    },
+    "resume": {
+        "get_all_resumes": f"{api_prefix}/resume/",
+        "create_user_resume": f"{api_prefix}/resume/",
+        "update_user_resume": f"{api_prefix}/resume/",
+        "get_user_resume": f"{api_prefix}/resume/",
+        "delete_user_resume": f"{api_prefix}/resume/",
+    },
+    "sse": {
+        "events": f"{api_prefix}/sse/events",
+    }
+}
 
 
 @pytest.fixture(scope="session")
-def event_loop(request):
-    loop = asyncio.get_event_loop_policy().get_event_loop()
+def event_loop() -> Generator:
+    loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
 
 
-# SETUP
-@pytest.fixture(scope="module")
-def client() -> TestClient:
-    with TestClient(app) as c:
-        yield c
+@pytest_asyncio.fixture
+async def user_data() -> dict:
+    return {
+        "username": "test_user",
+        "email": "test@ex.com",
+        "password": "SuperUsername1233",
+        "is_active": True,
+        "is_superuser": False,
+        "is_verified": False,
+        "telegram": "https://example.com/",
+        "whatsapp": "https://example.com/",
+        "linkedin": "https://example.com/",
+        "github": "https://example.com/",
+        "phone_number": "+77777777777",
+        "profile_picture": "https://example.com/",
+    }
 
 
-@pytest.fixture(scope="module")
-def auth_client(client: TestClient) -> TestClient:
-    with TestClient(app, cookies=auth_token(client)) as c:
-        yield c
+@pytest.fixture
+async def vacancy_data() -> dict:
+    return {
+        "job_title": "string",
+        "city": "string",
+        "company": "string",
+        "experience": "no experience",
+        "work_format": "in office",
+        "salary": 25000,
+        "education": "incomplete_secondary",
+        "employment_type": "full_time",
+        "skills": [
+            "string"
+        ],
+        "description": "string"
+    }
 
 
-def auth_token(client: TestClient) -> dict[str, str]:
-    return get_auth_token(client)
+@pytest.fixture
+async def resume_data() -> dict:
+    return {
+    "resume_stage": "in_work",
+    "rating": 5,
+    "job_title": "string",
+    "expected_salary": 12000,
+    "interest_in_job": "looking for job",
+    "skills": [
+        "string"
+    ],
+    "experience": "string",
+    "education": "string",
+    "ready_to_relocate": True,
+    "ready_for_business_trips": False,
+    "candidate": {
+        "first_name": "string",
+        "last_name": "string",
+        "age": 33,
+        "gender": "male",
+        "city": "string",
+        "about": "string",
+        "telegram": "https://example.com/",
+        "whatsapp": "https://example.com/",
+        "linkedin": "https://example.com/",
+        "github": "https://example.com/",
+        "email": "user@example.com",
+        "phone_number": "+77777777777",
+        "profile_picture": "https://example.com/"
+    }
+    }
+
+@pytest_asyncio.fixture
+async def async_client() -> AsyncGenerator[AsyncClient, None]:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url=settings.test.BASE_URL) as client:
+        yield client
 
 
-@pytest.fixture(scope="module")
-async def ac() -> AsyncGenerator[AsyncClient, None]:
-    async with AsyncClient(app=app, base_url="http://test") as ac:
-        yield ac
+@pytest_asyncio.fixture
+async def auth_async_client(async_client: AsyncClient, user_data: dict) -> AsyncClient:
+    response_data = await async_client.post(url=test_urls["auth"].get("register"), json=user_data)
+    login_response = await async_client.post(url=test_urls["auth"].get("login"), 
+        data={"username": user_data.get("email"), "password": user_data.get("password")}
+    )
+    async_client.cookies = {
+        "bonds": login_response.headers.get("set-cookie").split(";")[0][6:],
+        "user_id": response_data.json().get("id"),
+    }
+    return async_client

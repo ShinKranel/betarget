@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy import select
 from datetime import datetime, UTC
+from uuid import UUID
 
 from db import async_session_maker
 from vacancy.models import Vacancy
@@ -8,7 +9,7 @@ from vacancy.schemas import VacancyCreate, VacancyRead, VacancyUpdate
 from logger import logger
 
 
-async def get_vacancy_by_id(vacancy_id: int, user_id: int) -> VacancyRead:
+async def get_vacancy_by_id(vacancy_id: int, user_id: UUID) -> VacancyRead:
     """Get a vacancy by vacancy_id and user_id"""
     async with async_session_maker() as session:
         vacancy = await session.get(Vacancy, vacancy_id)
@@ -23,7 +24,7 @@ async def get_vacancy_by_id(vacancy_id: int, user_id: int) -> VacancyRead:
         return vacancy
 
 
-async def get_vacancies_by_user_id(user_id: int) -> list[VacancyRead]:
+async def get_vacancies_by_user_id(user_id: UUID) -> list[VacancyRead]:
     """Get ALL user vacancies by user_id"""
     async with async_session_maker() as session:
         query = select(Vacancy.__table__.columns).where(user_id == Vacancy.user_id)
@@ -32,7 +33,7 @@ async def get_vacancies_by_user_id(user_id: int) -> list[VacancyRead]:
         return vacancies
 
 
-async def create_vacancy(new_vacancy: VacancyCreate, user_id: int):
+async def create_vacancy(new_vacancy: VacancyCreate, user_id: UUID):
     """Create a new vacancy for current user"""
     async with async_session_maker() as session:
         new_vacancy = new_vacancy.model_dump()
@@ -43,22 +44,35 @@ async def create_vacancy(new_vacancy: VacancyCreate, user_id: int):
         return vacancy
 
 
-async def delete_vacancy_by_id(vacancy_id: int, user_id: int):
+async def delete_vacancy_by_id(vacancy_id: int, user_id: UUID):
     """Delete vacancy with vacancy_id and user_id"""
     async with async_session_maker() as session:
         vacancy = await get_vacancy_by_id(vacancy_id, user_id)
         await session.delete(vacancy)
         await session.commit()
         return {"status": f"Vacancy with id {vacancy.id} deleted successfully"}
+    
+
+async def delete_vacancy_without_checking(vacancy_id: int):
+    async with async_session_maker() as session:
+        vacancy = await session.get(Vacancy, vacancy_id)
+        await session.delete(vacancy)
+        await session.commit()
+        return {"status": f"Vacancy with id {vacancy.id} deleted successfully"}
 
 
-async def update_vacancy(updated_vacancy: VacancyUpdate, user_id: int) -> VacancyUpdate:
+async def update_vacancy(updated_vacancy: VacancyUpdate, user_id: UUID) -> VacancyRead:
     """Update vacancy with updated_vacancy and user_id"""
     async with async_session_maker() as session:
         vacancy = await get_vacancy_by_id(updated_vacancy.id, user_id)
         updated_data = updated_vacancy.model_dump(exclude_unset=True)
         
         for key, value in updated_data.items():
+            if key in ["created_at", "expiration_date"]:
+                if isinstance(value, str):
+                    value = datetime.fromisoformat(value)
+                if value.tzinfo is not None:  # Check if datetime is timezone-aware
+                    value = value.replace(tzinfo=None)  # Remove timezone information
             setattr(vacancy, key, value)
         
         session.add(vacancy)
