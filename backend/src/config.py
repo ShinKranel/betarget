@@ -78,6 +78,7 @@ class TestSettings:
 class MiddlewareSettings:
     BACKEND_CORS_ORIGINS = [
         "http://localhost:8080",
+        "http://localhost:8000",
     ]
 
 
