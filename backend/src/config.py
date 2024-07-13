@@ -78,12 +78,15 @@ class TestSettings:
 class MiddlewareSettings:
     BACKEND_CORS_ORIGINS = [
         "http://localhost:8080",
+        "http://localhost:8000",
     ]
 
 
 class AuthSettings(EnvSettings):
     SECRET_MANAGER: str
     SECRET_JWT: str
+    RESET_PASSWORD__TOKEN_EXPIRATION: int = 300
+    VERIFY_TOKEN_EXPIRATION: int = 300  
 
 
 class AdminSettings(EnvSettings):
