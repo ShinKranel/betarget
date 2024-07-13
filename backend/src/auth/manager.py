@@ -12,6 +12,7 @@ from config import settings
 from db import get_user_db, async_session_maker
 from logger import logger
 from user.models import User
+from auth.tasks import delete_user_reset_password_token_task, delete_user_verification_token_task
 from auth.service import update_user_verification_token, update_user_reset_password_token
 from mail.utils import (
     send_sucessful_login_msg,
@@ -50,6 +51,9 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, UUID]):
         logger.debug(f"User {user.id} has forgot their password. Reset token: {token}")
         await update_user_reset_password_token(user_id=user.id, token=token)
         await send_sucessful_forgot_password_msg(user=user, reset_token=token)
+        delete_user_reset_password_token_task.apply_async(
+            (user.id,), countdown=auth_settings.RESET_PASSWORD__TOKEN_EXPIRATION
+        )
 
     async def on_after_reset_password(self, user: User, request: Optional[Request] = None):
         await send_sucessful_reset_password_msg(user=user)
@@ -79,5 +83,7 @@ async def send_verification(user: User) -> str:
     token = secrets.token_hex(16)
     await update_user_verification_token(user_id=user.id, token=token)
     await send_email_verification_msg(user=user, verification_token=token)
-
+    delete_user_verification_token_task.apply_async(
+        (user.id,), countdown=auth_settings.VERIFY_TOKEN_EXPIRATION
+    )
     return token

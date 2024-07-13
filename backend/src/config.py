@@ -85,6 +85,8 @@ class MiddlewareSettings:
 class AuthSettings(EnvSettings):
     SECRET_MANAGER: str
     SECRET_JWT: str
+    RESET_PASSWORD__TOKEN_EXPIRATION: int = 300
+    VERIFY_TOKEN_EXPIRATION: int = 300  
 
 
 class AdminSettings(EnvSettings):
