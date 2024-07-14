@@ -4,8 +4,8 @@ from typing import Optional
 from uuid import UUID
 
 from user.models import User
-from vacancy.models import Vacancy
-from resume.models import Resume
+from vacancy.models import Vacancy # Do not delete, because of celery task
+from resume.models import Resume # Do not delete, because of celery task
 from logger import logger
 from db import async_session_maker
     
