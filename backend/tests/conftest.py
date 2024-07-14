@@ -65,7 +65,6 @@ async def user_data() -> dict:
         "telegram": "https://example.com/",
         "whatsapp": "https://example.com/",
         "linkedin": "https://example.com/",
-        "github": "https://example.com/",
         "phone_number": "+77777777777",
         "profile_picture": "https://example.com/",
     }
