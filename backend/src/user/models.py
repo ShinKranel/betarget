@@ -41,7 +41,6 @@ class User(SQLAlchemyBaseUserTable[uuid.UUID], Base):
     telegram: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
     whatsapp: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
     linkedin: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
-    github: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
     email: Mapped[str | None] 
     phone_number: Mapped[str | None]
     verification_token: Mapped[str | None]

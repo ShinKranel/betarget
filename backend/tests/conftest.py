@@ -24,6 +24,7 @@ test_urls = {
         "update": f"{api_prefix}/user/",
         "delete": f"{api_prefix}/user/",
         "update_profile_image": f"{api_prefix}/user/update_profile_image",
+        "get_user_exists": f"{api_prefix}/user/is_exists",
     },
     "vacancy": {
         "get_all_vacancies": f"{api_prefix}/vacancy/",
@@ -40,7 +41,7 @@ test_urls = {
         "delete_user_resume": f"{api_prefix}/resume/",
     },
     "sse": {
-        "events": f"{api_prefix}/sse/events",
+        "get_sse": f"{api_prefix}/sse/events",
     }
 }
 
@@ -64,7 +65,6 @@ async def user_data() -> dict:
         "telegram": "https://example.com/",
         "whatsapp": "https://example.com/",
         "linkedin": "https://example.com/",
-        "github": "https://example.com/",
         "phone_number": "+77777777777",
         "profile_picture": "https://example.com/",
     }
