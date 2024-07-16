@@ -27,7 +27,11 @@ async def test_register_successfully(async_client: AsyncClient, user_data: dict)
 async def test_register_already(async_client: AsyncClient, user_data: dict):
     _ = await async_client.post(url=test_urls["auth"].get("register"), json=user_data)
     response_data = await async_client.post(
-        url=test_urls["auth"].get("register"), json=user_data
+        url=test_urls["auth"].get("register"), json={
+            "username": user_data.get("username"),
+            "email": user_data.get("email"),
+            "password": user_data.get("password"),
+        }
     )
     db_user = await get_user_by_username(username=user_data.get("username"))
     assert response_data.status_code == 400 and db_user is not None
@@ -46,7 +50,6 @@ async def test_register_invalid(async_client: AsyncClient):
 async def test_register_with_missing_fields(async_client: AsyncClient):
     user_data = {
         "username": "test_user",
-        "password": "SuperUsername1233",
         "email": "test@ex.com",
     }
     response_data = await async_client.post(
@@ -205,7 +208,7 @@ async def test_verify_account_successfully(auth_async_client: AsyncClient, user_
         params={"token": user.verification_token},
     )
     user = await get_user_by_username(username=user_data.get("username"))
-    assert response.status_code == 200 and user.is_verified and user.verification_token is None
+    assert response.status_code == 302 and user.is_verified and user.verification_token is None
 
 
 @pytest.mark.asyncio

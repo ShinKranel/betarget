@@ -128,7 +128,11 @@ async def async_client() -> AsyncGenerator[AsyncClient, None]:
 
 @pytest_asyncio.fixture
 async def auth_async_client(async_client: AsyncClient, user_data: dict) -> AsyncClient:
-    response_data = await async_client.post(url=test_urls["auth"].get("register"), json=user_data)
+    response_data = await async_client.post(url=test_urls["auth"].get("register"), json={
+        "username": user_data.get("username"),
+        "email": user_data.get("email"),
+        "password": user_data.get("password"),
+    })
     login_response = await async_client.post(url=test_urls["auth"].get("login"), 
         data={"username": user_data.get("email"), "password": user_data.get("password")}
     )

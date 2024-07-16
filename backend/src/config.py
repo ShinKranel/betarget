@@ -91,6 +91,7 @@ class AuthSettings(EnvSettings):
     GOOGLE_AUTH_ROUTER_SECRET: str
     RESET_PASSWORD__TOKEN_EXPIRATION: int = 300
     VERIFY_TOKEN_EXPIRATION: int = 300
+    VERIFY_REDIRECT: str = "http://localhost:8000/crm"
     LOGIN_REDIRECT: str = "http://localhost:8000/crm"
 
 

@@ -56,15 +56,15 @@ class User(SQLAlchemyBaseUserTable[uuid.UUID], Base):
     )
 
     # contacts
-    telegram: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
-    whatsapp: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
-    linkedin: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    telegram: Mapped[str | None] = mapped_column(String, nullable=True)
+    whatsapp: Mapped[str | None] = mapped_column(String, nullable=True)
+    linkedin: Mapped[str | None] = mapped_column(String, nullable=True)
     email: Mapped[str | None] 
     phone_number: Mapped[str | None]
     verification_token: Mapped[str | None]
     reset_password_token: Mapped[str | None]
 
-    profile_picture: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    profile_picture: Mapped[str | None] = mapped_column(String, nullable=True)
 
     vacancies = relationship("Vacancy", back_populates="user", cascade="all, delete", passive_deletes=True)
 

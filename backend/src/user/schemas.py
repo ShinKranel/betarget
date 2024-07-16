@@ -24,14 +24,7 @@ class UserCreate(schemas.BaseUserCreate):
     username: str = Field(..., min_length=1, max_length=30)
     email: EmailStr
     password: str = Field(..., min_length=8)
-    # contacts
-    telegram: AnyHttpUrl | None = Field(None)
-    whatsapp: AnyHttpUrl | None = Field(None)
-    linkedin: AnyHttpUrl | None = Field(None)
-    email: EmailStr | None
-    phone_number: PhoneNumber | None
-    profile_picture: AnyHttpUrl | None = Field(None)
-
+   
     @field_validator("password")
     def check_password(cls, value):
         value = str(value)
@@ -44,12 +37,6 @@ class UserCreate(schemas.BaseUserCreate):
         if not any(c.isdigit() for c in value):
             raise ValueError("Password must have at least one digit")
         return value
-
-    @field_validator("telegram", "whatsapp", "linkedin", "profile_picture")
-    def validate_urls(cls, v):
-        if v is None:
-            return "https://example.com"
-        return str(v)
 
 
 class UserUpdate(BaseModel):

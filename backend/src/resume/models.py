@@ -79,14 +79,14 @@ class Candidate(Base):
     about: Mapped[str | None]
 
     # contacts
-    telegram: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
-    whatsapp: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
-    linkedin: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
-    github: Mapped[str | None] = mapped_column(String, nullable=True, default="https://example.com")
+    telegram: Mapped[str | None] = mapped_column(String, nullable=True)
+    whatsapp: Mapped[str | None] = mapped_column(String, nullable=True)
+    linkedin: Mapped[str | None] = mapped_column(String, nullable=True)
+    github: Mapped[str | None] = mapped_column(String, nullable=True)
     email: Mapped[str | None]
     phone_number: Mapped[str | None]
 
-    profile_picture: Mapped[str | None]  = mapped_column(String, nullable=True, default="https://example.com")
+    profile_picture: Mapped[str | None]  = mapped_column(String, nullable=True)
 
     # relationships
     resume = relationship("Resume", back_populates="candidate", cascade="all, delete", lazy="joined")

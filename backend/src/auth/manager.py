@@ -96,6 +96,8 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, UUID]):
         logger.debug(f"User {user.id} has registered.")
         await self.on_after_request_verify(user=user, token='', request=request)
         await send_sucessful_register_msg(user=user)
+        if not user.is_verified:
+            await send_verification(user)
 
     async def on_after_login(
         self,
@@ -107,6 +109,8 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, UUID]):
         logger.debug(f"Request: {str(request.json)}")
         logger.debug(f"Response: {response.body}")
         await send_sucessful_login_msg(user=user)
+        if not user.is_verified:
+            await send_verification(user)
 
     async def on_after_forgot_password(self, user: User, token: str, request: Optional[Request] = None):
         logger.debug(f"User {user.id} has forgot their password. Reset token: {token}")
