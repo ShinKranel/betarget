@@ -9,7 +9,11 @@ if [ -z "$files" ]; then
   alembic -c alembic.ini revision --autogenerate -m "Init tables"
 fi
 files=$(find migrations/versions -type f -name "*.py")
-
+for file in $files; do
+  if ! grep -q "import fastapi_users_db_sqlalchemy.generics" "$file"; then
+    echo 'import fastapi_users_db_sqlalchemy.generics' | cat - "$file" > temp && mv temp "$file"
+  fi
+done
 # Run Alembic upgrade
 alembic -c alembic.ini upgrade head
 # Start Gunicorn server

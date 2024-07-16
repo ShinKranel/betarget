@@ -4,6 +4,8 @@ from typing import Optional
 from uuid import UUID
 
 from user.models import User
+from vacancy.models import Vacancy # Do not delete, because of celery task
+from resume.models import Resume # Do not delete, because of celery task
 from logger import logger
 from db import async_session_maker
     
@@ -11,8 +13,19 @@ from db import async_session_maker
 async def update_user_verification_token(user_id: UUID, token: str) -> Optional[User]:
     async with async_session_maker() as session:
         query = select(User).where(user_id == User.id)
-        user = (await session.execute(query)).scalar_one_or_none()
+        user = (await session.execute(query)).unique().scalar_one_or_none()
         user.verification_token = token
+        session.add(user)
+        await session.commit()
+        await session.refresh(user)
+        return user
+    
+
+async def delete_user_verification_token(user_id: UUID) -> Optional[User]:
+    async with async_session_maker() as session:
+        query = select(User).where(user_id == User.id)
+        user = (await session.execute(query)).unique().scalar_one_or_none()
+        user.verification_token = None
         session.add(user)
         await session.commit()
         await session.refresh(user)
@@ -22,7 +35,7 @@ async def update_user_verification_token(user_id: UUID, token: str) -> Optional[
 async def update_user_reset_password_token(user_id: UUID, token: str) -> Optional[User]:
     async with async_session_maker() as session:
         query = select(User).where(user_id == User.id)
-        user = (await session.execute(query)).scalar_one_or_none()
+        user = (await session.execute(query)).unique().scalar_one_or_none()
         user.reset_password_token = token
         session.add(user)
         await session.commit()
@@ -30,10 +43,21 @@ async def update_user_reset_password_token(user_id: UUID, token: str) -> Optiona
         return user
 
 
+async def delete_user_reset_password_token(user_id: UUID) -> Optional[User]:
+    async with async_session_maker() as session:
+        query = select(User).where(user_id == User.id)
+        user = (await session.execute(query)).unique().scalar_one_or_none()
+        user.reset_password_token = None
+        session.add(user)
+        await session.commit()
+        await session.refresh(user)
+        return user
+    
+
 async def verify_verification_token(token: str) -> Optional[User]:
     async with async_session_maker() as session:
         query = select(User).where(token == User.verification_token)
-        user = (await session.execute(query)).scalar_one_or_none()
+        user = (await session.execute(query)).unique().scalar_one_or_none()
         if not user:
             logger.warning(f"User with verification token {token} not found")
             raise HTTPException(status_code=404, detail=f"User with this verification token {token} not found")

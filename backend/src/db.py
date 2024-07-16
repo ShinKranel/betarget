@@ -10,7 +10,7 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.engine.interfaces import DBAPICursor, _DBAPIAnyExecuteParams
 from sqlalchemy.engine.interfaces import ExecutionContext
 
-from user.models import User
+from user.models import User, OAuthAccount
 from config import settings
 from logger import db_query_logger
 
@@ -61,4 +61,4 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
-    yield SQLAlchemyUserDatabase(session, User)  #
+    yield SQLAlchemyUserDatabase(session, User, OAuthAccount)

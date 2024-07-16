@@ -7,6 +7,7 @@ from sqladmin import Admin
 from fastapi_limiter import FastAPILimiter
 
 from auth.base_config import auth_backend, fastapi_users
+from auth.socials.google import google_auth_client
 from user.schemas import UserRead, UserCreate
 from logger import logger
 from config import settings
@@ -16,7 +17,7 @@ from sse import sse_router
 
 from vacancy.admin import VacancyAdmin
 from resume.admin import ResumeAdmin, CandidateAdmin
-from user.admin import UserAdmin
+from user.admin import UserAdmin, OAuthAccountAdmin
 from admin.auth_backend import AdminAuth
 
 from auth.router import router as router_auth
@@ -27,6 +28,7 @@ from user.router import router as router_user
 
 request_limiter_settings = settings.request_limiter
 
+
 async def init_admin():
     admin_settings = settings.admin
     admin = Admin(
@@ -34,7 +36,13 @@ async def init_admin():
         engine=engine,
         authentication_backend=AdminAuth(secret_key=admin_settings.SECRET_SESSION),
     )
-    admin_views = [UserAdmin, ResumeAdmin, VacancyAdmin, CandidateAdmin]
+    admin_views = [
+        OAuthAccountAdmin,
+        UserAdmin,
+        ResumeAdmin,
+        VacancyAdmin,
+        CandidateAdmin,
+    ]
     [admin.add_view(view) for view in admin_views]
 
 
@@ -44,6 +52,7 @@ async def init_limiter():
 
 async def close_limiter():
     await FastAPILimiter.close()
+
 
 async def start_up(app: FastAPI):
     logger.debug("App started")
@@ -88,24 +97,37 @@ else:
     dependencies = None
 
 app.include_router(
-    router_auth, 
+    router_auth,
     tags=["auth"],
+    prefix="/auth",
     dependencies=dependencies,
 )
 app.include_router(
-    fastapi_users.get_reset_password_router(), 
+    fastapi_users.get_reset_password_router(),
     tags=["auth"],
+    prefix="/auth",
     dependencies=dependencies,
 )
 app.include_router(
-    fastapi_users.get_auth_router(auth_backend), 
+    fastapi_users.get_auth_router(auth_backend),
     tags=["auth"],
+    prefix="/auth",
     dependencies=dependencies,
 )
 app.include_router(
-    fastapi_users.get_register_router(UserRead, UserCreate), 
+    fastapi_users.get_register_router(UserRead, UserCreate),
     tags=["auth"],
+    prefix="/auth",
     dependencies=dependencies,
+)
+app.include_router(
+    fastapi_users.get_oauth_router(
+        google_auth_client, auth_backend, settings.auth.GOOGLE_AUTH_ROUTER_SECRET,
+        is_verified_by_default=True,
+        associate_by_email=True
+    ),
+    prefix="/auth/google",
+    tags=["auth"],
 )
 app.include_router(
     router_user,

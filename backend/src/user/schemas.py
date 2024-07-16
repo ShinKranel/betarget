@@ -15,7 +15,6 @@ class UserRead(schemas.BaseUser[int]):
     telegram: str | None
     whatsapp: str | None
     linkedin: str | None
-    github: str | None
     email: EmailStr | None
     phone_number: PhoneNumber | None
     profile_picture: str | None
@@ -29,7 +28,6 @@ class UserCreate(schemas.BaseUserCreate):
     telegram: AnyHttpUrl | None = Field(None)
     whatsapp: AnyHttpUrl | None = Field(None)
     linkedin: AnyHttpUrl | None = Field(None)
-    github: AnyHttpUrl | None = Field(None)
     email: EmailStr | None
     phone_number: PhoneNumber | None
     profile_picture: AnyHttpUrl | None = Field(None)
@@ -47,7 +45,7 @@ class UserCreate(schemas.BaseUserCreate):
             raise ValueError("Password must have at least one digit")
         return value
 
-    @field_validator("telegram", "whatsapp", "linkedin", "github", "profile_picture")
+    @field_validator("telegram", "whatsapp", "linkedin", "profile_picture")
     def validate_urls(cls, v):
         if v is None:
             return "https://example.com"
@@ -59,12 +57,11 @@ class UserUpdate(BaseModel):
     telegram: AnyHttpUrl | None = Field(None)
     whatsapp: AnyHttpUrl | None = Field(None)
     linkedin: AnyHttpUrl | None = Field(None)
-    github: AnyHttpUrl | None = Field(None)
     email: EmailStr | None = Field(None)
     phone_number: PhoneNumber | None
     profile_picture: AnyHttpUrl | None = Field(None)
 
-    @field_validator("telegram", "whatsapp", "linkedin", "github", "profile_picture")
+    @field_validator("telegram", "whatsapp", "linkedin", "profile_picture")
     def validate_urls(cls, v):
         if v is None:
             return "https://example.com"

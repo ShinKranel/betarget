@@ -78,12 +78,20 @@ class TestSettings:
 class MiddlewareSettings:
     BACKEND_CORS_ORIGINS = [
         "http://localhost:8080",
+        "http://localhost:8000",
+        "http://localhost:9999",
     ]
 
 
 class AuthSettings(EnvSettings):
     SECRET_MANAGER: str
     SECRET_JWT: str
+    GOOGLE_CLIENT_ID: str
+    GOOGLE_CLIENT_SECRET: str
+    GOOGLE_AUTH_ROUTER_SECRET: str
+    RESET_PASSWORD__TOKEN_EXPIRATION: int = 300
+    VERIFY_TOKEN_EXPIRATION: int = 300
+    LOGIN_REDIRECT: str = "http://localhost:8000/crm"
 
 
 class AdminSettings(EnvSettings):
