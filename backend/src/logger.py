@@ -32,6 +32,14 @@ def setup_logger(logger_name: str, filename: str = 'app.log'):
     return logger
 
 
+def clear_log_files():
+    log_settings = settings.log
+    for file in log_settings.LOG_PATH.glob('*.log'):
+        with open (file, 'w') as f:
+            f.write('')
+
+
+clear_log_files()
 logger = setup_logger(logger_name='AppLogger')
 celery_logger = setup_logger(logger_name='CeleryLogger', filename='celery.log')
 sse_logger = setup_logger(logger_name='S3Logger', filename='sse.log')

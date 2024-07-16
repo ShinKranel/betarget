@@ -12,13 +12,13 @@ api_prefix = "/api/v1"
 
 test_urls = {
     "auth": {
-        "register": "/register",
-        "login": "/login",
-        "logout": "/logout",
-        "forgot_password": "/forgot-password",
-        "reset_password": "/reset-password",
-        "ask_verification": "/ask_verification",
-        "verify_account": "/verify-account",
+        "register": "/auth/register",
+        "login":"/auth/login",
+        "logout": "/auth/logout",
+        "forgot_password": "/auth/forgot-password",
+        "reset_password": "/auth/reset-password",
+        "ask_verification": "/auth/ask_verification",
+        "verify_account": "/auth/verify-account",
     },
     "user": {
         "update": f"{api_prefix}/user/",
