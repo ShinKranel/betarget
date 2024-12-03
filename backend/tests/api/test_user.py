@@ -60,3 +60,36 @@ async def test_update_profile_image_unsuccessful(auth_async_client: AsyncClient)
 async def test_delete_user(auth_async_client: AsyncClient, user_data: dict):
     response = await auth_async_client.delete(url=test_urls["user"].get("delete"))
     assert response.status_code in [200, 204]
+
+
+@pytest.mark.asyncio
+async def test_check_user_exists_empty(auth_async_client: AsyncClient):
+    response = await auth_async_client.get(url=test_urls["user"].get("get_user_exists"))
+    assert response.status_code == 200
+    assert response.json() == {}
+
+
+@pytest.mark.asyncio
+async def test_check_user_exists_email(auth_async_client: AsyncClient):
+    email = "test@example.com"
+    response = await auth_async_client.get(url=test_urls["user"].get("get_user_exists"), params={"email": email})
+    assert response.status_code == 200
+    assert "is_exists_by_email" in response.json()
+
+
+@pytest.mark.asyncio
+async def test_check_user_exists_username(auth_async_client: AsyncClient):
+    username = "testuser"
+    response = await auth_async_client.get(url=test_urls["user"].get("get_user_exists"), params={"username": username})
+    assert response.status_code == 200
+    assert "is_exists_by_username" in response.json()
+
+
+@pytest.mark.asyncio
+async def test_check_user_exists_both(auth_async_client: AsyncClient):
+    email = "test@example.com"
+    username = "testuser"
+    response = await auth_async_client.get(url=test_urls["user"].get("get_user_exists"), params={"email": email, "username": username})
+    assert response.status_code == 200
+    assert "is_exists_by_email" in response.json()
+    assert "is_exists_by_username" in response.json()

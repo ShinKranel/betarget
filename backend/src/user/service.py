@@ -16,6 +16,13 @@ async def get_user_by_username(username: str) -> Optional[User]:
         return user
     
 
+async def get_user_by_email(email: str) -> Optional[User]:
+    async with async_session_maker() as session:
+        query = select(User).where(email == User.email)
+        user = (await session.execute(query)).scalar_one_or_none()
+        return user
+    
+
 async def delete_user(user: User):
     async with async_session_maker() as session:
         stmt = select(User).where(User.id == user.id)
