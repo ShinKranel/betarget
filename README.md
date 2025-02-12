@@ -33,8 +33,8 @@
 - --- ✅ Vacancy _in progress_
 - --- Resume _in progress_
 - ✅ Add docker - 14.06.2024
-- Project **v0.1.0** - first working version: register, login and crm pages ready - (exp 1.07.2024 - 30.07.2024)
-- Client entity. (exp 1.07.2024 - 30.07.2024) (will be in project **v0.1.0**)
+- Project **v0.1.0** - first working version: register, login and crm pages ready
+- Client entity. (will be in project **v0.1.0**)
 - Add GitHub Action for automated tests. (will be in project **v0.1.0**)
 - Sending emails from crm. (will be in project **v0.2.0**)
 - Sending messages from crm to: telegram, whatsapp, etc. (will be in project **v0.2.0**)
