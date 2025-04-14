@@ -142,16 +142,38 @@
           </div>
         </section>
         <section class="resume-info">
-          <div class="resume-info__score">
-            <!-- <input
-              type="number"
-              step="0.1"
-              min="0"
-              max="10"
-              class="resume-info__score-input"
-            /> -->
-          </div>
           <div class="resume__info-container">
+            <div class="resume-info__rating-result">
+              <p>Оценка:</p>
+              <span
+                id="resume-info__rating"
+                class="resume-info__rating-result-span"
+                >0</span
+              >
+              / 10
+            </div>
+            <div class="resume-info__rating-slider">
+              <button
+                class="resume-info__arrow resume-info__arrow_minus"
+                id="resume-info__decrease"
+              >
+                -
+              </button>
+              <input
+                type="range"
+                id="resume-info__slider"
+                min="0"
+                max="10"
+                value="0"
+                class="resume-info__slider"
+              />
+              <button
+                class="resume-info__arrow resume-info__arrow_plus"
+                id="resume-info__increase"
+              >
+                +
+              </button>
+            </div>
             <div class="resume-info__photo-container">
               <div class="resume-info__photo-wrapper">
                 <img
@@ -209,7 +231,6 @@
         <div class="resume__not-chosen">Выберите резюме</div>
       </div>
     </div>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
     <script type="module" src="../static/js/main.js"></script>
   </body>
 </html>
